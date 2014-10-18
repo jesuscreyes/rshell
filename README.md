@@ -4,3 +4,36 @@ rshell
 Licensing Information: READ LICENSE
 ---
 Project source can be downloaded from https://github.com/jesuscreyes/rshell.git
+----
+
+Author & Contributor List
+-------------------------
+Jesus Reyes
+
+All other known bugs and fixes can be sent to jreye028@ucr.edu
+
+Reported bugs/fixes will be submited to correction.
+
+File List
+---------
+
+Makefile
+
+LICENSE
+
+README.md
+
+./src
+
+./tests
+
+How to run file
+---------------
+Work in progress.
+
+
+Bugs
+
+1. 
+2. 
+3. 
