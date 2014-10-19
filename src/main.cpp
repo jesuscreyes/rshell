@@ -16,15 +16,16 @@ using namespace boost;
 //Function called MyTokenizer
 //Input: string
 //Output: list of commands
-list<string> myTokenizer(string s){
-    list<string> tokenList;
+vector<string> myTokenizer(string s){
+    vector<string> tokenList;
     split(tokenList, s, is_any_of(" "), token_compress_on);
     
     //Optional print of list
-    for(std::list<string>::iterator it=tokenList.begin(); it != tokenList.end(); ++it){
+    
+    for(std::vector<string>::iterator it=tokenList.begin(); it != tokenList.end(); ++it){
         cout << *it << endl;
     }
-
+    
     return tokenList;
 }
 
@@ -37,7 +38,9 @@ int main(){
     //   cmd = executable [argumentList] [connecter cmd]
     //   connecter = || or && or ;
 
+    /////////////////////////////////////////////////////
     //Acquiring String
+    /////////////////////////////////////////////////////
     string s;
     getline(cin,s);
     cout << s << endl;
@@ -45,10 +48,37 @@ int main(){
     //Now have to Tokenizer String.
     //For now, let's just try to tokenize ';'
 
-    //////////
+    /////////////////////////////////////////////////////
     //Tokenizing
-    /////////
-    list<string> commandList = myTokenizer(s);
+    /////////////////////////////////////////////////////
+    vector<string> commandList = myTokenizer(s);
+
+
+   /////////////////////////////////////////////////////
+   //Executing
+   /////////////////////////////////////////////////////
+    int pid = fork();
+    if(pid == 0){
+        cout << "I'm a child" << endl << endl;
+
+        char *argv[4];
+        argv[0] = new char[3];
+        strcpy(argv[0],"ls");
+
+        argv[1] = new char[3];
+        strcpy(argv[1],"-a");
+
+        argv[2] = new char[3];
+        strcpy(argv[2], "-l");
+
+        argv[3] = 0;
+
+        execvp("ls", argv);
+    }
+    else{
+        wait(NULL);
+        cout << "I'm a parent" << endl << endl;
+    }
 
     return 0;
 }
