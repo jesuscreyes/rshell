@@ -14,6 +14,7 @@ All other known bugs and fixes can be sent to jreye028@ucr.edu
 
 Reported bugs/fixes will be submited to correction.
 
+
 File List
 ---------
 
@@ -32,8 +33,7 @@ How to run file
 Work in progress.
 
 
-Bugs
-
-1. 
-2. 
-3. 
+Bugs & Limitations
+-----------------
+1. Can't handle Boolean cases (e.g. || && )
+2. Can't handle multiple commands
