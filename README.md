@@ -14,6 +14,11 @@ All other known bugs and fixes can be sent to jreye028@ucr.edu
 
 Reported bugs/fixes will be submited to correction.
 
+Changelog
+---------
+[10/19/14]
+    -Program continues to take input until "exit" is entered
+    -Bug fixes
 
 File List
 ---------
