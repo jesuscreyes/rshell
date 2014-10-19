@@ -13,10 +13,10 @@
 using namespace std;
 using namespace boost;
 
-//Function called MyTokenizer
+//Function called tokenSpace
 //Input: string
-//Output: list of commands
-vector<string> myTokenizer(string s){
+//Output: vector of strings, deliminator "white space"
+vector<string> tokenSpace(string s){
     vector<string> tokenList;
     split(tokenList, s, is_any_of(" "), token_compress_on);
     
@@ -27,6 +27,87 @@ vector<string> myTokenizer(string s){
     }
     
     return tokenList;
+}
+
+//Function called tokenQuote
+//Input: string
+//Output: vector of strings, deliminator: \"
+vector<string> tokenQuote(string s){
+    vector<string> tokenList;
+    split(tokenList, s, is_any_of("\""), token_compress_on);
+
+    //Optional print of list
+
+    for(std::vector<string>::iterator it=tokenList.begin(); it != tokenList.end(); ++it){
+        cout << *it << endl;
+    }
+
+    return tokenList;
+}
+
+//Function: tokenSemicolon
+//Input: string
+//Output: vector of strings, deliminator: ';'
+vector<string> tokenSemicolon(string s){
+    vector<string> tokenList;
+    split(tokenList, s, is_any_of(";"), token_compress_on);
+
+    //Optional print of list
+    for(std::vector<string>::iterator it=tokenList.begin(); it != tokenList.end(); ++it){
+        cout << *it << endl;
+    }
+
+    return tokenList;
+}
+
+//Function: tokenAND
+//Input: string
+//Output: vector of strings, deliminator: '&'
+vector<string> tokenAnd(string s){
+    vector<string> tokenList;
+    split(tokenList, s, is_any_of("&"), token_compress_on);
+
+    //Optional print of list
+    for(std::vector<string>::iterator it=tokenList.begin(); it != tokenList.end(); ++it){
+        cout << *it << endl;
+    }
+
+    return tokenList;
+}
+
+//Function: tokenOR
+//Input: string
+//Output: vector of strings, deliminator: '|'
+vector<string> tokenOr(string s){
+    vector<string> tokenList;
+    split(tokenList, s, is_any_of("|"), token_compress_on);
+
+    //Optional print of list
+    for(std::vector<string>::iterator it = tokenList.begin(); it != tokenList.end(); ++it){
+        cout << *it << endl;
+    }
+
+    return tokenList;
+}
+
+//Function called stringToChar
+//Input: vector of strings
+//Output: vector of char *
+
+vector<char *>  stringToChar(vector<string> s){
+   
+   vector<char *>  c;
+
+    for(int i = 0; i < s.size(); ++i){
+   
+        char *s1;
+        s1 = new char[s[i].size() + 1];
+        memcpy(s1,s[i].c_str(), s[i].size() + 1);
+        
+        c.push_back(s1);
+
+    }
+    return c;
 }
 
 int main(){
@@ -51,7 +132,23 @@ int main(){
     /////////////////////////////////////////////////////
     //Tokenizing
     /////////////////////////////////////////////////////
-    vector<string> commandList = myTokenizer(s);
+    vector<string> commandList = tokenSpace(s);
+/*
+    char *s1;
+    char *s2;
+    char *s3;
+
+    s1 = new char[commandList[0].size() + 1];
+    memcpy(s1, commandList[0].c_str(), commandList[0].size() + 1);
+    s2 = new char[commandList[1].size() + 1];
+    memcpy(s2, commandList[1].c_str(), commandList[1].size() + 1);
+    s3 = new char[commandList[2].size() + 1];
+    memcpy(s3, commandList[2].c_str(), commandList[2].size() + 1);
+*/
+
+    vector<char *> charCommandList = stringToChar(commandList);
+
+    //cout << charCommandList[0] << endl;
 
 
    /////////////////////////////////////////////////////
@@ -60,20 +157,30 @@ int main(){
     int pid = fork();
     if(pid == 0){
         cout << "I'm a child" << endl << endl;
+        cout << "CommandList size: " << commandList.size() << endl;
 
-        char *argv[4];
-        argv[0] = new char[3];
-        strcpy(argv[0],"ls");
+        char *argv[commandList.size() + 1];
 
-        argv[1] = new char[3];
-        strcpy(argv[1],"-a");
+        int j;
+        for(j = 0; j < commandList.size(); ++j){
+            argv[j] = new char[commandList[j].size() + 1];
+            strcpy(argv[j], charCommandList[j]);
+        }
+        cout << "j outside of for loop: " << j << endl;
+        argv[j] = 0;
+        /*
+        argv[0] = new char[commandList[0].size() + 1];
+        strcpy(argv[0],charCommandList[0]);
 
-        argv[2] = new char[3];
-        strcpy(argv[2], "-l");
+        argv[1] = new char[commandList[1].size() + 1];
+        strcpy(argv[1],charCommandList[1]);
+
+        argv[2] = new char[commandList[2].size() + 1];
+        strcpy(argv[2], charCommandList[2]);
 
         argv[3] = 0;
-
-        execvp("ls", argv);
+        */
+        execvp(charCommandList[0], argv);
     }
     else{
         wait(NULL);
