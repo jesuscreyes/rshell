@@ -18,14 +18,14 @@ using namespace boost;
 //Output: vector of strings, deliminator "white space"
 vector<string> tokenSpace(string s){
     vector<string> tokenList;
-    split(tokenList, s, is_any_of(" "), token_compress_on);
+    split(tokenList, s, is_any_of("  "), token_compress_on);
     
     //Optional print of list
-/*  
-    for(std::vector<string>::iterator it=tokenList.begin(); it != tokenList.end(); ++it){
-        cout << *it << endl;
-    }
-*/  
+    //cout << "Printing list" << endl;  
+    //for(std::vector<string>::iterator it=tokenList.begin(); it != tokenList.end(); ++it){
+    //    cout << *it << endl;
+    //}
+  
     return tokenList;
 }
 
@@ -94,28 +94,90 @@ vector<string> tokenOr(string s){
 //Input: vector of strings
 //Output: vector of char *
 
-vector<char *>  stringToChar(vector<string> s){
+vector<char *>  stringToChar(vector<string> &s){
    
    vector<char *>  c;
 
     for(int i = 0; i < s.size(); ++i){
    
-        char *s1;
-        s1 = new char[s[i].size() + 1];
-        memcpy(s1,s[i].c_str(), s[i].size() + 1);
+        //char *s1;
+        //s1 = new char[s[i].size() + 1];
+        //memcpy(s1,s[i].c_str(), s[i].size() + 1);
         
-        c.push_back(s1);
-
+        c.push_back(&s[i][0]);
     }
     return c;
 }
+
+//Function: executeNow
+//Input: String that only needs white spaces to be eliminated
+//Output: Void. Executes command.
+/////////////////////////////////////////////////////
+
+void executeCmd(string s){
+
+    //TOKENIZES WHITE SPACE AND Executes command
+
+    /////////////////////////////////////////////////////
+    //Tokenizing
+    /////////////////////////////////////////////////////
+    vector<string> commandList = tokenSpace(s);
+    
+    for(int i = 0; i < commandList.size(); i++){
+        //cout << "PRINTING COMMANDLIST: " << endl << commandList[i] << endl;
+        //cout << "Printing ASCII: " << endl << (int) commandList[i][0] << endl;
+        if((int) commandList[i][0] == 0){
+            //cout << "ERASING" << endl; 
+            commandList.erase(commandList.begin()+i);
+        }
+    }
+
+
+    cout << endl;
+
+    vector<char *> charCommandList = stringToChar(commandList);
+ 
+
+    /////////////////////////////////////////////////////
+    //Executing
+   /////////////////////////////////////////////////////
+    int pid = fork();
+    if(pid == 0){
+        //cout << "I'm a child" << endl << endl;
+        //cout << "CommandList size: " << commandList.size() << endl;
+        char *argv[commandList.size() + 1];
+     
+        int j;
+        for(j = 0; j < commandList.size(); ++j){
+            argv[j] = new char[commandList[j].size() + 1];
+            strcpy(argv[j], charCommandList[j]);
+        }
+        
+        argv[j] = 0;
+        
+        //cout << "Right before execvp" << endl;
+        int r = execvp(charCommandList[0], argv);
+        //cout << "Right after execvp" << endl;
+        if(r ==-1){
+            perror("execvp");
+        }
+    }
+    else{
+        wait(NULL);
+        //cout << endl << "$ ";
+    }
+    //cout << "end of executeCmd function" << endl << endl;
+}
+/////////////////////////////////////////////////////
 
 int main(){
 
     bool exit = false;
 
-    cout << "$ ";
+    string s;    
     while(!exit){
+
+        cout << endl << "$ ";
         //1. Print a command prompt(e.g. $)
         //cout << "$ ";
 
@@ -126,25 +188,42 @@ int main(){
         /////////////////////////////////////////////////////
         //Acquiring String
         /////////////////////////////////////////////////////
-        string s;
         getline(cin,s);
-        
+       
         if(s == "exit"){
             break;
         }
+       
+        ////////////////////////////////////////////////////
+        //Remove semicolons
+        ///////////////////////////////////////////////////
+        vector<string> commandList = tokenSemicolon(s);
+
+        for(int i = 0; i < commandList.size(); ++i){
+            cout << endl;
+            //cout << commandList[i] << endl << endl;
+            //cout << "Right before executing command" << endl;
+            executeCmd(commandList[i]);
+            //cout << "After executing command" << endl;
+        }
+
+
+        //executeCmd(s);
 
         //Now have to Tokenizer String.
         //For now, let's just try to tokenize ';'
 
+//TOKENIZES WHITE SPACE AND Executes command
         /////////////////////////////////////////////////////
         //Tokenizing
         /////////////////////////////////////////////////////
+
+/*
         vector<string> commandList = tokenSpace(s);
 
         vector<char *> charCommandList = stringToChar(commandList);
 
         //cout << charCommandList[0] << endl;
-
 
         /////////////////////////////////////////////////////
         //Executing
@@ -160,27 +239,16 @@ int main(){
                 argv[j] = new char[commandList[j].size() + 1];
                 strcpy(argv[j], charCommandList[j]);
             }
-            //cout << "j outside of for loop: " << j << endl;
             argv[j] = 0;
-            /*
-            argv[0] = new char[commandList[0].size() + 1];
-            strcpy(argv[0],charCommandList[0]);
-
-            argv[1] = new char[commandList[1].size() + 1];
-            strcpy(argv[1],charCommandList[1]);
-
-            argv[2] = new char[commandList[2].size() + 1];
-            strcpy(argv[2], charCommandList[2]);
-
-            argv[3] = 0;
-            */
 
             execvp(charCommandList[0], argv);
         }
         else{
             wait(NULL);
-            cout << endl << "$ ";
+            //cout << endl << "$ ";
         }
+    */
     }
+
     return 0;
 }
