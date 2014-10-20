@@ -17,8 +17,8 @@ Reported bugs/fixes will be submited to correction.
 Changelog
 ---------
 [10/19/14]
+    -Program now can do multiple commands separated by semicolons    
     -Program continues to take input until "exit" is entered
-    -Bug fixes
 
 File List
 ---------
@@ -41,4 +41,4 @@ Work in progress.
 Bugs & Limitations
 -----------------
 1. Can't handle Boolean cases (e.g. || && )
-2. Can't handle multiple commands
+2. Sometimes typing "exit"[ENTER] does not exit the program
