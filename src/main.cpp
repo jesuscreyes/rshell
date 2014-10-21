@@ -65,7 +65,7 @@ vector<string> tokenSemicolon(string s){
 //Output: vector of strings, deliminator: '&'
 vector<string> tokenAnd(string s){
     vector<string> tokenList;
-    split(tokenList, s, is_any_of("&"), token_compress_on);
+    split(tokenList, s, is_any_of("&&"), token_compress_on);
 /*
     //Optional print of list
     for(std::vector<string>::iterator it=tokenList.begin(); it != tokenList.end(); ++it){
@@ -104,7 +104,7 @@ vector<char *>  stringToChar(vector<string> &s){
     return c;
 }
 
-//Function: executeNow
+//Function: executeCmd
 //Input: String that only needs white spaces to be eliminated
 //Output: Void. Executes command.
 /////////////////////////////////////////////////////
@@ -148,6 +148,7 @@ void executeCmd(string s){
         if(r ==-1){
             perror("execvp");
         }
+        exit(1);
     }
     else{
         wait(NULL);
@@ -157,10 +158,10 @@ void executeCmd(string s){
 
 int main(){
 
-    bool exit = false;
+    bool run = true;
 
     string s;    
-    while(!exit){
+    while(run){
 
         cout << endl << "$ ";
         //1. Print a command prompt(e.g. $)
@@ -174,32 +175,41 @@ int main(){
         //Acquiring String
         /////////////////////////////////////////////////////
         getline(cin,s);
-       
+        
         if(s == "exit"){
-            break;
-        }
-       
+            exit(1);
+        } 
         ////////////////////////////////////////////////////
         //Remove Comments
         ////////////////////////////////////////////////////
         string preCommandList = tokenHash(s)[0];
 
+        ////////////////////////////////////////////////////
+        //Handle && cases
+        ////////////////////////////////////////////////////
+
+        //Removes &&'s from inputline
+        /*
+        vector<string> andList = tokenAnd(preCommandList);
+        cout << "Removing &&'s: " << endl; 
+        cout << "size: " << andList.size() << endl;
+        for(int i = 0; i < andList.size(); i++){
+            cout << endl << andList[i] << endl;
+        }
+        cout << endl;
+        */
 
         ////////////////////////////////////////////////////
         //Remove semicolons
         ///////////////////////////////////////////////////
         vector<string> commandList = tokenSemicolon(preCommandList);
+        
 
         for(int i = 0; i < commandList.size(); ++i){
             cout << endl;
+            //cout << endl << "Executing this command: " << commandList[i] << endl;
             executeCmd(commandList[i]);
         }
-
-        ///////////////////////////////////////////////////
-        //Remove Comments
-        ///////////////////////////////////////////////////
-        
-
     }
 
     return 0;
