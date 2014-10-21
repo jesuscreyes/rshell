@@ -154,6 +154,12 @@ void executeCmd(string s){
         wait(NULL);
     }
 }
+
+//Function: checkAnd
+//Input: string
+//Output: boolean
+
+
 /////////////////////////////////////////////////////
 
 int main(){
