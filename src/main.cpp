@@ -189,26 +189,34 @@ int main(){
         ////////////////////////////////////////////////////
 
         //Removes &&'s from inputline
-        /*
         vector<string> andList = tokenAnd(preCommandList);
-        cout << "Removing &&'s: " << endl; 
-        cout << "size: " << andList.size() << endl;
-        for(int i = 0; i < andList.size(); i++){
-            cout << endl << andList[i] << endl;
-        }
-        cout << endl;
-        */
+
+        ///////////////////////////////////////////////////
+        //Handle || cases
+        ///////////////////////////////////////////////////
+        
+        //Removes |'s from input line
+        vector<string> orList = tokenOr(preCommandList);
 
         ////////////////////////////////////////////////////
         //Remove semicolons
         ///////////////////////////////////////////////////
         vector<string> commandList = tokenSemicolon(preCommandList);
         
+        vector<string> mainList;
+        if(andList.size() > 1){
+            mainList = andList;
+        }
+        else if(orList.size() > 1){
+            mainList = orList;
+        }
+        else{
+            mainList = commandList;
+        }
 
-        for(int i = 0; i < commandList.size(); ++i){
+        for(int i = 0; i < mainList.size(); ++i){
             cout << endl;
-            //cout << endl << "Executing this command: " << commandList[i] << endl;
-            executeCmd(commandList[i]);
+            executeCmd(mainList[i]);
         }
     }
 
