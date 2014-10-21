@@ -42,4 +42,4 @@ Work in progress.
 Bugs & Limitations
 -----------------
 1. Can't handle Boolean cases (e.g. || && )
-2. Sometimes typing "exit"[ENTER] does not exit the program
+2. Does not handle cases where inputline is too long.
