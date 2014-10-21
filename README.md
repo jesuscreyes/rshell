@@ -13,14 +13,7 @@ Jesus Reyes
 All other known bugs and fixes can be sent to jreye028@ucr.edu
 
 Reported bugs/fixes will be submited to correction.
-
-Changelog
----------
-[10/19/14]
-    
-    -Program continues to take input until "exit" is entered
-    
-    -Bug fixes
+ 
 
 File List
 ---------
@@ -40,7 +33,21 @@ How to run file
 Work in progress.
 
 
+How to run program
+---------------
+Work in progress.
+
+Overview of program
+-------------------
+This program is intended to replicate the functionality of a command shell.
+
+Features:
+- Can execute basic commands such as: `ls`, `echo`, and `mkdir`
+- Can execute multiple commands connected by connecter `;`
+- Other valid connecters include `&` and `|`
+- Can be exited by typing exit[ENTER]
+
 Bugs & Limitations
 -----------------
 1. Can't handle Boolean cases (e.g. || && )
-2. Can't handle multiple commands
+3. Does not handle cases where inputline is too long.
