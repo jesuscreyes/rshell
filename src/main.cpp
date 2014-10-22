@@ -24,12 +24,6 @@ vector<string> tokenSpace(string s){
     vector<string> tokenList;
     split(tokenList, s, is_any_of("  "), token_compress_on);
     
-    //Optional print of list
-    //cout << "Printing list" << endl;  
-    //for(std::vector<string>::iterator it=tokenList.begin(); it != tokenList.end(); ++it){
-    //    cout << *it << endl;
-    //}
-  
     return tokenList;
 }
 
@@ -40,12 +34,6 @@ vector<string> tokenHash(string s){
     vector<string> tokenList;
     split(tokenList, s, is_any_of("#"), token_compress_on);
 
-    //Optional print of list
-/*
-    for(std::vector<string>::iterator it=tokenList.begin(); it != tokenList.end(); ++it){
-        cout << *it << endl;
-    }
-*/
     return tokenList;
 }
 
@@ -55,18 +43,14 @@ vector<string> tokenHash(string s){
 vector<string> tokenSemicolon(string s){
     vector<string> tokenList;
     split(tokenList, s, is_any_of(";"), token_compress_on);
-/*
-    //Optional print of list
-    for(std::vector<string>::iterator it=tokenList.begin(); it != tokenList.end(); ++it){
-        cout << *it << endl;
-    }
-*/
-    return tokenList;
+    
+	return tokenList;
 }
 
 //Function: tokenAND
 //Input: string
 //Output: vector of strings, deliminator: '&'
+//Replaces '&&' with '!', tokenizes with '!' as deliminator.
 vector<string> tokenAnd(string s){
     vector<string> tokenList;
 
@@ -85,14 +69,13 @@ vector<string> tokenAnd(string s){
 
 	split(tokenList, s, is_any_of("!"), token_compress_on);
 
-	andFlag = 1;
-
     return tokenList;
 }
 
 //Function: tokenOR
 //Input: string
 //Output: vector of strings, deliminator: '|'
+//Replaces '||' with '!', tokenizes '!' as deliminator.
 vector<string> tokenOr(string s){
     vector<string> tokenList;
 
@@ -144,6 +127,11 @@ void executeCmd(string s){
     //Tokenizing
     /////////////////////////////////////////////////////
     vector<string> commandList = tokenSpace(s);
+
+    //if commandList.size() == 0, Should just exit function.
+    if(commandList.size() == 0){
+	return;
+    }
    
     //This for loop takes care of instances where the commandList array has a blank space in it's first index 
     for(unsigned int i = 0; i < commandList.size(); i++){
@@ -162,6 +150,7 @@ void executeCmd(string s){
 
     int pid = fork();
     if(pid == -1){
+	//Checks for error with fork function
 	perror("fork");
 	}
     else if(pid == 0){
@@ -179,20 +168,16 @@ void executeCmd(string s){
         
         int r = execvp(charCommandList[0], argv);
 	if(r == -1){
+	    //Checks for error with execvp
             perror("execvp");
         }
+	//Prevents zombie process.
         exit(1);
     }
     else{
         wait(NULL);
     }
 }
-
-//Function: checkAnd
-//Input: string
-//Output: boolean
-
-
 
 /////////////////////////////////////////////////////
 
@@ -236,7 +221,7 @@ int main(){
         //Handle || cases
         ///////////////////////////////////////////////////
         
-        //Removes |'s from input line
+        //Removes ||'s from input line
         vector<string> orList = tokenOr(preCommandList);
 
         ////////////////////////////////////////////////////
@@ -245,7 +230,10 @@ int main(){
         vector<string> commandList = tokenSemicolon(preCommandList);
         
         vector<string> mainList;
-        if(andList.size() > 1){
+       
+ 
+	//Based off connecter, determines which vector of commands to run.	
+	if(andList.size() > 1){
             mainList = andList;
         }
         else if(orList.size() > 1){
@@ -255,6 +243,9 @@ int main(){
             mainList = commandList;
         }
 
+
+	
+	//Executes commands.
         for(unsigned int i = 0; i < mainList.size(); ++i){
             cout << endl;
             executeCmd(mainList[i]);
