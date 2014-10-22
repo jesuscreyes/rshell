@@ -28,14 +28,13 @@ README.md
 
 ./tests
 
-How to run file
----------------
-Work in progress.
 
-
-How to run program
+Once you have cloned the directory to your local machine, follow the directions below:
 ---------------
-Work in progress.
+1. `cd` into `rshell` directory
+2. Enter `git checkout hw0`
+3. Enter `make`
+4. Enter `bin/rshell`
 
 Overview of program
 -------------------
@@ -43,11 +42,11 @@ This program is intended to replicate the functionality of a command shell.
 
 Features:
 - Can execute basic commands such as: `ls`, `echo`, and `mkdir`
-- Can execute multiple commands connected by connecter `;`
-- Other valid connecters include `&` and `|`
+- Can execute multiple commands connected by connecter `;`, '&&', or '||'
 - Can be exited by typing exit[ENTER]
 
 Bugs & Limitations
 -----------------
-1. Can't handle Boolean cases (e.g. || && )
-3. Does not handle cases where inputline is too long.
+1. '&&' and '||' are restricted to the same behavior as ';' in this version.
+2. Execution of commands may get segmentation faults.
+3. Does not handle condition where input is long enough to overtake memory.
