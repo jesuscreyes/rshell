@@ -1,24 +1,33 @@
-Script started on Tue 21 Oct 2014 10:13:37 PM PDT
+Script started on Tue 21 Oct 2014 10:45:04 PM PDT
 ~
-jreye028@hammer $ #Testing compiling and running p[Kof program.[K
+jreye028@hammer $ #[Kc[Kcs100[K[K[K[K[K#Testing compiling nn[Kand runnin[K[K[K[K[K[K[K[K[K[K[Kand u[K[Kr[K running of program
 ~
-jreye028@hammer $ cd cs100/hw0/rshell; make; bin/rshell
+jreye028@hammer $ cs100[K[K[K[K[Kcs100
+[0;91m
+===============================================================================
+|                                                                             |
+| You have enabled settings specific for cs100.                               |
+|                                                                             |
+===============================================================================
+[0m
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd cs100/hw0/rshell/tests[K[K[K[K[K[K
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw0/rshell[0;95m (master) [0;36m$[0m make; bin/rshell
 g++ -Wall -Werror -ansi -pedantic src/main.cpp -o ./bin/rshell
 
 $ #Testing comments
 
 
-$    #Testing input       input that's whitespace followed by comment
+$ #T     @ #Testing whtie spa       ite  space input
 
 execvp: No such file or directory
 
-$   #T Next command, input that's white space, NOT followed by comment.
+$ #Next  line     line, t testing empty input
 
 
 $ 
 
 
-$ # ls #Testing single command. .
+$ # ls #Testing single command
 
 bin  LICENSE  Makefile	README.md  src	tests
 
@@ -26,43 +35,36 @@ $ pwd
 
 /class/classes/jreye028/cs100/hw0/rshell
 
-$ echo hello world
+$ echo hell  o world
 
 hello world
 
-$ ls;pwd    pwd #Testing multiple commands
+$   #   ls #Testing single command with whites      wh  dife ferentw               re  preceded wh b  by white spa    space.
 
 bin  LICENSE  Makefile	README.md  src	tests
 
-/class/classes/jreye028/cs100/hw0/rshell
-
-$ pwd; pwd; pwd   ls
+$ # ; pwd; pwd #Testing multiple commands
 
 /class/classes/jreye028/cs100/hw0/rshell
+
+/class/classes/jreye028/cs100/hw0/rshell
+
+$ pwd; ec    ls; echo hello world
 
 /class/classes/jreye028/cs100/hw0/rshell
 
 bin  LICENSE  Makefile	README.md  src	tests
 
-$ pwd;pwd #Testing multiple commands with varying types of white s   space     e              cases of whitespace separation.
+hello world
 
-/class/classes/jreye028/cs100/hw0/rshell
+$ cd #Testing co  command  s that can't run         are not des   able to run.
 
-/class/classes/jreye028/cs100/hw0/rshell
+execvp: No such file or directory
 
-$ pwd ;pwd      ;  ; pwd
+$ #Testing multiple commands with different cases of whitespace separation.
 
-/class/classes/jreye028/cs100/hw0/rshell
 
-/class/classes/jreye028/cs100/hw0/rshell
-
-$ pwd ; pwd
-
-/class/classes/jreye028/cs100/hw0/rshell
-
-/class/classes/jreye028/cs100/hw0/rshell
-
-$ pwd ;pwd
+$ pwd; pwd
 
 /class/classes/jreye028/cs100/hw0/rshell
 
@@ -74,69 +76,84 @@ $ pwd;pwd
 
 /class/classes/jreye028/cs100/hw0/rshell
 
-$ # cd #Testing cd comma        `cd` command d, which is not in bin.
-
-execvp: No such file or directory
-
-$ pwd && pwd #Testing `&&` as connecter.
+$ pwd ;pwd
 
 /class/classes/jreye028/cs100/hw0/rshell
 
 /class/classes/jreye028/cs100/hw0/rshell
 
-$ pwd & pwd #Testing `&` as connecter.
+$ pwd;  ; pwd
+
+/class/classes/jreye028/cs100/hw0/rshell
+
+/class/classes/jreye028/cs100/hw0/rshell
+
+$ pwd && pwd #Testing `&&` cas   behavior.
+
+/class/classes/jreye028/cs100/hw0/rshell
+
+/class/classes/jreye028/cs100/hw0/rshell
+
+$ pwd & pwd #Testing `&` behavior.
 
 pwd: ignoring non-option arguments
 /class/classes/jreye028/cs100/hw0/rshell
 
-$ pwd || pwd #Testing `   ||` as connecter.^[[D                     `||` as connecter.
+$ pwd || pwd #Testing `||` behavior.
 
 /class/classes/jreye028/cs100/hw0/rshell
 
 /class/classes/jreye028/cs100/hw0/rshell
 
-$ pwd | pwd #Testing `:`    |` as connecter.
+$ pwd ` | pwd #Testing \|  `|` behavior.
 
 pwd: ignoring non-option arguments
 /class/classes/jreye028/cs100/hw0/rshell
 
-$ test    #Next line, testing running rshell in rshell
+$ # #Testing running rshell in rshell
 
 
-$ g++ main.cpp            make
+$ make    make/ ; bin/rshell
 
 g++ -Wall -Werror -ansi -pedantic src/main.cpp -o ./bin/rshell
 
-$ bin/rshell
 
+$ l #Testing commands in rshell, in rhs  shell.
+
+
+$ pwd
+
+/class/classes/jreye028/cs100/hw0/rshell
 
 $ ls
 
 bin  LICENSE  Makefile	README.md  src	tests
 
-$ p ls; pwd; echo hell ow   o world
-
-bin  LICENSE  Makefile	README.md  src	tests
+$ pwd  ; ls; echo w hello world
 
 /class/classes/jreye028/cs100/hw0/rshell
 
+bin  LICENSE  Makefile	README.md  src	tests
+
 hello world
 
-$ # exit #Testing exit function followed c b  y comment.
+$ #Exiting rshell in rshell.
+
+
+$ exit
+
+$ # eit  xit #Testing e `exit` c followed by comment.
 
 execvp: No such file or directory
 
-$ #n Next line, testing ext it call         `exit` command f NOT followed by comment. Should e          .
+$ exit    #Exiting program.
 
 
 $ exit
-
-$ #Successfully exitted   from rhsl   shell running       ru  running i   initial rshell. Next exit call closes rpg            ends program           xits whole program.
-
-
-$ exit
-~/cs100/hw0/rshell
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw0/rshell[0;95m (master) [0;36m$[0m exit
+exit
+~
 jreye028@hammer $ exit
 exit
 
-Script done on Tue 21 Oct 2014 10:19:25 PM PDT
+Script done on Tue 21 Oct 2014 10:50:43 PM PDT
