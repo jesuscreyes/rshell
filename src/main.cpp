@@ -13,6 +13,10 @@
 using namespace std;
 using namespace boost;
 
+//Global Variables
+	int andFlag = 0;
+	int orFlag = 0;
+
 //Function called tokenSpace
 //Input: string
 //Output: vector of strings, deliminator "white space"
@@ -66,31 +70,22 @@ vector<string> tokenSemicolon(string s){
 vector<string> tokenAnd(string s){
     vector<string> tokenList;
 
-	cout << "In tokenAND" << endl;
-	string replaceAnd = " ";
+	string replaceAnd = "!";
 
 	for(unsigned int i = 0; i < s.size(); i++){
-		cout << "In for loop" << endl;
 		if(s[i] == '&'){
-			cout << "Current char is '&'" << endl;
-			cout << "pos: " << i << endl;
 			if(s[i+1] != '\0'){
-				cout << "next char not null" << endl;
-				cout << "next char is: " << s[i+1] << endl;
 				if(s[i+1] == '&'){
-				cout << "next char IS &" << endl;
 					s.replace(i,2,replaceAnd);
 				}
 			}
 		}
 	}
 
-	cout << "PRINTING NEW S: " << s << endl;
 
+	split(tokenList, s, is_any_of("!"), token_compress_on);
 
-	for(std::vector<string>::iterator it=tokenList.begin(); it!= tokenList.end(); ++it){
-		cout << *it << endl;
-	}
+	andFlag = 1;
 
     return tokenList;
 }
@@ -100,14 +95,26 @@ vector<string> tokenAnd(string s){
 //Output: vector of strings, deliminator: '|'
 vector<string> tokenOr(string s){
     vector<string> tokenList;
-    split(tokenList, s, is_any_of("|"), token_compress_on);
 
-    //Optional print of list
-    //for(std::vector<string>::iterator it = tokenList.begin(); it != tokenList.end(); ++it){
-    //    cout << *it << endl;
-    //}
+        string replaceOr = "!";
+
+        for(unsigned int i = 0; i < s.size(); i++){
+                if(s[i] == '|'){
+                        if(s[i+1] != '\0'){
+                                if(s[i+1] == '|'){
+				s.replace(i,2,replaceOr);
+                                }
+                        }
+                }
+        }
+
+
+	split(tokenList, s, is_any_of("!"), token_compress_on);
+
+	orFlag = 1;
 
     return tokenList;
+
 }
 
 //Function called stringToChar
@@ -152,6 +159,7 @@ void executeCmd(string s){
     /////////////////////////////////////////////////////
     //Executing
    /////////////////////////////////////////////////////
+
     int pid = fork();
     if(pid == -1){
 	perror("fork");
@@ -163,7 +171,6 @@ void executeCmd(string s){
      
         unsigned int j;
         for(j = 0; j < commandList.size(); ++j){
-		//int newSize = commandList[j].size() + 1;
 		argv[j] = new char[commandList[j].size() + 1];
             	strcpy(argv[j], charCommandList[j]);
         }
@@ -171,7 +178,7 @@ void executeCmd(string s){
         argv[j] = 0;
         
         int r = execvp(charCommandList[0], argv);
-        if(r ==-1){
+	if(r == -1){
             perror("execvp");
         }
         exit(1);
@@ -186,11 +193,13 @@ void executeCmd(string s){
 //Output: boolean
 
 
+
 /////////////////////////////////////////////////////
 
 int main(){
 
     bool run = true;
+
 
     string s;    
     while(run){
