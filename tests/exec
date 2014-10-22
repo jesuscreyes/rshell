@@ -1,0 +1,142 @@
+Script started on Tue 21 Oct 2014 10:13:37 PM PDT
+~
+jreye028@hammer $ #Testing compiling and running p[Kof program.[K
+~
+jreye028@hammer $ cd cs100/hw0/rshell; make; bin/rshell
+g++ -Wall -Werror -ansi -pedantic src/main.cpp -o ./bin/rshell
+
+$ #Testing comments
+
+
+$    #Testing input       input that's whitespace followed by comment
+
+execvp: No such file or directory
+
+$   #T Next command, input that's white space, NOT followed by comment.
+
+
+$ 
+
+
+$ # ls #Testing single command. .
+
+bin  LICENSE  Makefile	README.md  src	tests
+
+$ pwd
+
+/class/classes/jreye028/cs100/hw0/rshell
+
+$ echo hello world
+
+hello world
+
+$ ls;pwd    pwd #Testing multiple commands
+
+bin  LICENSE  Makefile	README.md  src	tests
+
+/class/classes/jreye028/cs100/hw0/rshell
+
+$ pwd; pwd; pwd   ls
+
+/class/classes/jreye028/cs100/hw0/rshell
+
+/class/classes/jreye028/cs100/hw0/rshell
+
+bin  LICENSE  Makefile	README.md  src	tests
+
+$ pwd;pwd #Testing multiple commands with varying types of white s   space     e              cases of whitespace separation.
+
+/class/classes/jreye028/cs100/hw0/rshell
+
+/class/classes/jreye028/cs100/hw0/rshell
+
+$ pwd ;pwd      ;  ; pwd
+
+/class/classes/jreye028/cs100/hw0/rshell
+
+/class/classes/jreye028/cs100/hw0/rshell
+
+$ pwd ; pwd
+
+/class/classes/jreye028/cs100/hw0/rshell
+
+/class/classes/jreye028/cs100/hw0/rshell
+
+$ pwd ;pwd
+
+/class/classes/jreye028/cs100/hw0/rshell
+
+/class/classes/jreye028/cs100/hw0/rshell
+
+$ pwd;pwd
+
+/class/classes/jreye028/cs100/hw0/rshell
+
+/class/classes/jreye028/cs100/hw0/rshell
+
+$ # cd #Testing cd comma        `cd` command d, which is not in bin.
+
+execvp: No such file or directory
+
+$ pwd && pwd #Testing `&&` as connecter.
+
+/class/classes/jreye028/cs100/hw0/rshell
+
+/class/classes/jreye028/cs100/hw0/rshell
+
+$ pwd & pwd #Testing `&` as connecter.
+
+pwd: ignoring non-option arguments
+/class/classes/jreye028/cs100/hw0/rshell
+
+$ pwd || pwd #Testing `   ||` as connecter.^[[D                     `||` as connecter.
+
+/class/classes/jreye028/cs100/hw0/rshell
+
+/class/classes/jreye028/cs100/hw0/rshell
+
+$ pwd | pwd #Testing `:`    |` as connecter.
+
+pwd: ignoring non-option arguments
+/class/classes/jreye028/cs100/hw0/rshell
+
+$ test    #Next line, testing running rshell in rshell
+
+
+$ g++ main.cpp            make
+
+g++ -Wall -Werror -ansi -pedantic src/main.cpp -o ./bin/rshell
+
+$ bin/rshell
+
+
+$ ls
+
+bin  LICENSE  Makefile	README.md  src	tests
+
+$ p ls; pwd; echo hell ow   o world
+
+bin  LICENSE  Makefile	README.md  src	tests
+
+/class/classes/jreye028/cs100/hw0/rshell
+
+hello world
+
+$ # exit #Testing exit function followed c b  y comment.
+
+execvp: No such file or directory
+
+$ #n Next line, testing ext it call         `exit` command f NOT followed by comment. Should e          .
+
+
+$ exit
+
+$ #Successfully exitted   from rhsl   shell running       ru  running i   initial rshell. Next exit call closes rpg            ends program           xits whole program.
+
+
+$ exit
+~/cs100/hw0/rshell
+jreye028@hammer $ exit
+exit
+
+Script done on Tue 21 Oct 2014 10:19:25 PM PDT
