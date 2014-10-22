@@ -98,7 +98,7 @@ vector<char *>  stringToChar(vector<string> &s){
    
    vector<char *>  c;
 
-    for(int i = 0; i < s.size(); ++i){
+    for(unsigned int i = 0; i < s.size(); ++i){
         c.push_back(&s[i][0]);
     }
     return c;
@@ -119,7 +119,7 @@ void executeCmd(string s){
     vector<string> commandList = tokenSpace(s);
    
     //This for loop takes care of instances where the commandList array has a blank space in it's first index 
-    for(int i = 0; i < commandList.size(); i++){
+    for(unsigned int i = 0; i < commandList.size(); i++){
         if((int) commandList[i][0] == 0){
             commandList.erase(commandList.begin()+i);
         }
@@ -134,12 +134,15 @@ void executeCmd(string s){
    /////////////////////////////////////////////////////
     int pid = fork();
     if(pid == 0){
-        char *argv[commandList.size() + 1];
+    	const int newSize = commandList.size() + 1;
+	char **argv;
+ 	argv = new char*[newSize];
      
-        int j;
+        unsigned int j;
         for(j = 0; j < commandList.size(); ++j){
-            argv[j] = new char[commandList[j].size() + 1];
-            strcpy(argv[j], charCommandList[j]);
+		//int newSize = commandList[j].size() + 1;
+		argv[j] = new char[commandList[j].size() + 1];
+            	strcpy(argv[j], charCommandList[j]);
         }
         
         argv[j] = 0;
@@ -220,7 +223,7 @@ int main(){
             mainList = commandList;
         }
 
-        for(int i = 0; i < mainList.size(); ++i){
+        for(unsigned int i = 0; i < mainList.size(); ++i){
             cout << endl;
             executeCmd(mainList[i]);
         }
