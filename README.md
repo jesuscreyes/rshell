@@ -20,15 +20,19 @@ Reported bugs/fixes will be submited to correction.
 File List
 ---------
 
-Makefile
+`Makefile
 
 LICENSE
 
 README.md
+`
 
-./src
+`./src
+
+main.cpp`
 
 ./tests
+
 
 
 Once you have cloned the directory to your local machine, follow the directions below:
@@ -52,3 +56,4 @@ Bugs & Limitations
 1. '&&' and '||' are restricted to the same behavior as ';' in this version.
 2. Execution of commands may get segmentation faults.
 3. Does not handle condition where input is long enough to overtake memory.
+4. When typing a comment after white space (e.g. `$    #Comment`) or after entering exit (e.g. `exit #Comment`, rshell tries to execute the white space or  `exit` rather than exit the program.
