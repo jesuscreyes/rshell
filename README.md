@@ -54,6 +54,6 @@ Features:
 Bugs & Limitations
 -----------------
 1. '&&' and '||' are restricted to the same behavior as ';' in this version.
-2. Execution of commands may get segmentation faults.
-3. Does not handle condition where input is long enough to overtake memory.
-4. When typing a comment after white space (e.g. `$    #Comment`) or after entering exit (e.g. `exit #Comment`, rshell tries to execute the white space or  `exit` rather than exit the program.
+2. Does not handle case where input is long enough to overtake memory.
+3. Rshell tries to execute whitespace when it is followed by a comment in input. (e.g. `$     #Comment`)
+4. Rshell tries to execute `exit` when it is followed by a comment in input (e.g. `$exit    #Comment`), instead of exiting the program.
