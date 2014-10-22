@@ -133,7 +133,9 @@ void executeCmd(string s){
     //Executing
    /////////////////////////////////////////////////////
     int pid = fork();
-    if(pid == 0){
+    if(pid == -1){
+	perror("fork");
+    else if(pid == 0){
     	const int newSize = commandList.size() + 1;
 	char **argv;
  	argv = new char*[newSize];
