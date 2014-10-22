@@ -56,5 +56,5 @@ Bugs & Limitations
 1. '&&' and '||' are restricted to the same behavior as ';' in this version.
 2. Connecters (e.g. '&&', '||', ';') cannot be used together in command (e.g. $ pwd && ls ; pwd || echo hello world).
 3. Does not handle case where input is long enough to overtake memory.
-4. Rshell tries to execute whitespace when it is followed by a comment in input. (e.g. `$     #Comment`)
+4. Rshell outputs error message when only whitespace is inputted, instead of outputting nothing and asking for next input.
 5. Rshell tries to execute `exit` when it is followed by a comment in input (e.g. `$exit    #Comment`), instead of exiting the program.
