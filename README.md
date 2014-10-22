@@ -42,7 +42,7 @@ This program is intended to replicate the functionality of a command shell.
 
 Features:
 - Can execute basic commands such as: `ls`, `echo`, and `mkdir`
-- Can execute multiple commands connected by connecter `;`, '&&', or '||'
+- Can execute multiple commands connected by connecter `;`, `&&`, or `||`
 - Can be exited by typing exit[ENTER]
 
 Bugs & Limitations
