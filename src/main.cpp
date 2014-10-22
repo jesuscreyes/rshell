@@ -65,13 +65,33 @@ vector<string> tokenSemicolon(string s){
 //Output: vector of strings, deliminator: '&'
 vector<string> tokenAnd(string s){
     vector<string> tokenList;
-    split(tokenList, s, is_any_of("&&"), token_compress_on);
-/*
-    //Optional print of list
-    for(std::vector<string>::iterator it=tokenList.begin(); it != tokenList.end(); ++it){
-        cout << *it << endl;
-    }
-*/
+
+	cout << "In tokenAND" << endl;
+	string replaceAnd = " ";
+
+	for(unsigned int i = 0; i < s.size(); i++){
+		cout << "In for loop" << endl;
+		if(s[i] == '&'){
+			cout << "Current char is '&'" << endl;
+			cout << "pos: " << i << endl;
+			if(s[i+1] != '\0'){
+				cout << "next char not null" << endl;
+				cout << "next char is: " << s[i+1] << endl;
+				if(s[i+1] == '&'){
+				cout << "next char IS &" << endl;
+					s.replace(i,2,replaceAnd);
+				}
+			}
+		}
+	}
+
+	cout << "PRINTING NEW S: " << s << endl;
+
+
+	for(std::vector<string>::iterator it=tokenList.begin(); it!= tokenList.end(); ++it){
+		cout << *it << endl;
+	}
+
     return tokenList;
 }
 
@@ -135,6 +155,7 @@ void executeCmd(string s){
     int pid = fork();
     if(pid == -1){
 	perror("fork");
+	}
     else if(pid == 0){
     	const int newSize = commandList.size() + 1;
 	char **argv;
