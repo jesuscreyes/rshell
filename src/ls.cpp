@@ -14,6 +14,7 @@ using namespace std;
 
 int main()
 {
+
     char *dirName = ".";
     DIR *dirp = opendir(dirName);
     if(dirp == NULL){
@@ -32,19 +33,79 @@ int main()
             cout << direntp->d_name << endl;
 
             struct stat statbuf;
-            stat(direntp->d_name, &statbuf);
-            cout << "size: " << statbuf.st_size << endl;
-            if(S_ISDIR(statbuf.st_mode)){
-                cout << "d-" << endl << endl;
-            }
+            if(stat(direntp->d_name, &statbuf)  == 1){
+		perror("stat");
+	    }
             else{
-                cout << "--" << endl << endl;
-                }
+	    	cout << "size: " << statbuf.st_size << endl;
+            	if(S_ISDIR(statbuf.st_mode)){
+                	cout << "d";
+            	}
+            	else{
+                	cout << "-";
+                	}
+            	if(statbuf.st_mode & S_IRUSR){
+		    cout << "r";
+	        }
+	   	else{
+		    cout << "-";
+	        }
+		if(statbuf.st_mode & S_IWUSR){
+		    cout << "w";
+		}
+		else{
+		    cout << "-";
+		}
+		if(statbuf.st_mode & S_IXUSR){
+		    cout << "x";
+		}
+		else{
+		    cout << "-";
+		}
+		if(statbuf.st_mode & S_IRGRP){
+		    cout << "r";
+		}
+		else{
+		    cout << "-";
+		}
+		if(statbuf.st_mode & S_IWGRP){
+		    cout << "w";
+		}
+		else{
+		    cout << "-";
+		}
+		if(statbuf.st_mode & S_IXGRP){
+		    cout << "x";
+		}
+		else{
+		    cout << "-";
+		}
+		if(statbuf.st_mode & S_IROTH){
+		    cout << "r";
+		}
+		else{
+		    cout << "-";
+		}
+		if(statbuf.st_mode & S_IWOTH){
+		    cout << "w";
+		}
+		else{
+		    cout << "-";
+		}
+		if(statbuf.st_mode & S_IXOTH){
+		    cout << "x";
+		}
+		else{
+		    cout << "-";
+		}
+	        cout << endl; 
+	    }
         }
     }
-    
     int check = closedir(dirp);
     if(check == -1){
-        closedir(dirp);
-    }   
+        perror("closedir");
+    }
+
+    return 0;
 }
