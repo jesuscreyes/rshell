@@ -1,3 +1,6 @@
+#include <sys/stat.h>
+#include <unistd.h>
+#include <stdio.h>
 #include <sys/types.h>
 #include <dirent.h>
 #include <errno.h>
@@ -13,8 +16,35 @@ int main()
 {
     char *dirName = ".";
     DIR *dirp = opendir(dirName);
+    if(dirp == NULL){
+	    perror("opendir");
+    }
+    
     dirent *direntp;
-    while ((direntp = readdir(dirp)))
-        cout << direntp->d_name << endl;  // use stat here to find attributes of file
-    closedir(dirp);
+        int cnt = 1;    
+    while ((direntp = readdir(dirp))){
+        if(direntp == NULL){
+            perror("readdir");
+        }
+        else{
+            cout << cnt << ": ";
+            cnt++;
+            cout << direntp->d_name << endl;
+
+            struct stat statbuf;
+            stat(direntp->d_name, &statbuf);
+            cout << "size: " << statbuf.st_size << endl;
+            if(S_ISDIR(statbuf.st_mode)){
+                cout << "d-" << endl << endl;
+            }
+            else{
+                cout << "--" << endl << endl;
+                }
+        }
+    }
+    
+    int check = closedir(dirp);
+    if(check == -1){
+        closedir(dirp);
+    }   
 }
