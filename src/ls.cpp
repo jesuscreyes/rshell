@@ -15,7 +15,9 @@ using namespace std;
 int main()
 {
 
-    char *dirName = ".";
+    char const *dirName = ".";
+        
+
     DIR *dirp = opendir(dirName);
     if(dirp == NULL){
 	    perror("opendir");
