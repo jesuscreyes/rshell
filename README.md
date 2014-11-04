@@ -10,8 +10,6 @@ Author & Contributor List
 -------------------------
 Jesus Reyes
 
-Mike Izbicki
-
 All other known bugs and fixes can be sent to jreye028@ucr.edu
 
 Reported bugs/fixes will be submited to correction.
