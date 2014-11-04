@@ -1,4 +1,5 @@
 #include <sys/stat.h>
+#include <time.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <sys/types.h>
@@ -15,14 +16,15 @@ using namespace std;
 void executeStat(dirent *direntp){
             struct stat statbuf;
             
-            cout << direntp->d_name << ": " << endl;
             
             if(stat(direntp->d_name, &statbuf)  == 1){
 		        perror("stat");
 	        }
             else{
-	    	    cout << "size: " << statbuf.st_size << endl;
-            	if(S_ISDIR(statbuf.st_mode)){
+
+            	
+                //Outputs Permissions
+                if(S_ISDIR(statbuf.st_mode)){
                 	cout << "d";
             	}
             	else{
@@ -32,7 +34,7 @@ void executeStat(dirent *direntp){
 		            cout << "r";
 	            }
 	   	        else{
-		            cout << "-";
+		            cout << "-i";
 	            }
 		        if(statbuf.st_mode & S_IWUSR){
 		            cout << "w";
@@ -82,15 +84,43 @@ void executeStat(dirent *direntp){
 		        else{
 		            cout << "-";
 		        }
-	            cout << endl; 
-	        }
+	            cout << " "; 
+	            
+                //Outputs # of hard links
+                cout << statbuf.st_nlink
+                     << " ";
+
+                //Outputs owner name
+                cout << statbuf.st_uid
+                     << " ";
+
+                //Outputs group name
+                cout << statbuf.st_gid
+                     << " ";
+
+                //Outputs Size
+	    	    cout << statbuf.st_size
+                     << " ";
+
+                //Outputs timestampi
+                //cout << statbuf.st_mtime << " ";
+                time_t t = statbuf.st_mtime;
+                struct tm lt;
+                localtime_r(&t, &lt);
+                char timbuf[80];
+                strftime(timbuf, sizeof(timbuf), "%b %e %I:%M", &lt); 
+                cout << timbuf << " "; 
+                
+                cout << direntp->d_name;
+                cout << endl;
+            }
 }
 
 int main()
 {
 
-    char const *dirName = ".";
-        
+    
+    char const *dirName = ".";    
 
     DIR *dirp = opendir(dirName);
     if(dirp == NULL){
@@ -104,8 +134,7 @@ int main()
             perror("readdir");
         }
         else{
-            //cout << cnt << ": ";
-            //cnt++;
+            //Condition that makes it so only public files are displayed
             if(direntp->d_name[0] != '.'){
                 executeStat(direntp);
             }
