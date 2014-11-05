@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <sys/types.h>
+#include <stdlib.h>
 #include <dirent.h>
 #include <errno.h>
 
@@ -119,32 +120,47 @@ void executeStat(dirent *direntp){
 int main()
 {
 
-    
-    char const *dirName = ".";    
+    bool run = true;
 
-    DIR *dirp = opendir(dirName);
-    if(dirp == NULL){
-	    perror("opendir");
-    }
-    
-    dirent *direntp;
-        int cnt = 1;    
-    while ((direntp = readdir(dirp))){
-        if(direntp == NULL){
-            perror("readdir");
-        }
+    string s;
+
+    while(run){
+
+        cout << endl << "$ ";
+        getline(cin,s);
+        if(s == "exit"){
+            exit(1);
+        }   
         else{
-            //Condition that makes it so only public files are displayed
-            if(direntp->d_name[0] != '.'){
-                executeStat(direntp);
+     
+
+            char const *dirName = ".";    
+
+            DIR *dirp = opendir(dirName);
+            if(dirp == NULL){
+	            perror("opendir");
             }
+    
+            dirent *direntp;
+                int cnt = 1;    
+            while ((direntp = readdir(dirp))){
+                if(direntp == NULL){
+                    perror("readdir");
+                }
+                else{
+                    //Condition that makes it so only public files are displayed
+                    //if(direntp->d_name[0] != '.'){
+                        executeStat(direntp);
+                    //}
+                }
+            }
+    
+            int check = closedir(dirp);
+            if(check == -1){
+                perror("closedir");
+            }
+
         }
     }
-    
-    int check = closedir(dirp);
-    if(check == -1){
-        perror("closedir");
-    }
-
     return 0;
 }
