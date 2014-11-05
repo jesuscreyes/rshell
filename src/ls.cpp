@@ -132,7 +132,63 @@ int main()
             exit(1);
         }   
         else{
-     
+            
+            bool lsFlag = false;
+            bool aFlag = false;
+            bool lFlag = false;
+            bool rFlag = false;
+
+            unsigned int i;
+            for(i = 0; i < s.size(); i++){
+                if(s[i] != 'l' &&
+                   s[i] != 's' &&
+                   s[i] != ' '){
+                    cout << "First Error" << endl;
+                    exit(1);
+                }
+                
+                if(s[i] == 'l'){
+                    //cout << "s[i]: " << s[i] << endl;
+                    //cout << "s[i+1]: " << s[i+1] << endl;
+                    if(s[i+1] != 's'){
+                        cout << "Error1" << endl;
+                        exit(1);
+                    }
+                    else{
+                        lsFlag = true;
+                        break;
+                    }
+                }
+            }
+
+            i = i + 2;
+            for(; i < s.size(); i++){
+                if(s[i] != ' ' &&
+                   s[i] != '-' &&
+                   s[i] != 'a' &&
+                   s[i] != 'l' &&
+                   s[i] != 'R'){
+                    cout << "Error!!!" << endl;
+                    cout << "s[i]: " << s[i] << endl;
+                }
+                else{
+                   if(s[i] == '-'){
+                        if(s[i+1] == 'a'){
+                            aFlag = true;
+                        }
+                        else if(s[i+1] == 'l'){
+                            lFlag = true;
+                        }
+                        else if(s[i+1] == 'R'){
+                            rFlag = true;
+                        }
+                        else{
+                            cout << "Error Yo" << endl;
+                            exit(1);
+                        }
+                    }
+                }
+            }      
 
             char const *dirName = ".";    
 
@@ -148,10 +204,23 @@ int main()
                     perror("readdir");
                 }
                 else{
-                    //Condition that makes it so only public files are displayed
-                    //if(direntp->d_name[0] != '.'){
-                        executeStat(direntp);
-                    //}
+                    if(lsFlag){
+                        //cout << "lsFlag is set" << endl;
+                        if(lFlag){
+                            //Condition that makes it so only public files are displayed
+                            if(direntp->d_name[0] != '.'){
+                                executeStat(direntp);
+                            }
+                        }
+                        else if(aFlag){
+                            cout << direntp->d_name << " ";
+                        }
+                        else{
+                            if(direntp->d_name[0] != '.'){
+                                cout << direntp->d_name << " ";
+                            }
+                        }
+                    }
                 }
             }
     
