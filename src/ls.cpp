@@ -154,6 +154,7 @@ void executeCmd(char const *temp){
 
 ///////////////////////////////
         dirent *direntp;
+        if(lFlag){
         int total = 0;
         while((direntp = readdir(dirp))){
             if(lsFlag){
@@ -165,6 +166,7 @@ void executeCmd(char const *temp){
             }
         }
         cout << "total " << total << endl; 
+    }
 //////////////////////////////   
         //Re-assignment of dirp variable, so that we can go through the directory againi.
         dirp = opendir(dirName); 
@@ -213,7 +215,7 @@ void executeCmd(char const *temp){
 
 int main(int argc, char**argv)
 {
-    cout << "argc: " << argc << endl;
+    //cout << "argc: " << argc << endl;
 
     if(argc == 1){
         cout << "Error. Not enough arguments." << endl;
