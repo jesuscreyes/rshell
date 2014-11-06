@@ -11,8 +11,6 @@
 
 using namespace std;
 
-/* This is a BARE BONES example of how to use opendir/readdir/closedir.  Not * ice that there is no error checking on these functions.  You MUST add err * orchecking yourself.
- */
 
 //Global Variables
     bool lsFlag = false;
@@ -146,31 +144,30 @@ bool isDir(char const *temp){
     }
 }
 
-void executeCmd(char const *temp, int flags){
+void executeCmd(char const *temp){
         char const *dirName = temp;    
         DIR *dirp = opendir(dirName);
-        DIR *dirp2 = dirp;
         if(dirp == NULL){
 	        perror("opendir");
             exit(1);
         }
 
 ///////////////////////////////
-        dirent *tempdirentp;
+        dirent *direntp;
         int total = 0;
-        while((tempdirentp = readdir(dirp2))){
+        while((direntp = readdir(dirp))){
             if(lsFlag){
                 if(lFlag){
-                    if(tempdirentp->d_name[0] != '.'){
-                        total += numBlocks(tempdirentp);
+                    if(direntp->d_name[0] != '.'){
+                        total += numBlocks(direntp);
                     }
                 }
             }
         }
         cout << "total " << total << endl; 
 //////////////////////////////   
+        //Re-assignment of dirp variable, so that we can go through the directory againi.
         dirp = opendir(dirName); 
-        dirent *direntp;
         while ((direntp = readdir(dirp))){
             if(direntp == NULL){
                 perror("readdir");
@@ -239,6 +236,11 @@ int main(int argc, char**argv)
         exit(1);
     }
 
+/////////////////////////////////
+//Check if input is a file
+/////////////////////////////////
+
+
     if(argc >= 2){
         for(int i = 2; i < argc; i++){
             if(argv[i][0] == '-'){
@@ -246,6 +248,10 @@ int main(int argc, char**argv)
                     //if(argv[i][j] == 'a'){
                     if(argv[i][1] == 'a'){
                         aFlag = true; 
+                        
+                        //Check for other flags
+                        //Intention to be able to
+                        //handle '-alR' type cases
                     }
                     else if(argv[i][1] == 'l'){
                         lFlag = true;
@@ -267,13 +273,13 @@ int main(int argc, char**argv)
 
 
     const char* s = ".";
-    if(isDir(s)){
-        cout << "It's a directory" << endl;
-    }
-    else{
-        cout << "It's not a directory" << endl;
-    }
-    executeCmd(s, 2);
+    //if(isDir(s)){
+        //cout << "It's a directory" << endl;
+    //}
+    //else{
+        //cout << "It's not a directory" << endl;
+    //}
+    executeCmd(s);
     //executeCmd("ls.cpp", 2);
     return 0;
 }
