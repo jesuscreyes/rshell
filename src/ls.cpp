@@ -227,7 +227,6 @@ int main(int argc, char**argv)
         exit(1);
     }
             
-    int flags = 0;
 
     if(argv[1][0] == 'l'){
         if(argv[1][1] == 's'){
