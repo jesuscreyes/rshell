@@ -1,5 +1,6 @@
 #include <sys/stat.h>
 #include <pwd.h>
+#include <grp.h>
 #include <time.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -111,12 +112,15 @@ void longList(dirent *direntp){
                      << " ";
 
                 //Outputs owner name
-                
-                cout << statbuf.st_uid
-                     << " ";
-
+                struct passwd *p;
+             
+                p = getpwuid(statbuf.st_uid);
+                cout << p->pw_name << " " ;
+ 
                 //Outputs group name
-                cout << statbuf.st_gid
+                struct group *g;
+                g = getgrgid(statbuf.st_gid);
+                cout << g->gr_name
                      << " ";
 
                 //Outputs Size
