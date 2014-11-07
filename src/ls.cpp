@@ -15,7 +15,7 @@ using namespace std;
 
 
 //Global Variables
-    bool lsFlag = false;
+    bool lsFlag = true;
     bool aFlag = false;
     bool lFlag = false;
     bool rFlag = false;
@@ -36,7 +36,6 @@ int numBlocks(dirent *direntp){
 
 void longList(dirent *direntp){
             struct stat statbuf;
-            
             if(stat(direntp->d_name, &statbuf)  == 1){
 		        perror("stat");
 	        }
@@ -106,7 +105,6 @@ void longList(dirent *direntp){
 		            cout << "-";
 		        }
 	            cout << " "; 
-	            
                 //Outputs # of hard links
                 cout << statbuf.st_nlink
                      << " ";
@@ -115,13 +113,20 @@ void longList(dirent *direntp){
                 struct passwd *p;
              
                 p = getpwuid(statbuf.st_uid);
+                if(p == NULL){
+                    perror("getpwuid");
+                    exit(1);
+                }
                 cout << p->pw_name << " " ;
  
                 //Outputs group name
                 struct group *g;
                 g = getgrgid(statbuf.st_gid);
-                cout << g->gr_name
-                     << " ";
+                if(g == NULL){
+                    perror("getgrgid");
+                    exit(1);
+                }
+                cout << g->gr_name << " ";
 
                 //Outputs Size
 	    	    cout << statbuf.st_size
@@ -133,7 +138,11 @@ void longList(dirent *direntp){
                 struct tm lt;
                 localtime_r(&t, &lt);
                 char timbuf[80];
-                strftime(timbuf, sizeof(timbuf), "%b %e %I:%M", &lt); 
+                int check = strftime(timbuf, sizeof(timbuf), "%b %e %I:%M", &lt); 
+                if(check == 0){
+                    cerr << "Possible error: strftime returned '0'" << endl;
+                    exit(1);
+                }
                 cout << timbuf << " "; 
                 
                 cout << direntp->d_name;
@@ -198,6 +207,7 @@ void executeCmd(char const *temp){
                     }
                     else{
                         if(direntp->d_name[0] != '.'){
+                            cout << "201" << endl;
                             longList(direntp);
                         }
                     }
@@ -226,6 +236,7 @@ int main(int argc, char**argv)
 {
     //cout << "argc: " << argc << endl;
 
+/*
     if(argc == 1){
         cout << "Error. Not enough arguments." << endl;
         exit(1);
@@ -245,14 +256,15 @@ int main(int argc, char**argv)
         cout << "Error yo. That's not l bro!" << endl;
         exit(1);
     }
+*/
 
 /////////////////////////////////
 //Check if input is a file
 /////////////////////////////////
 
 
-    if(argc >= 2){
-        for(int i = 2; i < argc; i++){
+    if(argc >= 1){
+        for(int i = 1; i < argc; i++){
             if(argv[i][0] == '-'){
                 //for(int j = 1; argv[i][j] != 0; j++){
                     //if(argv[i][j] == 'a'){
@@ -365,7 +377,7 @@ int main(int argc, char**argv)
 ////////////////////////////////////////////////////////////////////
     struct stat statbuf2;
 
-    for(int i = 2; i < argc; i++){
+    for(int i = 1; i < argc; i++){
         if(argv[i][0] != '-'){
         stat(argv[i], &statbuf2);
         //ERROR CHECK!!!!!!
@@ -475,7 +487,9 @@ int main(int argc, char**argv)
         else if(S_ISDIR(statbuf2.st_mode)){
             cout << "It's a directory" << endl; 
             const char* k = argv[i];
+            cout << "478" << endl;
             executeCmd(k);
+            cout << "479" << endl;
         }
         else if(S_ISLNK(statbuf2.st_mode)){
             cout << "It's a symbolic link" << endl;
