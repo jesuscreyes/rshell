@@ -43,6 +43,9 @@ void longList(dirent *direntp){
                 if(S_ISDIR(statbuf.st_mode)){
                 	cout << "d";
             	}
+                else if(S_ISLNK(statbuf.st_mode)){
+                    cout << "l";
+                }
             	else{
                 	cout << "-";
                 }
