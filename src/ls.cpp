@@ -21,13 +21,13 @@ using namespace std;
 int numBlocks(dirent *direntp){
     
     int num;
-    struct stat statbuf2;
-    if(stat(direntp->d_name, &statbuf2) == 1){
+    struct stat statbuf;
+    if(stat(direntp->d_name, &statbuf) == 1){
         perror("stat");
         exit(1);
     }
     else{
-        num =  statbuf2.st_blocks/2;
+        num =  statbuf.st_blocks/2;
     }
     return num;
 }
@@ -360,11 +360,131 @@ int main(int argc, char**argv)
 ////////////////////////////////////////////////////////////////////
 //Go through argv again and use stat function to see if regular file
 ////////////////////////////////////////////////////////////////////
+    struct stat statbuf2;
 
-//Compare(argv[i], direntp->d_name);
+    for(int i = 2; i < argc; i++){
+        if(argv[i][0] != '-'){
+        stat(argv[i], &statbuf2);
+        //ERROR CHECK!!!!!!
+       if(S_ISREG(statbuf2.st_mode)){
+            cout << "It's a regular file" << endl;
 
+            if(lFlag){
+                //Outputs Permissions
+                if(S_ISDIR(statbuf2.st_mode)){
+                	cout << "d";
+            	}
+                else if(S_ISLNK(statbuf2.st_mode)){
+                    cout << "l";
+                }
+            	else{
+                	cout << "-";
+                }
+            	if(statbuf2.st_mode & S_IRUSR){
+		            cout << "r";
+	            }
+	   	        else{
+		            cout << "-i";
+	            }
+		        if(statbuf2.st_mode & S_IWUSR){
+		            cout << "w";
+		        }
+		        else{
+		            cout << "-";
+		        }
+		        if(statbuf2.st_mode & S_IXUSR){
+		            cout << "x";
+		        }
+		        else{
+		            cout << "-";
+		        }
+		        if(statbuf2.st_mode & S_IRGRP){
+		            cout << "r";
+		        }
+		        else{
+		            cout << "-";
+		        }
+		        if(statbuf2.st_mode & S_IWGRP){
+		            cout << "w";
+		        }
+		        else{
+		            cout << "-";
+		        }
+		        if(statbuf2.st_mode & S_IXGRP){
+		            cout << "x";
+		        }
+		        else{
+		            cout << "-";
+		        }   
+		        if(statbuf2.st_mode & S_IROTH){
+		            cout << "r";
+		        }
+		        else{
+		            cout << "-";
+		        }
+		        if(statbuf2.st_mode & S_IWOTH){
+		            cout << "w";
+		        }
+		        else{
+		            cout << "-";
+		        }
+		        if(statbuf2.st_mode & S_IXOTH){
+		            cout << "x";
+		        }
+		        else{
+		            cout << "-";
+		        }
+	            cout << " "; 
+	            
+                //Outputs # of hard links
+                cout << statbuf2.st_nlink
+                     << " ";
+
+                //Outputs owner name
+                
+                cout << statbuf2.st_uid
+                     << " ";
+
+                //Outputs group name
+                cout << statbuf2.st_gid
+                     << " ";
+
+                //Outputs Size
+	    	    cout << statbuf2.st_size
+                     << " ";
+
+                //Outputs timestamp
+                //cout << statbuf2.st_mtime << " ";
+                time_t t = statbuf2.st_mtime;
+                struct tm lt;
+                localtime_r(&t, &lt);
+                char timbuf[80];
+                strftime(timbuf, sizeof(timbuf), "%b %e %I:%M", &lt); 
+                cout << timbuf << " "; 
+                
+                cout << argv[i];
+                cout << endl;
+            }
+            else{
+                cout << argv[i] << endl;
+            }
+        }
+        else if(S_ISDIR(statbuf2.st_mode)){
+            cout << "It's a directory" << endl; 
+            const char* k = argv[i];
+            executeCmd(k);
+        }
+        else if(S_ISLNK(statbuf2.st_mode)){
+            cout << "It's a symbolic link" << endl;
+        }
+        else{
+            cout << "Error. Not an existing file/directory." << endl;
+        }
+    }
+    } 
 ////////////////////////////////////////////////////////////////////
-    const char* s = ".";
-    executeCmd(s);
-    return 0;
+        const char* s = ".";
+        executeCmd(s);
+    
+return 0;    
 }
