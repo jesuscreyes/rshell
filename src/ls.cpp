@@ -1,4 +1,5 @@
 #include <sys/stat.h>
+#include <pwd.h>
 #include <time.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -110,6 +111,7 @@ void longList(dirent *direntp){
                      << " ";
 
                 //Outputs owner name
+                
                 cout << statbuf.st_uid
                      << " ";
 
@@ -121,7 +123,7 @@ void longList(dirent *direntp){
 	    	    cout << statbuf.st_size
                      << " ";
 
-                //Outputs timestampi
+                //Outputs timestamp
                 //cout << statbuf.st_mtime << " ";
                 time_t t = statbuf.st_mtime;
                 struct tm lt;
@@ -148,16 +150,20 @@ bool isDir(char const *temp){
 }
 
 void executeCmd(char const *temp){
-        char const *dirName = temp;    
-        DIR *dirp = opendir(dirName);
-        if(dirp == NULL){
-	        perror("opendir");
-            exit(1);
-        }
+    char const *dirName = temp;    
+    DIR *dirp = opendir(dirName);
+    if(dirp == NULL){
+	    perror("opendir");
+        exit(1);
+    }
 
 ///////////////////////////////
-        dirent *direntp;
-        if(lFlag){
+//This block of code is used to
+//acquire number of BLOCKS of
+//'-l' flag is set
+//////////////////////////////
+    dirent *direntp;
+    if(lFlag){
         int total = 0;
         while((direntp = readdir(dirp))){
             if(lsFlag){
@@ -171,50 +177,41 @@ void executeCmd(char const *temp){
         cout << "total " << total << endl; 
     }
 //////////////////////////////   
-        //Re-assignment of dirp variable, so that we can go through the directory againi.
-        dirp = opendir(dirName); 
-        while ((direntp = readdir(dirp))){
-            if(direntp == NULL){
-                perror("readdir");
-            }
-            else{
-                if(lsFlag){
-                    //cout << "lsFlag is set" << endl;
-                    if(lFlag){
-                        //Condition that makes it so only public files are displayed
-                        if(direntp->d_name[0] != '.'){
-                            //cout << "name before findBlocks: " << direntp->d_name << endl;
-                            
-                            //int total = 0;
-                            //total = findBlocks();
-                            //cout << "name after findBlocks: " << direntp->d_name << endl;
-                            //cout << "total after findBlocks" << total << endl;
-                            longList(direntp);
-                        }
+//Re-assignment of dirp variable, so that we can go through the directory again.
+//////////////////////////////
+    dirp = opendir(dirName); 
+    while ((direntp = readdir(dirp))){
+        if(direntp == NULL){
+            perror("readdir");
+        }
+        else{
+            if(lsFlag){
+                //cout << "lsFlag is set" << endl;
+                if(lFlag){
+                    //Condition that makes it so only public files are displayed
+                    if(direntp->d_name[0] != '.'){
+                        longList(direntp);
                     }
-                    else if(aFlag){
+                }
+                else if(aFlag){
+                    cout << direntp->d_name << " ";
+                }
+                else{
+                    if(direntp->d_name[0] != '.'){
                         cout << direntp->d_name << " ";
-                    }
-                    else{
-                        if(direntp->d_name[0] != '.'){
-                            cout << direntp->d_name << " ";
-                        }
                     }
                 }
             }
         }
-        cout << endl;
-    
-        int check = closedir(dirp);
-        if(check == -1){
-            perror("closedir");
-        }
     }
+    cout << endl;
+    
+    int check = closedir(dirp);
+    if(check == -1){
+        perror("closedir");
+    }
+}
 
-#define Flag_ls 1
-#define Flag_a 2
-#define Flag_l 4
-#define Flag_R 8
 
 int main(int argc, char**argv)
 {
@@ -253,16 +250,98 @@ int main(int argc, char**argv)
                     //if(argv[i][j] == 'a'){
                     if(argv[i][1] == 'a'){
                         aFlag = true; 
+                        //Handles '-al' case
+                        if(argv[i][2] == 'l'){
+                            lFlag = true;
+                            //Handles '-alR' case
+                            if(argv[i][3] == 'R'){
+                                rFlag = true;
+                            }
+                            else if(argv[i][3] != 0){
+                                cerr << "Error. Invalid flag(s)." << endl;
+                                exit(1);
+                            }
+                        }
+                        //Handles '-aR' case
+                        else if(argv[i][2] == 'R'){
+                            rFlag = true;
+                            //Handles '-aRl' case
+                            if(argv[i][3] == 'l'){
+                                lFlag = true;
+                            }
+                            else if(argv[i][3] != 0){
+                                cerr << "Error. Invalid flag(s)." << endl;
+                                exit(1);
+                            }
+                        }
+                        else if(argv[i][2] != 0){
+                            cerr << "Error. Invalid flag(s)." << endl;
+                            exit(1);
+                        }
                         
-                        //Check for other flags
-                        //Intention to be able to
-                        //handle '-alR' type cases
                     }
                     else if(argv[i][1] == 'l'){
                         lFlag = true;
+                        //Handles '-la' case
+                        if(argv[i][2] == 'a'){
+                            aFlag = true;
+                            //Handles '-laR' case
+                            if(argv[i][3] == 'R'){
+                                rFlag = true;
+                            }
+                            else if(argv[i][3] != 0){
+                                cerr << "Error. Invalid flag(s)." << endl;
+                                exit(1);
+                            }
+                        }
+                        //Handles '-lR' case
+                        else if(argv[i][2] == 'R'){
+                            rFlag = true;
+                            //Handles '-lRa' case
+                            if(argv[i][3] == 'a'){
+                                aFlag = true;
+                            }
+                            else if(argv[i][3] != 0){
+                                cerr << "Error. Invalid flag(s)." << endl;
+                                exit(1);
+                            }
+                        }
+                        else if(argv[i][2] != 0){
+                            cerr << "Error. Invalid flag(s)." << endl;
+                            exit(1);
+                        }
                     }
                     else if(argv[i][1] == 'R'){
                         rFlag = true;
+                        //Handles '-Ra' case
+                        if(argv[i][2] == 'a'){
+                            aFlag = true;
+                            //Handles '-Ral' case
+                            if(argv[i][3] == 'l'){
+                                lFlag = true;
+                            }
+                            else if(argv[i][3] != 0){
+                                cerr << "Error. Invalid flag(s)." << endl;
+                                exit(1);
+                            }
+                        }
+                        //Handles '-Rl' case
+                        else if(argv[i][2] == 'l'){
+                            lFlag = true;
+                            //Handles '-Rla' case
+                            if(argv[i][3] == 'a'){
+                                aFlag = true;
+                            }
+                            else if(argv[i][3] != 0){
+                                cerr << "Error. Invalid flag(s)." << endl;
+                                exit(1);
+                            }
+                        }
+                        else if(argv[i][2] != 0){
+                            cerr << "Error. Invalid flag(s)." << endl;
+                            exit(1);
+                        }
+
                     }
                     else{
                         cout << "Error. Invalid flag(s)." << endl;
@@ -276,15 +355,14 @@ int main(int argc, char**argv)
         }
     }
 
+////////////////////////////////////////////////////////////////////
+//Go through argv again and use stat function to see if regular file
+////////////////////////////////////////////////////////////////////
 
+//Compare(argv[i], direntp->d_name);
+
+////////////////////////////////////////////////////////////////////
     const char* s = ".";
-    //if(isDir(s)){
-        //cout << "It's a directory" << endl;
-    //}
-    //else{
-        //cout << "It's not a directory" << endl;
-    //}
     executeCmd(s);
-    //executeCmd("ls.cpp", 2);
     return 0;
 }
