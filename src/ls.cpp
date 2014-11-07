@@ -189,8 +189,13 @@ void executeCmd(char const *temp){
                 //cout << "lsFlag is set" << endl;
                 if(lFlag){
                     //Condition that makes it so only public files are displayed
-                    if(direntp->d_name[0] != '.'){
+                    if(aFlag){
                         longList(direntp);
+                    }
+                    else{
+                        if(direntp->d_name[0] != '.'){
+                            longList(direntp);
+                        }
                     }
                 }
                 else if(aFlag){
@@ -348,9 +353,6 @@ int main(int argc, char**argv)
                         exit(1);
                     }
                //}
-            }
-            else{
-                cout << "Should be error"<< endl;
             }
         }
     }
