@@ -1,4 +1,5 @@
 #include <sys/stat.h>
+#include <vector>
 #include <pwd.h>
 #include <grp.h>
 #include <time.h>
@@ -150,19 +151,7 @@ void longList(dirent *direntp){
             }
 }
 
-bool isDir(char const *temp){
-    char const *dirName = temp;
-    DIR *dirp = opendir(dirName);
-    if(dirp == NULL){
-        return false;
-    }
-    else{
-        closedir(dirp); 
-       return true;
-    }
-}
-
-void executeCmd(char const *temp){
+int executeCmd(char const *temp){
     char const *dirName = temp;    
     DIR *dirp = opendir(dirName);
     if(dirp == NULL){
@@ -207,7 +196,6 @@ void executeCmd(char const *temp){
                     }
                     else{
                         if(direntp->d_name[0] != '.'){
-                            cout << "201" << endl;
                             longList(direntp);
                         }
                     }
@@ -217,7 +205,7 @@ void executeCmd(char const *temp){
                 }
                 else{
                     if(direntp->d_name[0] != '.'){
-                        cout << direntp->d_name << " ";
+                        cout <<  direntp->d_name << " ";
                     }
                 }
             }
@@ -229,8 +217,58 @@ void executeCmd(char const *temp){
     if(check == -1){
         perror("closedir");
     }
+
+    return 0;
 }
 
+/*
+/////////////////////////////
+int recurCmd(const char* tempR){
+    int numDir = 0;
+    vector<string> dir;
+
+    char const *dirname = tempR;
+    DIR *dirp = opendir(dirname);
+    //ERROR CHECk
+    dirp = opendir(dirname);
+    dirent *direntp;
+    while(direntp = readdir(dirp)){
+        if(direntp == NULL){
+            perror("readdir");
+        }
+        else{
+            struct stat statbuf3;
+            if(stat(direntp->d_name, &statbuf3) == 1){
+                perror("stat");
+            }
+            else{
+                if(S_ISDIR(statbuf3.st_mode)){
+                    if(direntp->d_name[1] != '.'){
+                        dir.push_back(direntp->d_name);
+                        cout << "Dir nam: " <<  direntp->d_name << endl;
+                        numDir++;
+                    }
+                }
+            }
+        }
+    }
+    
+    for(unsigned int i =0; i < dir.size(); i++){
+        cout << "Size of vector: " << dir.size() << endl;
+        cout << dir[i] << ":" << endl;
+        const char *d = dir[i].c_str();
+        executeCmd(d);
+        //dir.erase(dir.begin());
+        cout << endl << endl;
+    }
+    while(dir.size() != 0){
+        dir.pop_back();
+    }
+
+    return 0;
+}
+//////////////////////////////////////////////////
+*/
 
 int main(int argc, char**argv)
 {
@@ -501,6 +539,13 @@ int main(int argc, char**argv)
 ////////////////////////////////////////////////////////////////////
         const char* s = ".";
         executeCmd(s);
-    
+
+        cout << endl << "////////////////////////////"
+             << "testing recurCmd"
+             << endl;
+
+        //recurCmd(s);
+   
+ 
 return 0;    
 }
