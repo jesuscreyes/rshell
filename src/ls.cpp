@@ -381,123 +381,122 @@ int main(int argc, char**argv)
         if(argv[i][0] != '-'){
         stat(argv[i], &statbuf2);
         //ERROR CHECK!!!!!!
-       if(S_ISREG(statbuf2.st_mode)){
-            cout << "It's a regular file" << endl;
+            if(S_ISREG(statbuf2.st_mode)){
+                cout << "It's a regular file" << endl;
 
-            if(lFlag){
-                //Outputs Permissions
-                if(S_ISDIR(statbuf2.st_mode)){
-                	cout << "d";
-            	}
-                else if(S_ISLNK(statbuf2.st_mode)){
-                    cout << "l";
-                }
-            	else{
-                	cout << "-";
-                }
-            	if(statbuf2.st_mode & S_IRUSR){
-		            cout << "r";
-	            }
-	   	        else{
-		            cout << "-i";
-	            }
-		        if(statbuf2.st_mode & S_IWUSR){
-		            cout << "w";
-		        }
-		        else{
-		            cout << "-";
-		        }
-		        if(statbuf2.st_mode & S_IXUSR){
-		            cout << "x";
-		        }
-		        else{
-		            cout << "-";
-		        }
-		        if(statbuf2.st_mode & S_IRGRP){
-		            cout << "r";
-		        }
-		        else{
-		            cout << "-";
-		        }
-		        if(statbuf2.st_mode & S_IWGRP){
-		            cout << "w";
-		        }
-		        else{
-		            cout << "-";
-		        }
-		        if(statbuf2.st_mode & S_IXGRP){
-		            cout << "x";
-		        }
-		        else{
-		            cout << "-";
-		        }   
-		        if(statbuf2.st_mode & S_IROTH){
-		            cout << "r";
-		        }
-		        else{
-		            cout << "-";
-		        }
-		        if(statbuf2.st_mode & S_IWOTH){
-		            cout << "w";
-		        }
-		        else{
-		            cout << "-";
-		        }
-		        if(statbuf2.st_mode & S_IXOTH){
-		            cout << "x";
-		        }
-		        else{
-		            cout << "-";
-		        }
-	            cout << " "; 
+                if(lFlag){
+                    //Outputs Permissions
+                    if(S_ISDIR(statbuf2.st_mode)){
+                	    cout << "d";
+            	    }
+                    else if(S_ISLNK(statbuf2.st_mode)){
+                        cout << "l";
+                    }
+            	    else{
+                	    cout << "-";
+                    }
+            	    if(statbuf2.st_mode & S_IRUSR){
+		                cout << "r";
+	                }
+	   	            else{
+		                cout << "-i";
+	                }
+		            if(statbuf2.st_mode & S_IWUSR){
+		                cout << "w";
+		            }
+		            else{
+		                cout << "-";
+		            }
+		            if(statbuf2.st_mode & S_IXUSR){
+		                cout << "x";
+		            }
+		            else{
+		                cout << "-";
+		            }
+		            if(statbuf2.st_mode & S_IRGRP){
+		                cout << "r";
+		            }
+		            else{
+		                cout << "-";
+		            }
+		            if(statbuf2.st_mode & S_IWGRP){
+		                cout << "w";
+		            }
+		            else{
+		                cout << "-";
+		            }
+		            if(statbuf2.st_mode & S_IXGRP){
+		                cout << "x";
+		            }
+		            else{
+		                cout << "-";
+		            }   
+		            if(statbuf2.st_mode & S_IROTH){
+		                cout << "r";
+		            }
+		            else{
+		                cout << "-";
+		            }
+		            if(statbuf2.st_mode & S_IWOTH){
+		                cout << "w";
+		            }
+		            else{
+		                cout << "-";
+		            }
+		            if(statbuf2.st_mode & S_IXOTH){
+		                cout << "x";
+		            }
+		            else{
+		                cout << "-";
+		            }
+	                cout << " "; 
 	            
-                //Outputs # of hard links
-                cout << statbuf2.st_nlink
-                     << " ";
+                    //Outputs # of hard links
+                    cout << statbuf2.st_nlink
+                         << " ";
 
-                //Outputs owner name
+                    //Outputs owner name
                 
-                cout << statbuf2.st_uid
-                     << " ";
+                    cout << statbuf2.st_uid
+                         << " ";
 
-                //Outputs group name
-                cout << statbuf2.st_gid
-                     << " ";
+                    //Outputs group name
+                    cout << statbuf2.st_gid
+                         << " ";
 
-                //Outputs Size
-	    	    cout << statbuf2.st_size
-                     << " ";
+                    //Outputs Size
+	    	        cout << statbuf2.st_size
+                         << " ";
 
-                //Outputs timestamp
-                //cout << statbuf2.st_mtime << " ";
-                time_t t = statbuf2.st_mtime;
-                struct tm lt;
-                localtime_r(&t, &lt);
-                char timbuf[80];
-                strftime(timbuf, sizeof(timbuf), "%b %e %I:%M", &lt); 
-                cout << timbuf << " "; 
+                    //Outputs timestamp
+                    //cout << statbuf2.st_mtime << " ";
+                    time_t t = statbuf2.st_mtime;
+                    struct tm lt;
+                    localtime_r(&t, &lt);
+                    char timbuf[80];
+                    strftime(timbuf, sizeof(timbuf), "%b %e %I:%M", &lt); 
+                    cout << timbuf << " "; 
                 
-                cout << argv[i];
-                cout << endl;
+                    cout << argv[i];
+                    cout << endl;
+                }
+                else{
+                    cout << argv[i] << endl;
+                }
+            }
+            else if(S_ISDIR(statbuf2.st_mode)){
+                cout << "It's a directory" << endl; 
+                const char* k = argv[i];
+                executeCmd(k);
+                return 0;
+            }
+            else if(S_ISLNK(statbuf2.st_mode)){
+                cout << "It's a symbolic link" << endl;
             }
             else{
-                cout << argv[i] << endl;
+                cout << "Error. Not an existing file/directory." << endl;
             }
         }
-        else if(S_ISDIR(statbuf2.st_mode)){
-            cout << "It's a directory" << endl; 
-            const char* k = argv[i];
-            cout << "478" << endl;
-            executeCmd(k);
-            cout << "479" << endl;
-        }
-        else if(S_ISLNK(statbuf2.st_mode)){
-            cout << "It's a symbolic link" << endl;
-        }
-        else{
-            cout << "Error. Not an existing file/directory." << endl;
-        }
-    }
     } 
 ////////////////////////////////////////////////////////////////////
         const char* s = ".";
