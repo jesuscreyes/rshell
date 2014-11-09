@@ -20,7 +20,7 @@ using namespace std;
     bool aFlag = false;
     bool lFlag = false;
     bool rFlag = false;
-int numBlocks(dirent *direntp){
+int numBlocks(const dirent *direntp){
     
     int num;
     struct stat statbuf;
@@ -41,13 +41,17 @@ void longList(dirent *direntp){
 		        perror("stat");
 	        }
             else{
+                //cout << "44: " << direntp->d_name << endl;
                 //Outputs Permissions
-                if(S_ISDIR(statbuf.st_mode)){
-                	cout << "d";
-            	}
-                else if(S_ISLNK(statbuf.st_mode)){
+                if(S_ISLNK(statbuf.st_mode)){
                     cout << "l";
                 }
+                else if(S_ISDIR(statbuf.st_mode)){
+                	cout << "d";
+            	}
+                //else if(S_ISLNK(statbuf.st_mode)){
+                    //cout << "l";
+                //}
             	else{
                 	cout << "-";
                 }
@@ -55,7 +59,7 @@ void longList(dirent *direntp){
 		            cout << "r";
 	            }
 	   	        else{
-		            cout << "-i";
+		            cout << "-";
 	            }
 		        if(statbuf.st_mode & S_IWUSR){
 		            cout << "w";
@@ -142,33 +146,72 @@ void longList(dirent *direntp){
                 int check = strftime(timbuf, sizeof(timbuf), "%b %e %I:%M", &lt); 
                 if(check == 0){
                     cerr << "Possible error: strftime returned '0'" << endl;
-                    exit(1);
                 }
                 cout << timbuf << " "; 
-                
-                cout << direntp->d_name;
+
+                    if(S_ISDIR(statbuf.st_mode)){
+                        if(direntp->d_name[0] == '.'){
+                            cout << "\033[0;40;34m" << direntp->d_name << "\033[0;00m" << " ";
+                        }
+                        else{
+                            cout << "\033[0;0;34m" << direntp->d_name << "\033[0;00m" << " ";
+                        }
+                    }
+                    else if(statbuf.st_mode & S_IXUSR){
+                        if(direntp->d_name[0] == '.'){
+                            cout << "\033[0;40;32m" << direntp->d_name << "\033[0;00m" << " ";
+                        }
+                        else{
+                            cout << "\033[0;0;32m" << direntp->d_name << "\033[0;00m" << " ";
+                        }
+                    }
+                    else if(direntp->d_name[0] == '.'){
+                            cout << "\033[0;0;40m" << direntp->d_name << "\033[0;00m" << " ";
+                    }
+                    else{
+                       cout <<  direntp->d_name << " ";
+                    }
+
                 cout << endl;
             }
 }
 
 int executeCmd(char const *temp){
+    
+    
     char const *dirName = temp;    
-    DIR *dirp = opendir(dirName);
-    if(dirp == NULL){
-	    perror("opendir");
-        exit(1);
-    }
+    DIR *dirp;
+    DIR *dirp2;
+    //dirp = opendir(dirName);
+    //if(dirp == NULL){
+	    //perror("opendir");
+        //exit(1);
+    //}
 
 ///////////////////////////////
 //This block of code is used to
 //acquire number of BLOCKS of
 //'-l' flag is set
 //////////////////////////////
+    cout << "dirName: " << dirName << endl;
     dirent *direntp;
-    if(lFlag){
+
+  
+  if(lFlag){
+        dirp = opendir(dirName);
+        cout << "dirp: " << dirp << endl;
+        if(dirp == NULL){
+            perror("opendir");
+        }
         int total = 0;
+        errno = 0;
         while((direntp = readdir(dirp))){
-            if(lsFlag){
+            //cout << "name: " << direntp->d_name << endl;
+            if(errno != 0){
+                perror("readdir");
+            
+            }
+            else if(lsFlag){
                 if(lFlag){
                     if(direntp->d_name[0] != '.'){
                         total += numBlocks(direntp);
@@ -177,16 +220,26 @@ int executeCmd(char const *temp){
             }
         }
         cout << "total " << total << endl; 
+        int check = closedir(dirp);
+        if(check == -1){
+            perror("closedir");
+        }
     }
+
+
 //////////////////////////////   
 //Re-assignment of dirp variable, so that we can go through the directory again.
 //////////////////////////////
-    dirp = opendir(dirName); 
-    while ((direntp = readdir(dirp))){
-        if(direntp == NULL){
+
+    dirp2 = opendir(dirName); 
+    errno = 0;
+    while ((direntp = readdir(dirp2))){
+        if(errno != 0){
             perror("readdir");
         }
         else{
+            
+
             if(lsFlag){
                 //cout << "lsFlag is set" << endl;
                 if(lFlag){
@@ -196,16 +249,59 @@ int executeCmd(char const *temp){
                     }
                     else{
                         if(direntp->d_name[0] != '.'){
+                            //cout << "direntp->d_name: " << direntp->d_name << endl;
                             longList(direntp);
                         }
                     }
                 }
                 else if(aFlag){
-                    cout << direntp->d_name << " ";
+                    struct stat statbuf;
+                    int statCheck = stat(direntp->d_name,&statbuf);
+                    if(statCheck == -1){
+                        perror("statCheck");
+                        exit(1);
+                    }
+                    if(S_ISDIR(statbuf.st_mode)){
+                        if(direntp->d_name[0] == '.'){
+                            cout << "\033[0;40;34m" << direntp->d_name << "\033[0;00m" << " ";
+                        }
+                        else{
+                            cout << "\033[0;0;34m" << direntp->d_name << "\033[0;00m" << " ";
+                        }
+                    }
+                    else if(statbuf.st_mode & S_IXUSR){
+                        if(direntp->d_name[0] == '.'){
+                            cout << "\033[0;40;32m" << direntp->d_name << "\033[0;00m" << " ";
+                        }
+                        else{
+                            cout << "\033[0;0;32m" << direntp->d_name << "\033[0;00m" << " ";
+                        }
+                    }
+                    else if(direntp->d_name[0] == '.'){
+                            cout << "\033[0;0;40m" << direntp->d_name << "\033[0;00m" << " ";
+                    }
+                    else{
+                       cout <<  direntp->d_name << " ";
+                    }
+                    //cout << direntp->d_name << endl;
                 }
                 else{
-                    if(direntp->d_name[0] != '.'){
-                        cout <<  direntp->d_name << " ";
+                     struct stat statbuf;
+                    int statCheck = stat(direntp->d_name,&statbuf);
+                    if(statCheck == -1){
+                        perror("statCheck");
+                        exit(1);
+                    }
+                    if(direntp->d_name[0] != '.'){                   
+                        if(S_ISDIR(statbuf.st_mode)){
+                            cout << "\033[0;0;34m" << direntp->d_name << "\033[0;00m" << " ";
+                        }
+                        else if(statbuf.st_mode & S_IXUSR){
+                            cout << "\033[0;0;32m" << direntp->d_name << "\033[0;00m" << " ";
+                        }
+                        else{
+                            cout << direntp->d_name << " ";
+                        }
                     }
                 }
             }
@@ -213,16 +309,15 @@ int executeCmd(char const *temp){
     }
     cout << endl;
     
-    int check = closedir(dirp);
+    int check = closedir(dirp2);
     if(check == -1){
         perror("closedir");
     }
 
-    return 0;
+/////////////////////////
+    
 }
 
-/*
-/////////////////////////////
 int recurCmd(const char* tempR){
     int numDir = 0;
     vector<string> dir;
@@ -238,7 +333,8 @@ int recurCmd(const char* tempR){
         }
         else{
             struct stat statbuf3;
-            if(stat(direntp->d_name, &statbuf3) == 1){
+            cout << "name: " << direntp->d_name << endl;
+            if(stat(direntp->d_name, &statbuf3) == -1){
                 perror("stat");
             }
             else{
@@ -252,49 +348,34 @@ int recurCmd(const char* tempR){
             }
         }
     }
-    
-    for(unsigned int i =0; i < dir.size(); i++){
+
+    if(dir.size() == 0){
+        return 0;
+    }   
+ 
+    for(unsigned int i =0; i < dir.size()-1; i++){
         cout << "Size of vector: " << dir.size() << endl;
         cout << dir[i] << ":" << endl;
         const char *d = dir[i].c_str();
         executeCmd(d);
         //dir.erase(dir.begin());
         cout << endl << endl;
+        cout << "dir[i+1]" << dir[i+1] << endl; 
+        cout << "calling recurCmd again" << endl << endl;
+        recurCmd(dir[i+1].c_str());
     }
     while(dir.size() != 0){
         dir.pop_back();
     }
-
-    return 0;
 }
-//////////////////////////////////////////////////
-*/
 
 int main(int argc, char**argv)
 {
-    //cout << "argc: " << argc << endl;
 
-/*
-    if(argc == 1){
-        cout << "Error. Not enough arguments." << endl;
-        exit(1);
-    }
-            
-
-    if(argv[1][0] == 'l'){
-        if(argv[1][1] == 's'){
-            lsFlag= true;
-        }
-        else{
-            cout << "Error yo. Where's the s?!" << endl;
-            exit(1);
-        }
-    }
-    else{
-        cout << "Error yo. That's not l bro!" << endl;
-        exit(1);
-    }
-*/
+/////////////////////////////////
+//Local Variables
+////////////////////////////////
+    vector<string> dir;
 
 /////////////////////////////////
 //Check if input is a file
@@ -437,7 +518,7 @@ int main(int argc, char**argv)
 		                cout << "r";
 	                }
 	   	            else{
-		                cout << "-i";
+		                cout << "-";
 	                }
 		            if(statbuf2.st_mode & S_IWUSR){
 		                cout << "w";
@@ -523,29 +604,51 @@ int main(int argc, char**argv)
                 }
             }
             else if(S_ISDIR(statbuf2.st_mode)){
-                cout << "It's a directory" << endl; 
-                const char* k = argv[i];
-                executeCmd(k);
-                return 0;
+                //cout << "It's a directory" << endl; 
+                //cout << argv[i] << endl;
+                dir.push_back(argv[i]);                
+
+                //const char* k = argv[i];
+                //executeCmd(k);
+                //return 0;
             }
             else if(S_ISLNK(statbuf2.st_mode)){
                 cout << "It's a symbolic link" << endl;
             }
             else{
                 cout << "Error. Not an existing file/directory." << endl;
+                exit(1);
             }
         }
-    } 
+    }
+
+
+    if(dir.size() == 1){
+        executeCmd(dir[0].c_str());
+        return 0;
+    }
+    else if(dir.size() > 1){
+        while(dir.size() != 0){
+            cout << dir[0] << ":" << endl;
+            executeCmd(dir[0].c_str());
+            cout << endl << endl;
+            dir.erase(dir.begin()+0);
+        }
+        return 0;
+    }
+
 ////////////////////////////////////////////////////////////////////
         const char* s = ".";
         executeCmd(s);
 
+/*
         cout << endl << "////////////////////////////"
              << "testing recurCmd"
              << endl;
 
-        //recurCmd(s);
-   
+        recurCmd(s);
+        cout << "////////////////////////////" << endl; 
+*/
  
 return 0;    
 }
