@@ -1,4 +1,6 @@
 #include <sys/stat.h>
+#include <string.h>
+#include <iomanip>
 #include <vector>
 #include <pwd.h>
 #include <grp.h>
@@ -233,6 +235,7 @@ int executeCmd(char const *temp){
 
     dirp2 = opendir(dirName); 
     errno = 0;
+    int cnt = 0;
     while ((direntp = readdir(dirp2))){
         if(errno != 0){
             perror("readdir");
@@ -260,33 +263,57 @@ int executeCmd(char const *temp){
                     if(statCheck == -1){
                         perror("statCheck");
                         exit(1);
-                    }
+                     }
                     if(S_ISDIR(statbuf.st_mode)){
                         if(direntp->d_name[0] == '.'){
-                            cout << "\033[0;40;34m" << direntp->d_name << "\033[0;00m" << " ";
+                            cout << "\033[0;40;34m" << direntp->d_name << "\033[0;00m";
                         }
                         else{
-                            cout << "\033[0;0;34m" << direntp->d_name << "\033[0;00m" << " ";
+                            cout << "\033[0;0;34m" << direntp->d_name << "\033[0;00m";
+                        }
+                        cnt++;
+                        if(cnt == 3){
+                            cout << endl;
+                            cnt = 0;
+                        }
+                        else{
+                            cout << setw(30 - strlen(direntp->d_name));
                         }
                     }
                     else if(statbuf.st_mode & S_IXUSR){
-                        if(direntp->d_name[0] == '.'){
-                            cout << "\033[0;40;32m" << direntp->d_name << "\033[0;00m" << " ";
+                        cout << "\033[0;0;32m" << direntp->d_name << "\033[0;00m";
+                        cnt++;
+                        if(cnt == 3){
+                            cout << endl;
+                            cnt = 0;
                         }
                         else{
-                            cout << "\033[0;0;32m" << direntp->d_name << "\033[0;00m" << " ";
+                            cout << setw(30 - strlen(direntp->d_name));
                         }
                     }
                     else if(direntp->d_name[0] == '.'){
-                            cout << "\033[0;0;40m" << direntp->d_name << "\033[0;00m" << " ";
+                        cout << "\033[0;0;40m" << direntp->d_name << "\033[0;00m";
+                        cnt++;
+                        if(cnt == 3){
+                            cout << endl;
+                            cnt = 0;
+                        }
                     }
                     else{
-                       cout <<  direntp->d_name << " ";
+                        cout << direntp->d_name;
+                        cnt++;
+                        if(cnt == 3){
+                            cout << endl;
+                            cnt = 0;
+                        }
+                        else{
+                            cout << setw(30 - strlen(direntp->d_name));
+                        }
                     }
                     //cout << direntp->d_name << endl;
                 }
-                else{
-                     struct stat statbuf;
+                else{ 
+                    struct stat statbuf;
                     int statCheck = stat(direntp->d_name,&statbuf);
                     if(statCheck == -1){
                         perror("statCheck");
@@ -294,13 +321,37 @@ int executeCmd(char const *temp){
                     }
                     if(direntp->d_name[0] != '.'){                   
                         if(S_ISDIR(statbuf.st_mode)){
-                            cout << "\033[0;0;34m" << direntp->d_name << "\033[0;00m" << " ";
+                            cout << "\033[0;0;34m" << direntp->d_name << "\033[0;00m";
+                            cnt++;
+                            if(cnt == 3){
+                                cout << endl;
+                                cnt = 0;
+                            }
+                            else{
+                                cout << setw(30 - strlen(direntp->d_name));
+                            }
                         }
                         else if(statbuf.st_mode & S_IXUSR){
-                            cout << "\033[0;0;32m" << direntp->d_name << "\033[0;00m" << " ";
+                            cout << "\033[0;0;32m" << direntp->d_name << "\033[0;00m";
+                            cnt++;
+                            if(cnt == 3){
+                                cout << endl;
+                                cnt = 0;
+                            }
+                            else{
+                                cout << setw(30 - strlen(direntp->d_name));
+                            }
                         }
                         else{
-                            cout << direntp->d_name << " ";
+                            cout << direntp->d_name;
+                            cnt++;
+                            if(cnt == 3){
+                                cout << endl;
+                                cnt = 0;
+                            }
+                            else{
+                                cout << setw(30 - strlen(direntp->d_name));
+                            }
                         }
                     }
                 }
