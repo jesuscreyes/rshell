@@ -39,13 +39,17 @@ int numBlocks(const dirent *direntp){
 
 void longList(dirent *direntp){
             struct stat statbuf;
-            if(stat(direntp->d_name, &statbuf)  == 1){
+            struct stat lstatbuf;
+            if(lstat(direntp->d_name, &lstatbuf) == -1){
+                perror("lstat");
+            }
+            if(stat(direntp->d_name, &statbuf)  == -1){
 		        perror("stat");
 	        }
             else{
                 //cout << "44: " << direntp->d_name << endl;
                 //Outputs Permissions
-                if(S_ISLNK(statbuf.st_mode)){
+                if(S_ISLNK(lstatbuf.st_mode)){
                     cout << "l";
                 }
                 else if(S_ISDIR(statbuf.st_mode)){
@@ -277,7 +281,13 @@ int executeCmd(char const *temp){
                             cnt = 0;
                         }
                         else{
-                            cout << setw(30 - strlen(direntp->d_name));
+                            if(30 < strlen(direntp->d_name)){
+                                cnt++;
+                                cout << setw(60 - strlen(direntp->d_name));
+                            }
+                            else{
+                                cout << setw(30 - strlen(direntp->d_name));
+                            }
                         }
                     }
                     else if(statbuf.st_mode & S_IXUSR){
@@ -366,7 +376,7 @@ int executeCmd(char const *temp){
     }
 
 /////////////////////////
-    
+    return 0;    
 }
 
 int recurCmd(const char* tempR){
@@ -378,7 +388,7 @@ int recurCmd(const char* tempR){
     //ERROR CHECk
     dirp = opendir(dirname);
     dirent *direntp;
-    while(direntp = readdir(dirp)){
+    while((direntp = readdir(dirp))){
         if(direntp == NULL){
             perror("readdir");
         }
@@ -418,6 +428,7 @@ int recurCmd(const char* tempR){
     while(dir.size() != 0){
         dir.pop_back();
     }
+    return 0;
 }
 
 int main(int argc, char**argv)
@@ -546,22 +557,30 @@ int main(int argc, char**argv)
 //Go through argv again and use stat function to see if regular file
 ////////////////////////////////////////////////////////////////////
     struct stat statbuf2;
-
+    struct stat lstatbuf2;
+    bool isDir = false;
+    bool isFile = false;
     for(int i = 1; i < argc; i++){
         if(argv[i][0] != '-'){
-        stat(argv[i], &statbuf2);
-        //ERROR CHECK!!!!!!
-            if(S_ISREG(statbuf2.st_mode)){
-                cout << "It's a regular file" << endl;
-
+            if(stat(argv[i], &statbuf2) == -1){
+                perror("stat");
+                exit(1);
+            }
+            if(lstat(argv[i], &lstatbuf2) == -1){
+                perror("lstat");
+                exit(1);
+            }
+            if(S_ISREG(statbuf2.st_mode) || S_ISLNK(lstatbuf2.st_mode)){
+                cout << "It's a regular file or a symbolic link" << endl;
+                isFile = true;
                 if(lFlag){
                     //Outputs Permissions
-                    if(S_ISDIR(statbuf2.st_mode)){
-                	    cout << "d";
-            	    }
-                    else if(S_ISLNK(statbuf2.st_mode)){
+                    if(S_ISLNK(lstatbuf2.st_mode)){
                         cout << "l";
                     }
+                    else if(S_ISDIR(statbuf2.st_mode)){
+                	    cout << "d";
+            	    }
             	    else{
                 	    cout << "-";
                     }
@@ -646,8 +665,13 @@ int main(int argc, char**argv)
                     char timbuf[80];
                     strftime(timbuf, sizeof(timbuf), "%b %e %I:%M", &lt); 
                     cout << timbuf << " "; 
-                
-                    cout << argv[i];
+
+                    if(argv[i][0] == '.'){
+                        cout << "\033[0;0;34m" << argv[i] << "\033[0;00m";
+                    }                
+                    else{
+                        cout << argv[i];
+                    }
                     cout << endl;
                 }
                 else{
@@ -655,6 +679,7 @@ int main(int argc, char**argv)
                 }
             }
             else if(S_ISDIR(statbuf2.st_mode)){
+                isDir = true;
                 //cout << "It's a directory" << endl; 
                 //cout << argv[i] << endl;
                 dir.push_back(argv[i]);                
@@ -673,6 +698,13 @@ int main(int argc, char**argv)
         }
     }
 
+    if(!isDir && !isFile){
+        const char* s = ".";
+        executeCmd(s);
+    }
+    else if(!isDir && isFile){
+        return 0;
+    }
 
     if(dir.size() == 1){
         executeCmd(dir[0].c_str());
@@ -689,8 +721,6 @@ int main(int argc, char**argv)
     }
 
 ////////////////////////////////////////////////////////////////////
-        const char* s = ".";
-        executeCmd(s);
 
 /*
         cout << endl << "////////////////////////////"
