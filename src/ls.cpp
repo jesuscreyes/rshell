@@ -51,7 +51,96 @@ void longList(dirent *direntp){
                 //Outputs Permissions
                 if(S_ISLNK(lstatbuf.st_mode)){
                     cout << "l";
-                }
+             	        if(lstatbuf.st_mode & S_IRUSR){
+		                    cout << "r";
+	                    }
+	   	                else{
+		                    cout << "-";
+	                    }
+		                if(lstatbuf.st_mode & S_IWUSR){
+		                    cout << "w";
+		                }
+		                else{
+		                    cout << "-";
+		                }
+		                if(lstatbuf.st_mode & S_IXUSR){
+		                    cout << "x";
+		                }
+		                else{
+		                    cout << "-";
+		                }
+		                if(lstatbuf.st_mode & S_IRGRP){
+		                    cout << "r";
+		                }
+		                else{
+		                    cout << "-";
+		                }
+		                if(lstatbuf.st_mode & S_IWGRP){
+		                    cout << "w";
+		                }
+		                else{
+		                    cout << "-";
+		                }
+		                if(lstatbuf.st_mode & S_IXGRP){
+		                    cout << "x";
+		                }
+		                else{
+		                    cout << "-";
+		                }   
+		                if(lstatbuf.st_mode & S_IROTH){
+		                    cout << "r";
+		                }
+		                else{
+		                    cout << "-";
+		                }
+		                if(lstatbuf.st_mode & S_IWOTH){
+		                    cout << "w";
+		                }
+		                else{
+		                    cout << "-";
+		                }
+		                if(lstatbuf.st_mode & S_IXOTH){
+		                    cout << "x";
+		                }
+		                else{
+		                    cout << "-";
+	                    } 
+                        cout << " ";
+                        //Outputs # of hard links
+                        cout << lstatbuf.st_nlink
+                             << " ";
+
+                        //Outputs owner name
+                
+                        cout << lstatbuf.st_uid
+                             << " ";
+
+                        //Outputs group name
+                        cout << lstatbuf.st_gid
+                             << " ";
+
+                        //Outputs Size
+	    	            cout << lstatbuf.st_size
+                             << " ";
+
+                        //Outputs timestamp
+                        //cout << statbuf2.st_mtime << " ";
+                        time_t t = lstatbuf.st_mtime;
+                        struct tm lt;
+                        localtime_r(&t, &lt);
+                        char timbuf[80];
+                        strftime(timbuf, sizeof(timbuf), "%b %e %I:%M", &lt); 
+                        cout << timbuf << " "; 
+
+                        if(direntp->d_name[0]  == '.'){
+                            cout << "\033[0;0;34m" << direntp->d_name << "\033[0;00m";
+                        }                
+                        else{
+                            cout << direntp->d_name;
+                        }
+                        cout << endl;
+                    }
+
                 else if(S_ISDIR(statbuf.st_mode)){
                 	cout << "d";
             	}
@@ -199,7 +288,6 @@ int executeCmd(char const *temp){
 //acquire number of BLOCKS of
 //'-l' flag is set
 //////////////////////////////
-    cout << "dirName: " << dirName << endl;
     dirent *direntp;
 
   
@@ -281,9 +369,9 @@ int executeCmd(char const *temp){
                             cnt = 0;
                         }
                         else{
-                            if(30 < strlen(direntp->d_name)){
+                            if(20 < strlen(direntp->d_name)){
                                 cnt++;
-                                cout << setw(60 - strlen(direntp->d_name));
+                                cout << setw(50 - strlen(direntp->d_name));
                             }
                             else{
                                 cout << setw(30 - strlen(direntp->d_name));
@@ -298,7 +386,13 @@ int executeCmd(char const *temp){
                             cnt = 0;
                         }
                         else{
-                            cout << setw(30 - strlen(direntp->d_name));
+                            if(20 < strlen(direntp->d_name)){
+                                cnt++;
+                                cout << setw(50 - strlen(direntp->d_name));
+                            }
+                            else{
+                                cout << setw(30 - strlen(direntp->d_name));
+                            }
                         }
                     }
                     else if(direntp->d_name[0] == '.'){
@@ -317,7 +411,13 @@ int executeCmd(char const *temp){
                             cnt = 0;
                         }
                         else{
-                            cout << setw(30 - strlen(direntp->d_name));
+                            if(20 < strlen(direntp->d_name)){
+                                cnt++;
+                                cout << setw(50 - strlen(direntp->d_name));
+                            }
+                            else{
+                                cout << setw(30 - strlen(direntp->d_name));
+                            }
                         }
                     }
                     //cout << direntp->d_name << endl;
@@ -338,7 +438,13 @@ int executeCmd(char const *temp){
                                 cnt = 0;
                             }
                             else{
-                                cout << setw(30 - strlen(direntp->d_name));
+                                if(20 < strlen(direntp->d_name)){
+                                    cnt++;
+                                    cout << setw(50 - strlen(direntp->d_name));
+                                }
+                                else{
+                                    cout << setw(30 - strlen(direntp->d_name));
+                                }
                             }
                         }
                         else if(statbuf.st_mode & S_IXUSR){
@@ -349,7 +455,13 @@ int executeCmd(char const *temp){
                                 cnt = 0;
                             }
                             else{
-                                cout << setw(30 - strlen(direntp->d_name));
+                                if(20 < strlen(direntp->d_name)){
+                                    cnt++;
+                                    cout << setw(50 - strlen(direntp->d_name));
+                                }
+                                else{
+                                    cout << setw(30 - strlen(direntp->d_name));
+                                }
                             }
                         }
                         else{
@@ -360,7 +472,13 @@ int executeCmd(char const *temp){
                                 cnt = 0;
                             }
                             else{
-                                cout << setw(30 - strlen(direntp->d_name));
+                                if(20 < strlen(direntp->d_name)){
+                                    cnt++;
+                                    cout << setw(50 - strlen(direntp->d_name));
+                                }
+                                else{
+                                    cout << setw(30 - strlen(direntp->d_name));
+                                }
                             }
                         }
                     }
@@ -571,13 +689,100 @@ int main(int argc, char**argv)
                 exit(1);
             }
             if(S_ISREG(statbuf2.st_mode) || S_ISLNK(lstatbuf2.st_mode)){
-                cout << "It's a regular file or a symbolic link" << endl;
                 isFile = true;
                 if(lFlag){
                     //Outputs Permissions
                     if(S_ISLNK(lstatbuf2.st_mode)){
                         cout << "l";
-                    }
+             	        if(lstatbuf2.st_mode & S_IRUSR){
+		                    cout << "r";
+	                    }
+	   	                else{
+		                    cout << "-";
+	                    }
+		                if(lstatbuf2.st_mode & S_IWUSR){
+		                    cout << "w";
+		                }
+		                else{
+		                    cout << "-";
+		                }
+		                if(lstatbuf2.st_mode & S_IXUSR){
+		                    cout << "x";
+		                }
+		                else{
+		                    cout << "-";
+		                }
+		                if(lstatbuf2.st_mode & S_IRGRP){
+		                    cout << "r";
+		                }
+		                else{
+		                    cout << "-";
+		                }
+		                if(lstatbuf2.st_mode & S_IWGRP){
+		                    cout << "w";
+		                }
+		                else{
+		                    cout << "-";
+		                }
+		                if(lstatbuf2.st_mode & S_IXGRP){
+		                    cout << "x";
+		                }
+		                else{
+		                    cout << "-";
+		                }   
+		                if(lstatbuf2.st_mode & S_IROTH){
+		                    cout << "r";
+		                }
+		                else{
+		                    cout << "-";
+		                }
+		                if(lstatbuf2.st_mode & S_IWOTH){
+		                    cout << "w";
+		                }
+		                else{
+		                    cout << "-";
+		                }
+		                if(lstatbuf2.st_mode & S_IXOTH){
+		                    cout << "x";
+		                }
+		                else{
+		                    cout << "-";
+	                    } 
+                        cout << " ";
+                        //Outputs # of hard links
+                        cout << lstatbuf2.st_nlink
+                             << " ";
+
+                        //Outputs owner name
+                
+                        cout << lstatbuf2.st_uid
+                             << " ";
+
+                        //Outputs group name
+                        cout << lstatbuf2.st_gid
+                             << " ";
+
+                        //Outputs Size
+	    	            cout << lstatbuf2.st_size
+                             << " ";
+
+                        //Outputs timestamp
+                        //cout << statbuf2.st_mtime << " ";
+                        time_t t = lstatbuf2.st_mtime;
+                        struct tm lt;
+                        localtime_r(&t, &lt);
+                        char timbuf[80];
+                        strftime(timbuf, sizeof(timbuf), "%b %e %I:%M", &lt); 
+                        cout << timbuf << " "; 
+
+                        if(argv[i][0] == '.'){
+                            cout << "\033[0;0;34m" << argv[i] << "\033[0;00m";
+                        }                
+                        else{
+                            cout << argv[i];
+                        }
+                        cout << endl;
+                    }         	    
                     else if(S_ISDIR(statbuf2.st_mode)){
                 	    cout << "d";
             	    }
@@ -707,6 +912,7 @@ int main(int argc, char**argv)
     }
 
     if(dir.size() == 1){
+        cout << "Execute on directory: " << dir[0] << endl;
         executeCmd(dir[0].c_str());
         return 0;
     }
