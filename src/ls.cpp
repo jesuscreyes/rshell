@@ -111,13 +111,24 @@ void longList(dirent *direntp){
                              << " ";
 
                         //Outputs owner name
-                
-                        cout << lstatbuf.st_uid
-                             << " ";
-
+                        struct passwd *p;
+             
+                        p = getpwuid(statbuf.st_uid);
+                        if(p == NULL){
+                            perror("getpwuid");
+                            exit(1);
+                        }
+                        cout << p->pw_name << " " ;
+ 
                         //Outputs group name
-                        cout << lstatbuf.st_gid
-                             << " ";
+                        struct group *g;
+                        g = getgrgid(statbuf.st_gid);
+                        if(g == NULL){
+                            perror("getgrgid");
+                            exit(1);
+                        }
+                    cout << g->gr_name << " "; 
+                
 
                         //Outputs Size
 	    	            cout << lstatbuf.st_size
@@ -273,7 +284,8 @@ void longList(dirent *direntp){
 
 int executeCmd(char const *temp){
     
-    
+    cout << "inside executeCmd" << endl;   
+ 
     char const *dirName = temp;    
     DIR *dirp;
     DIR *dirp2;
@@ -325,6 +337,8 @@ int executeCmd(char const *temp){
 //Re-assignment of dirp variable, so that we can go through the directory again.
 //////////////////////////////
 
+    cout << "329" << endl;
+
     dirp2 = opendir(dirName); 
     errno = 0;
     int cnt = 0;
@@ -333,7 +347,7 @@ int executeCmd(char const *temp){
             perror("readdir");
         }
         else{
-            
+            cout << "339" << direntp->d_name << endl; 
 
             if(lsFlag){
                 //cout << "lsFlag is set" << endl;
@@ -911,9 +925,25 @@ int main(int argc, char**argv)
         return 0;
     }
 
+    /*
+    const char* directory1 = "./src/ls.cpp";
+    const char* extension = dir[0].c_str();
+    char * finalDir;
+    strcpy(finalDir, directory1);
+    strcat(finalDir, extension);
+    */
+    //string str = dir[0];
+    //string finalDir = "./src/" + str;
+
+
     if(dir.size() == 1){
-        cout << "Execute on directory: " << dir[0] << endl;
-        executeCmd(dir[0].c_str());
+        //cout << "Execute on directory: " << finalDir << endl;
+
+        const char* test = "./src/testdir/";      
+        cout << test << endl;  
+
+        //executeCmd(finalDir.c_str());
+        executeCmd(test);
         return 0;
     }
     else if(dir.size() > 1){
@@ -933,7 +963,7 @@ int main(int argc, char**argv)
              << "testing recurCmd"
              << endl;
 
-        recurCmd(s);
+       i recurCmd(s);
         cout << "////////////////////////////" << endl; 
 */
  
