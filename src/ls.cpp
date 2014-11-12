@@ -804,10 +804,10 @@ int main(int argc, char**argv)
                         cout << timbuf << " "; 
 
                         if(argv[i][0] == '.'){
-                            cout << "\033[0;0;34m" << argv[i] << "\033[0;00m";
+                            cout << "\033[0;0;34m" << argv[i] << "\033[0;00m" << endl;
                         }                
                         else{
-                            cout << argv[i];
+                            cout << argv[i] << endl;
                         }
                         cout << endl;
                     }         	    
@@ -907,6 +907,14 @@ int main(int argc, char**argv)
                     }
                     cout << endl;
                 }
+                else{
+                    if(argv[i][0] == '.'){
+                        cout << "\033[0;0;34m" << argv[i] << "\033[0;00m" << endl;
+                    }
+                    else{
+                        cout << argv[i] << endl;
+                    }
+                }
             }
             else if(S_ISDIR(statbuf2.st_mode)){
                 isDir = true;
@@ -917,9 +925,6 @@ int main(int argc, char**argv)
                 //const char* k = argv[i];
                 //executeCmd(k);
                 //return 0;
-            }
-            else if(S_ISLNK(statbuf2.st_mode)){
-                cout << "It's a symbolic link" << endl;
             }
             else{
                 cout << "Error. Not an existing file/directory." << endl;
