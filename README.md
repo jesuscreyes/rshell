@@ -30,7 +30,7 @@ File List
 
 -`cp.cpp`
 
-./tests`
+`./tests`
 
 
 
@@ -38,15 +38,23 @@ Once you have cloned the directory to your local machine, follow the directions 
 ---------------
 
 homework 0:
+
 1. Enter: `cd rshell`
+
 2. Enter: `git checkout hw0`
+
 3. Enter: `make`
+
 4. Enter: `bin/rshell`
 
 homework 1:
+
 1. Enter: `cd rshell`
+
 2. Enter: `git checkout hw1`
+
 3. Enter: `make`
+
 4. Enter: `bin/ls` for executing ls.cpp or `bin/cp` for executing cp.cpp.
 
 Overview of program
@@ -81,16 +89,25 @@ Bugs & Limitations
 -----------------
 
 main.cpp:
+
 1. '&&' and '||' are restricted to the same behavior as ';' in this version.
+
 2. Connecters (e.g. '&&', '||', ';') cannot be used together in command (e.g. $ pwd && ls ; pwd || echo hello world).
+
 3. Does not handle case where input is long enough to overtake memory.
+
 4. Rshell outputs error message when only whitespace is inputted, instead of outputting nothing and asking for next input.
+
 5. Rshell tries to execute `exit` when it is followed by a comment in input (e.g. `$exit    #Comment`), instead of exiting the program.
 
 ls.cpp:
+
 1. Output is listed based on when it is created as opposed to alphabetical order
+
 2. Output does not line up exactly as it should
+
 3. Calling program on directories does not work
+
 4. Calling program using `-R` flag does not work
 
 cp.cpp:
