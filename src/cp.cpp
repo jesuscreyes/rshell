@@ -55,13 +55,12 @@ void copyMethod(const string input, const string output, size_t count)
         perror("open");
         exit(1);
     }
-    //char buf[count];
-    char *buf;
-    buf = new char[count];
+    char buf[count];
     int test = 1;
     
     
     do{
+        test = read(in, buf, sizeof(buf));
         if(test == -1){
             perror("read");
             exit(1);
@@ -96,7 +95,7 @@ bool flag = false;
     }
     if (argc == 4)
     {
-       for(int i = 1; i < argc; i++){
+       for(unsigned int i = 1; i < argc; i++){
             if(argv[i][0] == '-'){
                 if(argv[i][1] == 'f'){
                     flag = true;
@@ -113,7 +112,7 @@ string input;
 string output;
 
     struct stat statbuf;
-    for(int i = 1; i < argc; i++){
+    for(unsigned int i = 1; i < argc; i++){
         if(argv[i][0] != '-'){
             if(stat(argv[i], &statbuf) == -1){
                 cout << "argv[i]: " << argv[i] << endl;
@@ -124,7 +123,7 @@ string output;
             break;
         }
     }
-    for(int i = 2; i < argc; i++){
+    for(unsigned int i = 2; i < argc; i++){
             if(argv[i][0] != '-' && argv[i][0] != '/'){
 
                 //Check if file already exists
@@ -133,8 +132,7 @@ string output;
                 dirent *direntp;
                 while((direntp = readdir(dirp))){
                     if(direntp->d_name[0] == argv[i][0]){
-                        int j;
-                        for(j = 1; i < abs(strlen(argv[i])); j++){
+                        for(unsigned int j = 1; i < strlen(argv[i]); j++){
                                 if(direntp->d_name[j] == 1 &&
                                     argv[i][j] == 0){
                                     cout << "Error: Output file already exists" << endl;
@@ -163,7 +161,7 @@ string output;
     {
         copyMethod(input,output, BUFSIZ);
     }
-    else if(flag)
+    else
     {
     
     Timer t1;
