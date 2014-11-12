@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 #include <stdio.h>
-=======
-nclude <stdio.h>
->>>>>>> 951fc4280ab26d5bbb6be9516e742b6a4ceca9cb
 #include <string.h>
 #include <fstream>
 #include <dirent.h>
@@ -49,7 +45,6 @@ void copyMethod(const string input, const string output, size_t count)
 {
 
 
-<<<<<<< HEAD
     int in = open(input.c_str(), O_RDONLY);
     if(in == -1){
         perror("open");
@@ -93,7 +88,6 @@ void copyMethod(const string input, const string output, size_t count)
 
 int main(int argc, char *argv[]){
 
-<<<<<<< HEAD
 bool flag = false;
 
     if(argc < 3 || argc > 4){
