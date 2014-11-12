@@ -22,6 +22,8 @@ using namespace std;
     bool aFlag = false;
     bool lFlag = false;
     bool rFlag = false;
+    bool dirFlag = false;
+    const char* inputDir;
 int numBlocks(const dirent *direntp){
     
     int num;
@@ -212,7 +214,6 @@ void longList(dirent *direntp){
 		        if(statbuf.st_mode & S_IXOTH){
 		            cout << "x";
 		        }
-		        else{
 		            cout << "-";
 		        }
 	            cout << " "; 
@@ -280,12 +281,10 @@ void longList(dirent *direntp){
 
                 cout << endl;
             }
-}
+//}
 
 int executeCmd(char const *temp){
     
-    cout << "inside executeCmd" << endl;   
- 
     char const *dirName = temp;    
     DIR *dirp;
     DIR *dirp2;
@@ -305,7 +304,6 @@ int executeCmd(char const *temp){
   
   if(lFlag){
         dirp = opendir(dirName);
-        cout << "dirp: " << dirp << endl;
         if(dirp == NULL){
             perror("opendir");
         }
@@ -337,18 +335,19 @@ int executeCmd(char const *temp){
 //Re-assignment of dirp variable, so that we can go through the directory again.
 //////////////////////////////
 
-    cout << "329" << endl;
-
-    dirp2 = opendir(dirName); 
+    dirp2 = opendir(dirName);
+    if(dirp2 == NULL){
+        perror("opendir");
+        exit(1);
+    } 
     errno = 0;
     int cnt = 0;
+   
     while ((direntp = readdir(dirp2))){
         if(errno != 0){
             perror("readdir");
         }
         else{
-            cout << "339" << direntp->d_name << endl; 
-
             if(lsFlag){
                 //cout << "lsFlag is set" << endl;
                 if(lFlag){
@@ -367,7 +366,7 @@ int executeCmd(char const *temp){
                     struct stat statbuf;
                     int statCheck = stat(direntp->d_name,&statbuf);
                     if(statCheck == -1){
-                        perror("statCheck");
+                        perror("statCheck1");
                         exit(1);
                      }
                     if(S_ISDIR(statbuf.st_mode)){
@@ -438,11 +437,26 @@ int executeCmd(char const *temp){
                 }
                 else{ 
                     struct stat statbuf;
-                    int statCheck = stat(direntp->d_name,&statbuf);
-                    if(statCheck == -1){
-                        perror("statCheck");
-                        exit(1);
-                    }
+                    /*
+                    if(dirFlag){
+                        char const* currDir = "./src/";
+                        char *finalDir = (char *) malloc(1 + strlen(currDir) + strlen(inputDir));
+                        strcpy(finalDir, currDir);
+                        strcat(finalDir, inputDir);
+                        cout << "final dir: " << finalDir << endl;
+                        int statCheck = stat(finalDir, &statbuf);
+                        if(statCheck == -1){
+                            perror("stat");
+                            exit(1);
+                        }
+                    }*/
+                    //else{
+                        int statCheck = stat(direntp->d_name,&statbuf);
+                        if(statCheck == -1){
+                            perror("statCheck2");
+                            exit(1);
+                        }
+                    //}
                     if(direntp->d_name[0] != '.'){                   
                         if(S_ISDIR(statbuf.st_mode)){
                             cout << "\033[0;0;34m" << direntp->d_name << "\033[0;00m";
@@ -893,9 +907,6 @@ int main(int argc, char**argv)
                     }
                     cout << endl;
                 }
-                else{
-                    cout << argv[i] << endl;
-                }
             }
             else if(S_ISDIR(statbuf2.st_mode)){
                 isDir = true;
@@ -935,15 +946,16 @@ int main(int argc, char**argv)
     //string str = dir[0];
     //string finalDir = "./src/" + str;
 
+    dirFlag = true;
 
     if(dir.size() == 1){
         //cout << "Execute on directory: " << finalDir << endl;
-
-        const char* test = "./src/testdir/";      
-        cout << test << endl;  
+        inputDir = dir[0].c_str();
+        //const char* test = "testdir";      
+        //cout << test << endl;  
 
         //executeCmd(finalDir.c_str());
-        executeCmd(test);
+        executeCmd(inputDir);
         return 0;
     }
     else if(dir.size() > 1){
