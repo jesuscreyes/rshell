@@ -1,0 +1,943 @@
+Script started on Tue 11 Nov 2014 06:25:43 PM PST
+~
+jreye028@hammer $ cd[Ks100
+[0;91m
+===============================================================================
+|                                                                             |
+| You have enabled settings specific for cs100.                               |
+|                                                                             |
+===============================================================================
+[0m
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd cs100/hw/rshell
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell[0;95m (master) [0;36m$[0m make
+g++ -Wall -Werror -ansi -pedantic src/hw0.cpp -o ./bin/rshell
+g++ -Wall -Werror -ansi -pedantic src/ls.cpp -o ./bin/ls
+g++ -Wall -Werror -ansi -pedantic src/cp.cpp -o ./bin/cp
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell[0;95m (master) [0;36m$[0m cd [K[K[K#going [K[K[K[K[K[KGoing into src directory where test cases[K[Ke environment is set
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell[0;95m (master) [0;36m$[0m cd src[K[K[K[K[K[Kcd src
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ls
+a.out	folder	  hw0.cpp  reallyLongTitleForFileOhMy.cpp  test10.cpp  test3.cpp  test5.cpp  test7.cpp	test9.cpp  testdir
+cp.cpp	homeLink  ls.cpp   test				   test2.cpp   test4.cpp  test6.cpp  test8.cpp	test.cpp   Timer.h
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m g++ ls.cpp
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out[K[K[K[K[K[K[K#t[KTesting normal output
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./.[Ka[K[K[K./a.out
+cp.cpp               [0;0;32ma.out[0;00m                  hw0.cpp
+test                 [0;0;34mhomeLink[0;00m              test.cpp
+[0;0;34mfolder[0;00m               [0;0;34mtestdir[0;00m              test2.cpp
+test3.cpp            test4.cpp            test5.cpp
+test6.cpp            test7.cpp            test8.cpp
+ls.cppreallyLongTitleForFileOhMy.cpp           test9.cpp           test10.cpp             Timer.h
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m #Note: Kn[K[K[K[K[K[K[K[KKnown issue: Formatting is ff[K[Koff
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m #Testing series of acses with [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K#tes[K[K[KTesting individual files
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out test.[K4.cpp
+test4.cpp
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out .hiddenFile
+[0;0;34m.hiddenFile[0;00m
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m #Testing combination f [K[Kof flags
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -a
+[0;40;34m.[0;00m                   [0;40;34m..[0;00m                      cp.cpp
+[0;0;32ma.out[0;00m                  hw0.cpp                   test
+[0;0;34mhomeLink[0;00m              test.cpp             [0;0;34mfolder[0;00m
+[0;40;34m.hiddenFolder[0;00m        [0;0;34mtestdir[0;00m              test2.cpp
+test3.cpp            test4.cpp            test5.cpp
+test6.cpp            test7.cpp            test8.cpp
+ls.cppreallyLongTitleForFileOhMy.cpp           test9.cpp           test10.cpp           [0;0;40m.hiddenFile[0;00mTimer.h
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -l
+total 4976
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -R
+cp.cpp               [0;0;32ma.out[0;00m                  hw0.cpp
+test                 [0;0;34mhomeLink[0;00m              test.cpp
+[0;0;34mfolder[0;00m               [0;0;34mtestdir[0;00m              test2.cpp
+test3.cpp            test4.cpp            test5.cpp
+test6.cpp            test7.cpp            test8.cpp
+ls.cppreallyLongTitleForFileOhMy.cpp           test9.cpp           test10.cpp             Timer.h
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m #known issue: R-[K[K-R flag outputs same as normal ls. No recursion.
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m #known issue: -R flag outputs same as normal ls. No recursion.[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K./a.out -al
+total 4976
+drwx------ 5 jreye028 classes 4096 Nov 11 06:26 [0;40;34m.[0;00m 
+drwx------ 6 jreye028 classes 4096 Nov 11 06:14 [0;40;34m..[0;00m 
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 2 jreye028 classes 4096 Nov  8 04:46 [0;40;34m.hiddenFolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 0 Nov 11 06:20 [0;0;40m.hiddenFile[0;00m 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m .a/[K[K[K./a.out -a -l
+total 4976
+drwx------ 5 jreye028 classes 4096 Nov 11 06:26 [0;40;34m.[0;00m 
+drwx------ 6 jreye028 classes 4096 Nov 11 06:14 [0;40;34m..[0;00m 
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 2 jreye028 classes 4096 Nov  8 04:46 [0;40;34m.hiddenFolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 0 Nov 11 06:20 [0;0;40m.hiddenFile[0;00m 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -aR
+[0;40;34m.[0;00m                   [0;40;34m..[0;00m                      cp.cpp
+[0;0;32ma.out[0;00m                  hw0.cpp                   test
+[0;0;34mhomeLink[0;00m              test.cpp             [0;0;34mfolder[0;00m
+[0;40;34m.hiddenFolder[0;00m        [0;0;34mtestdir[0;00m              test2.cpp
+test3.cpp            test4.cpp            test5.cpp
+test6.cpp            test7.cpp            test8.cpp
+ls.cppreallyLongTitleForFileOhMy.cpp           test9.cpp           test10.cpp           [0;0;40m.hiddenFile[0;00mTimer.h
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m .a[K[K./a.out -AR[K[KaR
+[0;40;34m.[0;00m                   [0;40;34m..[0;00m                      cp.cpp
+[0;0;32ma.out[0;00m                  hw0.cpp                   test
+[0;0;34mhomeLink[0;00m              test.cpp             [0;0;34mfolder[0;00m
+[0;40;34m.hiddenFolder[0;00m        [0;0;34mtestdir[0;00m              test2.cpp
+test3.cpp            test4.cpp            test5.cpp
+test6.cpp            test7.cpp            test8.cpp
+ls.cppreallyLongTitleForFileOhMy.cpp           test9.cpp           test10.cpp           [0;0;40m.hiddenFile[0;00mTimer.h
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.o[K[K[K[K[K./a.out -a -R
+[0;40;34m.[0;00m                   [0;40;34m..[0;00m                      cp.cpp
+[0;0;32ma.out[0;00m                  hw0.cpp                   test
+[0;0;34mhomeLink[0;00m              test.cpp             [0;0;34mfolder[0;00m
+[0;40;34m.hiddenFolder[0;00m        [0;0;34mtestdir[0;00m              test2.cpp
+test3.cpp            test4.cpp            test5.cpp
+test6.cpp            test7.cpp            test8.cpp
+ls.cppreallyLongTitleForFileOhMy.cpp           test9.cpp           test10.cpp           [0;0;40m.hiddenFile[0;00mTimer.h
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -lA[Ka
+total 4976
+drwx------ 5 jreye028 classes 4096 Nov 11 06:26 [0;40;34m.[0;00m 
+drwx------ 6 jreye028 classes 4096 Nov 11 06:14 [0;40;34m..[0;00m 
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 2 jreye028 classes 4096 Nov  8 04:46 [0;40;34m.hiddenFolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 0 Nov 11 06:20 [0;0;40m.hiddenFile[0;00m 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -l -a
+total 4976
+drwx------ 5 jreye028 classes 4096 Nov 11 06:26 [0;40;34m.[0;00m 
+drwx------ 6 jreye028 classes 4096 Nov 11 06:14 [0;40;34m..[0;00m 
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 2 jreye028 classes 4096 Nov  8 04:46 [0;40;34m.hiddenFolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 0 Nov 11 06:20 [0;0;40m.hiddenFile[0;00m 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -lR
+total 4976
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -lR[K -lR[K[KR[K [K[K -[K -R[K[K[K[K-R
+total 4976
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -RA[Ka
+[0;40;34m.[0;00m                   [0;40;34m..[0;00m                      cp.cpp
+[0;0;32ma.out[0;00m                  hw0.cpp                   test
+[0;0;34mhomeLink[0;00m              test.cpp             [0;0;34mfolder[0;00m
+[0;40;34m.hiddenFolder[0;00m        [0;0;34mtestdir[0;00m              test2.cpp
+test3.cpp            test4.cpp            test5.cpp
+test6.cpp            test7.cpp            test8.cpp
+ls.cppreallyLongTitleForFileOhMy.cpp           test9.cpp           test10.cpp           [0;0;40m.hiddenFile[0;00mTimer.h
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out _[K-R -A[Ka
+[0;40;34m.[0;00m                   [0;40;34m..[0;00m                      cp.cpp
+[0;0;32ma.out[0;00m                  hw0.cpp                   test
+[0;0;34mhomeLink[0;00m              test.cpp             [0;0;34mfolder[0;00m
+[0;40;34m.hiddenFolder[0;00m        [0;0;34mtestdir[0;00m              test2.cpp
+test3.cpp            test4.cpp            test5.cpp
+test6.cpp            test7.cpp            test8.cpp
+ls.cppreallyLongTitleForFileOhMy.cpp           test9.cpp           test10.cpp           [0;0;40m.hiddenFile[0;00mTimer.h
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -Rl
+total 4976
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -R -l
+total 4976
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -alR
+total 4976
+drwx------ 5 jreye028 classes 4096 Nov 11 06:26 [0;40;34m.[0;00m 
+drwx------ 6 jreye028 classes 4096 Nov 11 06:14 [0;40;34m..[0;00m 
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 2 jreye028 classes 4096 Nov  8 04:46 [0;40;34m.hiddenFolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 0 Nov 11 06:20 [0;0;40m.hiddenFile[0;00m 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -aRl
+total 4976
+drwx------ 5 jreye028 classes 4096 Nov 11 06:26 [0;40;34m.[0;00m 
+drwx------ 6 jreye028 classes 4096 Nov 11 06:14 [0;40;34m..[0;00m 
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 2 jreye028 classes 4096 Nov  8 04:46 [0;40;34m.hiddenFolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 0 Nov 11 06:20 [0;0;40m.hiddenFile[0;00m 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -al -R
+total 4976
+drwx------ 5 jreye028 classes 4096 Nov 11 06:26 [0;40;34m.[0;00m 
+drwx------ 6 jreye028 classes 4096 Nov 11 06:14 [0;40;34m..[0;00m 
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 2 jreye028 classes 4096 Nov  8 04:46 [0;40;34m.hiddenFolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 0 Nov 11 06:20 [0;0;40m.hiddenFile[0;00m 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -a -lR
+total 4976
+drwx------ 5 jreye028 classes 4096 Nov 11 06:26 [0;40;34m.[0;00m 
+drwx------ 6 jreye028 classes 4096 Nov 11 06:14 [0;40;34m..[0;00m 
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 2 jreye028 classes 4096 Nov  8 04:46 [0;40;34m.hiddenFolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 0 Nov 11 06:20 [0;0;40m.hiddenFile[0;00m 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -la -R
+total 4976
+drwx------ 5 jreye028 classes 4096 Nov 11 06:26 [0;40;34m.[0;00m 
+drwx------ 6 jreye028 classes 4096 Nov 11 06:14 [0;40;34m..[0;00m 
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 2 jreye028 classes 4096 Nov  8 04:46 [0;40;34m.hiddenFolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 0 Nov 11 06:20 [0;0;40m.hiddenFile[0;00m 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -;[Kl -aR
+total 4976
+drwx------ 5 jreye028 classes 4096 Nov 11 06:26 [0;40;34m.[0;00m 
+drwx------ 6 jreye028 classes 4096 Nov 11 06:14 [0;40;34m..[0;00m 
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 2 jreye028 classes 4096 Nov  8 04:46 [0;40;34m.hiddenFolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 0 Nov 11 06:20 [0;0;40m.hiddenFile[0;00m 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m .a.[K[K[K./a.out -Ra -;[Kl
+total 4976
+drwx------ 5 jreye028 classes 4096 Nov 11 06:26 [0;40;34m.[0;00m 
+drwx------ 6 jreye028 classes 4096 Nov 11 06:14 [0;40;34m..[0;00m 
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 2 jreye028 classes 4096 Nov  8 04:46 [0;40;34m.hiddenFolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 0 Nov 11 06:20 [0;0;40m.hiddenFile[0;00m 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -Rl -a
+total 4976
+drwx------ 5 jreye028 classes 4096 Nov 11 06:26 [0;40;34m.[0;00m 
+drwx------ 6 jreye028 classes 4096 Nov 11 06:14 [0;40;34m..[0;00m 
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 2 jreye028 classes 4096 Nov  8 04:46 [0;40;34m.hiddenFolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 0 Nov 11 06:20 [0;0;40m.hiddenFile[0;00m 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -a -l -l[KR
+total 4976
+drwx------ 5 jreye028 classes 4096 Nov 11 06:26 [0;40;34m.[0;00m 
+drwx------ 6 jreye028 classes 4096 Nov 11 06:14 [0;40;34m..[0;00m 
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 2 jreye028 classes 4096 Nov  8 04:46 [0;40;34m.hiddenFolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 0 Nov 11 06:20 [0;0;40m.hiddenFile[0;00m 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -a -R -l
+total 4976
+drwx------ 5 jreye028 classes 4096 Nov 11 06:26 [0;40;34m.[0;00m 
+drwx------ 6 jreye028 classes 4096 Nov 11 06:14 [0;40;34m..[0;00m 
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 2 jreye028 classes 4096 Nov  8 04:46 [0;40;34m.hiddenFolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 0 Nov 11 06:20 [0;0;40m.hiddenFile[0;00m 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -R -a -l
+total 4976
+drwx------ 5 jreye028 classes 4096 Nov 11 06:26 [0;40;34m.[0;00m 
+drwx------ 6 jreye028 classes 4096 Nov 11 06:14 [0;40;34m..[0;00m 
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 2 jreye028 classes 4096 Nov  8 04:46 [0;40;34m.hiddenFolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 0 Nov 11 06:20 [0;0;40m.hiddenFile[0;00m 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -R -l -a
+total 4976
+drwx------ 5 jreye028 classes 4096 Nov 11 06:26 [0;40;34m.[0;00m 
+drwx------ 6 jreye028 classes 4096 Nov 11 06:14 [0;40;34m..[0;00m 
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 2 jreye028 classes 4096 Nov  8 04:46 [0;40;34m.hiddenFolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 0 Nov 11 06:20 [0;0;40m.hiddenFile[0;00m 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -; -a -R[K[K[K[K[K[K[Kl -a -R
+total 4976
+drwx------ 5 jreye028 classes 4096 Nov 11 06:26 [0;40;34m.[0;00m 
+drwx------ 6 jreye028 classes 4096 Nov 11 06:14 [0;40;34m..[0;00m 
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 2 jreye028 classes 4096 Nov  8 04:46 [0;40;34m.hiddenFolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 0 Nov 11 06:20 [0;0;40m.hiddenFile[0;00m 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.ouit[K[Kt -; -R [K[K[K[K[Kl -R -a
+total 4976
+drwx------ 5 jreye028 classes 4096 Nov 11 06:26 [0;40;34m.[0;00m 
+drwx------ 6 jreye028 classes 4096 Nov 11 06:14 [0;40;34m..[0;00m 
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 2 jreye028 classes 4096 Nov  8 04:46 [0;40;34m.hiddenFolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 0 Nov 11 06:20 [0;0;40m.hiddenFile[0;00m 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m #te[K[KTesting inappropriate flags[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kdirectories
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ls
+a.out	folder	  hw0.cpp  reallyLongTitleForFileOhMy.cpp  test10.cpp  test3.cpp  test5.cpp  test7.cpp	test9.cpp  testdir
+cp.cpp	homeLink  ls.cpp   test				   test2.cpp   test4.cpp  test6.cpp  test8.cpp	test.cpp   Timer.h
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out testdir
+statCheck2: No such file or directory
+test2.cpp            test3.cpp[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m #Knowin[K[Kn issue: calling in [K[K[Kls on directories does not work
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m #Test for other errors[K[K[K[K[K[Kposi[Ksible errors
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -AUFH[K[K[K
+Error. Invalid flag(s).
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -A[KFAK[K[K[Ka -;[Kl -ReA[Kal[K[K[Kun
+Error. Invalid flag(s).
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -a -[K               -l      -R
+total 4976
+drwx------ 5 jreye028 classes 4096 Nov 11 06:26 [0;40;34m.[0;00m 
+drwx------ 6 jreye028 classes 4096 Nov 11 06:14 [0;40;34m..[0;00m 
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 2 jreye028 classes 4096 Nov  8 04:46 [0;40;34m.hiddenFolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 0 Nov 11 06:20 [0;0;40m.hiddenFile[0;00m 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -ar;[Kl
+Error. Invalid flag(s).
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -r
+Error. Invalid flag(s).
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m exit
+exit
+~
+jreye028@hammer $ ls
+[0m[01;32ma.out[0m*  [01;34mcs010[0m/  [01;34mcs014[0m/  [01;34mcs100[0m/  [01;34mcs120b[0m/   [01;34mDocuments[0m/  exercise4.asm         helloworld.asm   [01;32mjreye028_kgoh001_lab8.tgz[0m*  [01;31mlab1.tgz[0m  [01;32mmain.cpp[0m*  [01;34mPictures[0m/  [01;34mTemplates[0m/  [01;32mTree.cc[0m*  [01;34mVideos[0m/
+[01;34mbin[0m/    [01;34mcs013[0m/  [01;34mcs061[0m/  [01;34mcs111[0m/  [01;34mDesktop[0m/  [01;34mDownloads[0m/  [01;32mgeany_run_script.sh[0m*  helloworld.asm~  lab1.asm                    [01;32mmain[0m*     [01;34mMusic[0m/     [01;34mPublic[0m/    test.cc     tutor
+[m~
+jreye028@hammer $ s[Kcs1-[K00
+[0;91m
+===============================================================================
+|                                                                             |
+| You have enabled settings specific for cs100.                               |
+|                                                                             |
+===============================================================================
+[0m
+;;[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m ;s[K[Kls
+a.out  cs010  cs014  cs100  cs120b   Documents	exercise4.asm	     helloworld.asm   jreye028_kgoh001_lab8.tgz  lab1.tgz  main.cpp  Pictures  Templates  Tree.cc  Videos
+bin    cs013  cs061  cs111  Desktop  Downloads	geany_run_script.sh  helloworld.asm~  lab1.asm			 main	   Music     Public    test.cc	  tutor
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd cs100
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100[0;95m [0;36m$[0m ls
+hw  lab  ls.cpp  quiz
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100[0;95m [0;36m$[0m cd hw
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw[0;95m [0;36m$[0m ls
+rshell	rshell-1
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw[0;95m [0;36m$[0m cd rshell
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell[0;95m (master) [0;36m$[0m ls
+a.out  bin  LICENSE  main.cpp  Makefile  README.md  src  tests
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell[0;95m (master) [0;36m$[0m cd tests
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/tests[0;95m (master) [0;36m$[0m ls
+exec  ls.script
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/tests[0;95m (master) [0;36m$[0m cat ls.script
+Script started on Tue 11 Nov 2014 06:25:43 PM PST
+~
+jreye028@hammer $ cd[Ks100
+[0;91m
+===============================================================================
+|                                                                             |
+| You have enabled settings specific for cs100.                               |
+|                                                                             |
+===============================================================================
+[0m
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd cs100/hw/rshell
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell[0;95m (master) [0;36m$[0m make
+g++ -Wall -Werror -ansi -pedantic src/hw0.cpp -o ./bin/rshell
+g++ -Wall -Werror -ansi -pedantic src/ls.cpp -o ./bin/ls
+g++ -Wall -Werror -ansi -pedantic src/cp.cpp -o ./bin/cp
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell[0;95m (master) [0;36m$[0m cd [K[K[K#going [K[K[K[K[K[KGoing into src directory where test cases[K[Ke environment is set
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell[0;95m (master) [0;36m$[0m cd src[K[K[K[K[K[Kcd src
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ls
+a.out	folder	  hw0.cpp  reallyLongTitleForFileOhMy.cpp  test10.cpp  test3.cpp  test5.cpp  test7.cpp	test9.cpp  testdir
+cp.cpp	homeLink  ls.cpp   test				   test2.cpp   test4.cpp  test6.cpp  test8.cpp	test.cpp   Timer.h
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m g++ ls.cpp
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out[K[K[K[K[K[K[K#t[KTesting normal output
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./.[Ka[K[K[K./a.out
+cp.cpp               [0;0;32ma.out[0;00m                  hw0.cpp
+test                 [0;0;34mhomeLink[0;00m              test.cpp
+[0;0;34mfolder[0;00m               [0;0;34mtestdir[0;00m              test2.cpp
+test3.cpp            test4.cpp            test5.cpp
+test6.cpp            test7.cpp            test8.cpp
+ls.cppreallyLongTitleForFileOhMy.cpp           test9.cpp           test10.cpp             Timer.h
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m #Note: Kn[K[K[K[K[K[K[K[KKnown issue: Formatting is ff[K[Koff
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m #Testing series of acses with [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K#tes[K[K[KTesting individual files
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out test.[K4.cpp
+test4.cpp
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out .hiddenFile
+[0;0;34m.hiddenFile[0;00m
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m #Testing combination f [K[Kof flags
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -a
+[0;40;34m.[0;00m                   [0;40;34m..[0;00m                      cp.cpp
+[0;0;32ma.out[0;00m                  hw0.cpp                   test
+[0;0;34mhomeLink[0;00m              test.cpp             [0;0;34mfolder[0;00m
+[0;40;34m.hiddenFolder[0;00m        [0;0;34mtestdir[0;00m              test2.cpp
+test3.cpp            test4.cpp            test5.cpp
+test6.cpp            test7.cpp            test8.cpp
+ls.cppreallyLongTitleForFileOhMy.cpp           test9.cpp           test10.cpp           [0;0;40m.hiddenFile[0;00mTimer.h
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -l
+total 4976
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -R
+cp.cpp               [0;0;32ma.out[0;00m                  hw0.cpp
+test                 [0;0;34mhomeLink[0;00m              test.cpp
+[0;0;34mfolder[0;00m               [0;0;34mtestdir[0;00m              test2.cpp
+test3.cpp            test4.cpp            test5.cpp
+test6.cpp            test7.cpp            test8.cpp
+ls.cppreallyLongTitleForFileOhMy.cpp           test9.cpp           test10.cpp             Timer.h
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m #known issue: R-[K[K-R flag outputs same as normal ls. No recursion.
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m #known issue: -R flag outputs same as normal ls. No recursion.[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K./a.out -al
+total 4976
+drwx------ 5 jreye028 classes 4096 Nov 11 06:26 [0;40;34m.[0;00m 
+drwx------ 6 jreye028 classes 4096 Nov 11 06:14 [0;40;34m..[0;00m 
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 2 jreye028 classes 4096 Nov  8 04:46 [0;40;34m.hiddenFolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 0 Nov 11 06:20 [0;0;40m.hiddenFile[0;00m 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m .a/[K[K[K./a.out -a -l
+total 4976
+drwx------ 5 jreye028 classes 4096 Nov 11 06:26 [0;40;34m.[0;00m 
+drwx------ 6 jreye028 classes 4096 Nov 11 06:14 [0;40;34m..[0;00m 
+-rw------- 1 jreye028 classes 4907 Nov 11 05:59 cp.cpp 
+-rwx------ 1 jreye028 classes 38803 Nov 11 06:26 [0;0;32ma.out[0;00m 
+-rw------- 1 jreye028 classes 6306 Oct 21 10:57 hw0.cpp 
+-rw------- 1 jreye028 classes 4953700 Nov 11 05:54 test 
+lrwxrwxrwx 1 jreye028 classes 23 Nov  8 03:45 homeLink
+rwx------ 52 jreye028 classes 28672 Nov 11 06:24 [0;0;34mhomeLink[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test.cpp 
+drwx------ 3 jreye028 classes 4096 Nov  8 10:47 [0;0;34mfolder[0;00m 
+drwx------ 2 jreye028 classes 4096 Nov  8 04:46 [0;40;34m.hiddenFolder[0;00m 
+drwx------ 3 jreye028 classes 4096 Nov  8 05:13 [0;0;34mtestdir[0;00m 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test2.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:13 test3.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test4.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test5.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test6.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test7.cpp 
+-rw------- 1 jreye028 classes 0 Nov  8 05:14 test8.cpp 
+-rw------- 1 jreye028 classes 32333 Nov 11 06:21 ls.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 reallyLongTitleForFileOhMy.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test9.cpp 
+-rw------- 1 jreye028 classes 0 Nov  9 10:47 test10.cpp 
+-rw------- 1 jreye028 classes 0 Nov 11 06:20 [0;0;40m.hiddenFile[0;00m 
+-rw------- 1 jreye028 classes 2701 Nov 10 02:31 Timer.h 
+
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.out -aR
+[0;40;34m.[0;00m                   [0;40;34m..[0;00m                      cp.cpp
+[0;0;32ma.out[0;00m                  hw0.cpp                   test
+[0;0;34mhomeLink[0;00m              test.cpp             [0;0;34mfolder[0;00m
+[0;40;34m.hiddenFolder[0;00m        [0;0;34mtestdir[0;00m              test2.cpp
+test3.cpp            test4.cpp            test5.cpp
+test6.cpp            test7.cpp            test8.cpp
+ls.cppreallyLongTitleForFileOhMy.cpp           test9.cpp           test10.cpp           [0;0;40m.hiddenFile[0;00mTimer.h
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m .a[K[K./a.out -AR[K[KaR
+[0;40;34m.[0;00m                   [0;40;34m..[0;00m                      cp.cpp
+[0;0;32ma.out[0;00m                  hw0.cpp                   test
+[0;0;34mhomeLink[0;00m              test.cpp             [0;0;34mfolder[0;00m
+[0;40;34m.hiddenFolder[0;00m        [0;0;34mtestdir[0;00m              test2.cpp
+test3.cpp            test4.cpp            test5.cpp
+test6.cpp            test7.cpp            test8.cpp
+ls.cppreallyLongTitleForFileOhMy.cpp           test9.cpp           test10.cpp           [0;0;40m.hiddenFile[0;00mTimer.h
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ./a.o[K[K[K[K[K./a.out -a -R
+[0;40;34m.[0;00m                   [0;40;34m..[0;00m                      cp.cpp
+[0;0;32ma.out[0;00m                  hw0.cpp                   test
+[0;0;34mhomeLink[0;00m              test.
