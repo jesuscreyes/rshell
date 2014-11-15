@@ -47,6 +47,26 @@ vector<string> tokenSemicolon(string s){
 	return tokenList;
 }
 
+//Function: tokenPipe
+//Input: string
+//Output: vector of strings, deliminator: '|'
+vector<string> tokenPipe(string s){
+    vector<string> tokenList;
+    split(tokenList, s, is_any_of("|"), token_compress_on);
+    
+	return tokenList;
+}
+
+//Function: tokenInputR
+//Input: string
+//Output: vector of strings, deliminator: '<'
+vector<string> tokenInputR(string s){
+    vector<string> tokenList;
+    split(tokenList, s, is_any_of("<"), token_compress_on);
+    
+	return tokenList;
+}
+
 //Function: tokenAND
 //Input: string
 //Output: vector of strings, deliminator: '&'
@@ -121,12 +141,21 @@ vector<char *>  stringToChar(vector<string> &s){
 
 void executeCmd(string s){
 
+
     //TOKENIZES WHITE SPACE AND Executes command
 
     /////////////////////////////////////////////////////
     //Tokenizing
     /////////////////////////////////////////////////////
     vector<string> commandList = tokenSpace(s);
+    
+    //Check if input redirection
+    if(commandList[1] == "<"){
+        cout << "Input redirection called" << endl;
+    }
+    else{
+        cout << "Not input redirection: " << commandList[1] << endl;
+    }
 
     //if commandList.size() == 0, Should just exit function.
     if(commandList.size() == 0){
@@ -153,7 +182,7 @@ void executeCmd(string s){
 	//Checks for error with fork function
 	perror("fork");
 	}
-    else if(pid == 0){
+    else if(pid == 0){ //When pid is 0 you are in the child process
     	const int newSize = commandList.size() + 1;
 	char **argv;
  	argv = new char*[newSize];
@@ -165,7 +194,10 @@ void executeCmd(string s){
         }
         
         argv[j] = 0;
-        
+        cout << "charCommandList[0]: " << charCommandList[0] << endl;
+        cout << "argv[0]: " << argv[0] << endl; 
+        cout << "argv[1]: " << argv[1] << endl;
+        cout << "argv[2]: " << argv[2] << endl;
         int r = execvp(charCommandList[0], argv);
 	if(r == -1){
 	    //Checks for error with execvp
@@ -174,7 +206,7 @@ void executeCmd(string s){
 	//Prevents zombie process.
         exit(1);
     }
-    else{
+    else{ //When pid is greater than 0 you are in the parent process
         wait(NULL);
     }
 }
@@ -228,7 +260,11 @@ int main(){
         //Remove semicolons
         ///////////////////////////////////////////////////
         vector<string> commandList = tokenSemicolon(preCommandList);
-        
+
+        for(int i = 0; i < commandList.size(); i++){
+            cout << commandList.at(i) << endl;
+        }       
+ 
         vector<string> mainList;
        
  
@@ -248,6 +284,7 @@ int main(){
 	//Executes commands.
         for(unsigned int i = 0; i < mainList.size(); ++i){
             cout << endl;
+            cout << "mainList[" << i << "]: " <<  mainList[i] << endl;
             executeCmd(mainList[i]);
         }
     }
