@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <fcntl.h>
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -149,13 +150,7 @@ void executeCmd(string s){
     /////////////////////////////////////////////////////
     vector<string> commandList = tokenSpace(s);
     
-    //Check if input redirection
-    if(commandList[1] == "<"){
-        cout << "Input redirection called" << endl;
-    }
-    else{
-        cout << "Not input redirection: " << commandList[1] << endl;
-    }
+
 
     //if commandList.size() == 0, Should just exit function.
     if(commandList.size() == 0){
@@ -168,10 +163,71 @@ void executeCmd(string s){
             commandList.erase(commandList.begin()+i);
         }
     }
-    
+
+
+   
+ 
     //Creates vector of char * so that I can use execvp
     vector<char *> charCommandList = stringToChar(commandList);
+
+    //Input Redirection
+    
+    string inputFile;
+    //Check if input redirection
+    if(commandList[1] == "<"){
+        //cout << "Input redirection called" << endl;
+        string command = commandList[0];
+        inputFile = commandList[2];
+        //cout << "command: " << command << endl;
+        //cout << "inputFile: " << inputFile << endl;
+
+        commandList.erase(commandList.begin(),commandList.begin()+2);
+
+        for(int i = 0; i < commandList.size(); i++){
+            //cout << "commandList[" << i << "]: " << commandList[i] << endl;
+        }
  
+        //Getting input from inputfile to standard in        
+        int fdi = open(inputFile.c_str(),O_RDONLY);
+        //cout << "fdi1: " << fdi << endl;
+        if(fdi == -1){
+            perror("open");
+            exit(1);
+        }
+
+        if(-1 == close(0)){
+            perror("close");
+        }
+
+        if(dup(fdi) == -1){
+            perror("dup");
+        }
+
+        int pid = fork();
+        if(pid == -1){
+            perror("fork");
+        }
+        else if(pid == 0){ //When pid is 0 you are in the child process
+            //Trying to execute cat now
+            const int newSize = commandList.size() + 1;
+            char **argv;
+            argv = new char*[newSize];
+            int j;
+            for(j = 0; j < commandList.size(); j++){
+                argv[j] = new char[commandList[j].size() + 1];
+                strcpy(argv[j], charCommandList[j]);
+            }
+            argv[j] = 0;
+            if(execvp(charCommandList[0], argv) == -1){
+                perror("execvp");
+            }
+        }
+        else{
+            wait(NULL);
+        }
+
+        exit(1);
+    }
 
     /////////////////////////////////////////////////////
     //Executing
@@ -184,8 +240,8 @@ void executeCmd(string s){
 	}
     else if(pid == 0){ //When pid is 0 you are in the child process
     	const int newSize = commandList.size() + 1;
-	char **argv;
- 	argv = new char*[newSize];
+	    char **argv;
+ 	    argv = new char*[newSize];
      
         unsigned int j;
         for(j = 0; j < commandList.size(); ++j){
@@ -195,9 +251,8 @@ void executeCmd(string s){
         
         argv[j] = 0;
         cout << "charCommandList[0]: " << charCommandList[0] << endl;
-        cout << "argv[0]: " << argv[0] << endl; 
+        cout << "argv[0]: " << argv[0] << endl;
         cout << "argv[1]: " << argv[1] << endl;
-        cout << "argv[2]: " << argv[2] << endl;
         int r = execvp(charCommandList[0], argv);
 	if(r == -1){
 	    //Checks for error with execvp
@@ -262,7 +317,7 @@ int main(){
         vector<string> commandList = tokenSemicolon(preCommandList);
 
         for(int i = 0; i < commandList.size(); i++){
-            cout << commandList.at(i) << endl;
+            //cout << commandList.at(i) << endl;
         }       
  
         vector<string> mainList;
@@ -284,7 +339,7 @@ int main(){
 	//Executes commands.
         for(unsigned int i = 0; i < mainList.size(); ++i){
             cout << endl;
-            cout << "mainList[" << i << "]: " <<  mainList[i] << endl;
+            //cout << "mainList[" << i << "]: " <<  mainList[i] << endl;
             executeCmd(mainList[i]);
         }
     }
