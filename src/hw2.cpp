@@ -255,7 +255,7 @@ void executeCmd(string s){
         int i;
         int inCnt = 0;
         int outCnt = 0;
-        omt appCnt = 0;
+        int appCnt = 0;
         for(i = 1; i < commandList.size() - 1; i++){
         //
             if(commandList[i] == "<"){
@@ -277,6 +277,11 @@ void executeCmd(string s){
  
                 //Getting input from inputfile to standard in        
                 int fdi = open(inputFile.c_str(),O_RDONLY);
+                if(fdi == -1){
+                    perror("open");
+                    exit(1);
+                }
+                
                 //cout << "fdi1: " << fdi << endl;
                 if(fdi == -1){
                     perror("open");
@@ -285,10 +290,12 @@ void executeCmd(string s){
 
                 if(-1 == close(0)){
                     perror("close");
+                    exit(1);
                 }
 
                 if(dup(fdi) == -1){
                     perror("dup");
+                    exit(1);
                 }
             }
             else if(commandList[i] == ">"){
@@ -303,13 +310,35 @@ void executeCmd(string s){
                 commandList.erase(commandList.begin()+i,commandList.end());
 
                 int fdo = open(outputFile.c_str(),O_WRONLY); 
+                if(fdo == -1){
+                    cout << "Creating file" << endl;
+                    fdo = creat(outputFile.c_str(), S_IRUSR|S_IWUSR);
+                    if(fdo == -1){
+                    perror("creat");
+                    } 
+                }
+
+ 
                 cout << "fdo: " << fdo << endl;
                 if(-1 == close(1)){
                     perror("close");
+                    exit(1);
                 }
                 if(dup(fdo) == -1){
                     perror("dup");
+                    exit(1);
                 }
+            }
+            else if(commandList[i] == ">>"){
+                appCnt++;
+                if(appCnt > 1){
+                    cerr << "Error: Multiple append redirection calls" << endl;
+                }
+                cout << "Append" << endl;
+                
+                //Append Output redirection
+                int fdo = open(outputFile.c_str(),O_WRONLY);
+                
             }
         //
         }
