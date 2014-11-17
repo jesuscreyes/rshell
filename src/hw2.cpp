@@ -5,6 +5,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <string.h>
+#include <fstream>
 #include <iostream>
 #include <string>
 #include <boost/tokenizer.hpp>
@@ -245,43 +246,71 @@ void executeCmd(string s){
     //Input Redirection
     
         string inputFile;
+        string outputFile;
+        
+        //Error checking for input and output redirection
+
         //Check if input redirection
 
         int i;
-        for(i = 0; i < commandList.size(); i++){
+        int inCnt = 0;
+        int outCnt = 0;
+        omt appCnt = 0;
+        for(i = 1; i < commandList.size() - 1; i++){
         //
-        if(commandList[i] == "<"){
-            //cout << "Input redirection called" << endl;
-            string command = commandList[0];
-            inputFile = commandList[i+1];
-            //cout << "command: " << command << endl;
-            //cout << "inputFile: " << inputFile << endl;
+            if(commandList[i] == "<"){
+                inCnt++;
+                if(inCnt > 1){
+                    cerr << "Error: Multiple input redirection calls" << endl;
+                }
+                //cout << "Input redirection called" << endl;
+                string command = commandList[0];
+                inputFile = commandList[i+1];
+                //cout << "command: " << command << endl;
+                //cout << "inputFile: " << inputFile << endl;
 
-            commandList.erase(commandList.begin()+i,commandList.end());
+                commandList.erase(commandList.begin()+i,commandList.end());
 
-            //for(int i = 0; i < commandList.size(); i++){
-                //cout << "commandList[" << i << "]: " << commandList[i] << endl;
-            //}
+                //for(int i = 0; i < commandList.size(); i++){
+                    //cout << "commandList[" << i << "]: " << commandList[i] << endl;
+                //}
  
-            //Getting input from inputfile to standard in        
-            int fdi = open(inputFile.c_str(),O_RDONLY);
-            //cout << "fdi1: " << fdi << endl;
-            if(fdi == -1){
-                perror("open");
-                exit(1);
-            }
+                //Getting input from inputfile to standard in        
+                int fdi = open(inputFile.c_str(),O_RDONLY);
+                //cout << "fdi1: " << fdi << endl;
+                if(fdi == -1){
+                    perror("open");
+                    exit(1);
+                }
 
-            if(-1 == close(0)){
-                perror("close");
-            }
+                if(-1 == close(0)){
+                    perror("close");
+                }
 
-            if(dup(fdi) == -1){
-                perror("dup");
+                if(dup(fdi) == -1){
+                    perror("dup");
+                }
             }
-        }
-        else if(commandList[i] == ">"){
-        
-        }
+            else if(commandList[i] == ">"){
+                outCnt++;
+                if(outCnt > 1){
+                    cerr << "Error: Multiple output redirection calls" << endl;
+                }
+
+                //Output redirection
+                string command = commandList[0];
+                outputFile =  commandList[i+1];
+                commandList.erase(commandList.begin()+i,commandList.end());
+
+                int fdo = open(outputFile.c_str(),O_WRONLY); 
+                cout << "fdo: " << fdo << endl;
+                if(-1 == close(1)){
+                    perror("close");
+                }
+                if(dup(fdo) == -1){
+                    perror("dup");
+                }
+            }
         //
         }
        
