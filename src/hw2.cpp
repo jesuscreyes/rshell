@@ -150,7 +150,7 @@ void executeCmd(string s){
     /////////////////////////////////////////////////////
     vector<string> commandList = tokenSpace(s);
     
-
+    //cout << "commandList initial size: " << commandList.size() << endl;
 
     //if commandList.size() == 0, Should just exit function.
     if(commandList.size() == 0){
@@ -170,6 +170,7 @@ void executeCmd(string s){
     //Creates vector of char * so that I can use execvp
     vector<char *> charCommandList = stringToChar(commandList);
 
+/*
     //Input Redirection
     
     string inputFile;
@@ -207,6 +208,7 @@ void executeCmd(string s){
         if(pid == -1){
             perror("fork");
         }
+
         else if(pid == 0){ //When pid is 0 you are in the child process
             //Trying to execute cat now
             const int newSize = commandList.size() + 1;
@@ -228,7 +230,7 @@ void executeCmd(string s){
 
         exit(1);
     }
-
+*/
     /////////////////////////////////////////////////////
     //Executing
    /////////////////////////////////////////////////////
@@ -239,20 +241,73 @@ void executeCmd(string s){
 	perror("fork");
 	}
     else if(pid == 0){ //When pid is 0 you are in the child process
-    	const int newSize = commandList.size() + 1;
+
+    //Input Redirection
+    
+        string inputFile;
+        //Check if input redirection
+
+        int i;
+        for(i = 0; i < commandList.size(); i++){
+        //
+        if(commandList[i] == "<"){
+            //cout << "Input redirection called" << endl;
+            string command = commandList[0];
+            inputFile = commandList[i+1];
+            //cout << "command: " << command << endl;
+            //cout << "inputFile: " << inputFile << endl;
+
+            commandList.erase(commandList.begin()+i,commandList.end());
+
+            //for(int i = 0; i < commandList.size(); i++){
+                //cout << "commandList[" << i << "]: " << commandList[i] << endl;
+            //}
+ 
+            //Getting input from inputfile to standard in        
+            int fdi = open(inputFile.c_str(),O_RDONLY);
+            //cout << "fdi1: " << fdi << endl;
+            if(fdi == -1){
+                perror("open");
+                exit(1);
+            }
+
+            if(-1 == close(0)){
+                perror("close");
+            }
+
+            if(dup(fdi) == -1){
+                perror("dup");
+            }
+        }
+        else if(commandList[i] == ">"){
+        
+        }
+        //
+        }
+       
+        /*
+        for(int i = 0; i < commandList.size(); i++){
+            cout << "commandList[" << i << "]: " << commandList[i] << endl;
+        }
+        */
+
+ 	    const int newSize = commandList.size() + 1;
 	    char **argv;
  	    argv = new char*[newSize];
      
         unsigned int j;
+        int num = i + 1;
+        //cout << "i" << i << endl;
+        //cout << "commandList size: " << commandList.size() << endl;
         for(j = 0; j < commandList.size(); ++j){
 		argv[j] = new char[commandList[j].size() + 1];
             	strcpy(argv[j], charCommandList[j]);
         }
         
         argv[j] = 0;
-        cout << "charCommandList[0]: " << charCommandList[0] << endl;
-        cout << "argv[0]: " << argv[0] << endl;
-        cout << "argv[1]: " << argv[1] << endl;
+        //cout << "charCommandList[0]: " << charCommandList[0] << endl;
+        //cout << "argv[0]: " << argv[0] << endl;
+        //cout << "argv[1]: " << argv[1] << endl;
         int r = execvp(charCommandList[0], argv);
 	if(r == -1){
 	    //Checks for error with execvp
