@@ -337,8 +337,27 @@ void executeCmd(string s){
                 cout << "Append" << endl;
                 
                 //Append Output redirection
-                int fdo = open(outputFile.c_str(),O_WRONLY);
-                
+                string command = commandList[0];
+                outputFile = commandList[i+1];
+                commandList.erase(commandList.begin()+i,commandList.end());
+                int fdo = open(outputFile.c_str(),O_WRONLY|O_APPEND);
+                if(fdo == -1){
+                    cout << "Creating file" << endl;
+                    fdo = creat(outputFile.c_str(), S_IRUSR|S_IWUSR);
+                    if(fdo == -1){
+                        perror("creat");
+                    }
+                }
+
+                cout << "fdo: " << endl;
+                if(-1 == close(1)){
+                    perror("close");
+                    exit(1);
+                }
+                if(dup(fdo) == -1){
+                    perror("dup");
+                    exit(1);
+                }
             }
         //
         }
