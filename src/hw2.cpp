@@ -24,7 +24,7 @@ using namespace boost;
 //Output: vector of strings, deliminator "white space"
 vector<string> tokenSpace(string s){
     vector<string> tokenList;
-    split(tokenList, s, is_any_of("  "), token_compress_on);
+    split(tokenList, s, is_any_of(" "), token_compress_on);
     
     return tokenList;
 }
@@ -141,15 +141,19 @@ vector<char *>  stringToChar(vector<string> &s){
 //Output: Void. Executes command.
 /////////////////////////////////////////////////////
 
-void executeCmd(string s){
+void executeCmd(vector<string> list){
 
+    cout << "Input list" << endl;
+    for(int i = 0; i < list.size(); i++){
+        cout << "list[" << i << "]: " << list[i] << endl;
+    }
 
     //TOKENIZES WHITE SPACE AND Executes command
 
     /////////////////////////////////////////////////////
     //Tokenizing
     /////////////////////////////////////////////////////
-    vector<string> commandList = tokenSpace(s);
+    vector<string> commandList = tokenSpace(list[0]);
     
     //cout << "commandList initial size: " << commandList.size() << endl;
 
@@ -157,7 +161,23 @@ void executeCmd(string s){
     if(commandList.size() == 0){
 	return;
     }
-   
+
+
+    //cout << "commandList size: " << commandList.size() << endl;  
+    for(int i = 0; i < commandList.size(); i++){
+        //cout << "commandList[" << i << "]: " << commandList[i] << endl;
+        if(commandList[i] == ""){
+            //cout << "WHAT THE" << endl;
+            commandList.erase(commandList.begin()+i);
+        }
+    }
+
+
+    cout << endl << "new commandList" << endl;
+    for(int i = 0; i < commandList.size(); i++){
+        cout << "commandList[" << i << "]: " << commandList[i] << endl;
+    }
+ 
     //This for loop takes care of instances where the commandList array has a blank space in it's first index 
     for(unsigned int i = 0; i < commandList.size(); i++){
         if((int) commandList[i][0] == 0){
@@ -171,70 +191,22 @@ void executeCmd(string s){
     //Creates vector of char * so that I can use execvp
     vector<char *> charCommandList = stringToChar(commandList);
 
-/*
-    //Input Redirection
-    
-    string inputFile;
-    //Check if input redirection
-    if(commandList[1] == "<"){
-        //cout << "Input redirection called" << endl;
-        string command = commandList[0];
-        inputFile = commandList[2];
-        //cout << "command: " << command << endl;
-        //cout << "inputFile: " << inputFile << endl;
 
-        commandList.erase(commandList.begin(),commandList.begin()+2);
-
-        for(int i = 0; i < commandList.size(); i++){
-            //cout << "commandList[" << i << "]: " << commandList[i] << endl;
-        }
- 
-        //Getting input from inputfile to standard in        
-        int fdi = open(inputFile.c_str(),O_RDONLY);
-        //cout << "fdi1: " << fdi << endl;
-        if(fdi == -1){
-            perror("open");
-            exit(1);
-        }
-
-        if(-1 == close(0)){
-            perror("close");
-        }
-
-        if(dup(fdi) == -1){
-            perror("dup");
-        }
-
-        int pid = fork();
-        if(pid == -1){
-            perror("fork");
-        }
-
-        else if(pid == 0){ //When pid is 0 you are in the child process
-            //Trying to execute cat now
-            const int newSize = commandList.size() + 1;
-            char **argv;
-            argv = new char*[newSize];
-            int j;
-            for(j = 0; j < commandList.size(); j++){
-                argv[j] = new char[commandList[j].size() + 1];
-                strcpy(argv[j], charCommandList[j]);
-            }
-            argv[j] = 0;
-            if(execvp(charCommandList[0], argv) == -1){
-                perror("execvp");
-            }
-        }
-        else{
-            wait(NULL);
-        }
-
-        exit(1);
-    }
-*/
     /////////////////////////////////////////////////////
     //Executing
    /////////////////////////////////////////////////////
+
+    //Array for pipe
+    const int PIPE_READ = 0;
+    const int PIPE_WRITE = 1;
+    int fd[2];
+   if(list.size() > 1){ 
+        if(pipe(fd) == -1){
+            perror("pipe");
+            exit(1);
+        }
+        cout << "Created pipe" << endl;
+    }
 
     int pid = fork();
     if(pid == -1){
@@ -242,7 +214,7 @@ void executeCmd(string s){
 	perror("fork");
 	}
     else if(pid == 0){ //When pid is 0 you are in the child process
-
+    cout << "In first child" << endl;
     //Input Redirection
     
         string inputFile;
@@ -256,9 +228,11 @@ void executeCmd(string s){
         int inCnt = 0;
         int outCnt = 0;
         int appCnt = 0;
+        int inSCnt = 0;
         for(i = 1; i < commandList.size() - 1; i++){
         //
             if(commandList[i] == "<"){
+                cout << "Input Redirection" << endl;
                 inCnt++;
                 if(inCnt > 1){
                     cerr << "Error: Multiple input redirection calls" << endl;
@@ -271,9 +245,9 @@ void executeCmd(string s){
 
                 commandList.erase(commandList.begin()+i,commandList.end());
 
-                //for(int i = 0; i < commandList.size(); i++){
-                    //cout << "commandList[" << i << "]: " << commandList[i] << endl;
-                //}
+                for(int i = 0; i < commandList.size(); i++){
+                    cout << "commandList[" << i << "]: " << commandList[i] << endl;
+                }
  
                 //Getting input from inputfile to standard in        
                 int fdi = open(inputFile.c_str(),O_RDONLY);
@@ -282,11 +256,6 @@ void executeCmd(string s){
                     exit(1);
                 }
                 
-                //cout << "fdi1: " << fdi << endl;
-                if(fdi == -1){
-                    perror("open");
-                    exit(1);
-                }
 
                 if(-1 == close(0)){
                     perror("close");
@@ -309,7 +278,7 @@ void executeCmd(string s){
                 outputFile =  commandList[i+1];
                 commandList.erase(commandList.begin()+i,commandList.end());
 
-                int fdo = open(outputFile.c_str(),O_WRONLY); 
+                int fdo = open(outputFile.c_str(),O_WRONLY|O_TRUNC); 
                 if(fdo == -1){
                     cout << "Creating file" << endl;
                     fdo = creat(outputFile.c_str(), S_IRUSR|S_IWUSR);
@@ -340,6 +309,7 @@ void executeCmd(string s){
                 string command = commandList[0];
                 outputFile = commandList[i+1];
                 commandList.erase(commandList.begin()+i,commandList.end());
+
                 int fdo = open(outputFile.c_str(),O_WRONLY|O_APPEND);
                 if(fdo == -1){
                     cout << "Creating file" << endl;
@@ -359,6 +329,36 @@ void executeCmd(string s){
                     exit(1);
                 }
             }
+            else if(commandList[i] == "<<<"){
+                cout << "String input" << endl;
+                inSCnt++;
+                if(inSCnt > 1){
+                    cerr << "Error: Multiple input redirection calls" << endl;
+                    exit(1);
+                }
+                string command = commandList[0];
+                outputFile = commandList[i+1];
+                commandList.erase(commandList.begin()+i,commandList.end());
+
+                //Get string and put it in standard in
+                int fdi = 0;             
+ 
+                //cout << "fdi1: " << fdi << endl;
+                if(fdi == -1){
+                    perror("open");
+                    exit(1);
+                }
+
+                if(-1 == close(0)){
+                    perror("close");
+                    exit(1);
+                }
+
+                if(dup(fdi) == -1){
+                    perror("dup");
+                    exit(1);
+                }
+            }
         //
         }
        
@@ -367,24 +367,49 @@ void executeCmd(string s){
             cout << "commandList[" << i << "]: " << commandList[i] << endl;
         }
         */
+/*
+        if(-1 == close(0)){
+            perror("close(362)");
+            exit(1);
+        }
+        if(-1 == dup2(fd[1],1)){
+            perror("dup2");
+        }
+*/
+
+        //EXPERIMENT
+        if(-1 == close(1)){
+            perror("close(382)");
+        } 
+        //Makes stdout the write end of the pipe
+        if(-1 == dup2(fd[PIPE_WRITE],1)){
+            perror("dup2(375)");
+        }
+        if(-1 == close(0)){
+            perror("close(389)");
+        }
+        //Makes stdin the read end of the pipe
+        if(-1 == dup2(fd[PIPE_READ],0)){
+            perror("dup2(378)");
+        }    
+        
+        //EXPERIMENT
 
  	    const int newSize = commandList.size() + 1;
 	    char **argv;
  	    argv = new char*[newSize];
      
         unsigned int j;
-        int num = i + 1;
-        //cout << "i" << i << endl;
-        //cout << "commandList size: " << commandList.size() << endl;
         for(j = 0; j < commandList.size(); ++j){
-		argv[j] = new char[commandList[j].size() + 1];
-            	strcpy(argv[j], charCommandList[j]);
+		    argv[j] = new char[commandList[j].size() + 1];
+            strcpy(argv[j], charCommandList[j]);
         }
         
         argv[j] = 0;
-        //cout << "charCommandList[0]: " << charCommandList[0] << endl;
-        //cout << "argv[0]: " << argv[0] << endl;
-        //cout << "argv[1]: " << argv[1] << endl;
+        cout << "charCommandList[0]: " << charCommandList[0] << endl;
+        //for(int i = 0; i < sizeof(argv); i++){
+            //cout << "argv[" << i << "]: " << argv[i] << endl;
+        //}
         int r = execvp(charCommandList[0], argv);
 	if(r == -1){
 	    //Checks for error with execvp
@@ -395,6 +420,28 @@ void executeCmd(string s){
     }
     else{ //When pid is greater than 0 you are in the parent process
         wait(NULL);
+        cout << "In first parent" << endl;
+
+        int pid2 = fork();
+        if(pid2 == -1){
+            perror("fork");
+        }
+        else if(pid2 == 0){ //When pid is 0 you are in the child process
+            cout << "In the second child" << endl;
+            char *argv[4];
+            argv[0] = "tr";
+            argv[1] = "A-Z";
+            argv[2] = "a-z";
+            argv[3] = 0;
+            if(execvp(argv[0], argv) == -1){
+                perror("execvp");
+            }
+            exit(1);
+        }
+        else{
+            wait(NULL);
+            cout << "In second parent" << endl;
+        }
     }
 }
 
@@ -446,7 +493,7 @@ int main(){
         ////////////////////////////////////////////////////
         //Remove semicolons
         ///////////////////////////////////////////////////
-        vector<string> commandList = tokenSemicolon(preCommandList);
+        vector<string> commandList = tokenPipe(preCommandList);
 
         for(int i = 0; i < commandList.size(); i++){
             //cout << commandList.at(i) << endl;
@@ -468,12 +515,17 @@ int main(){
 
 
 	
-	//Executes commands.
+/*
+	    //Executes commands.
         for(unsigned int i = 0; i < mainList.size(); ++i){
             cout << endl;
             //cout << "mainList[" << i << "]: " <<  mainList[i] << endl;
             executeCmd(mainList[i]);
         }
+*/
+
+        executeCmd(mainList);
+
     }
 
     return 0;
