@@ -143,9 +143,9 @@ vector<char *>  stringToChar(vector<string> &s){
 
 void executeCmd(vector<string> list){
 
-  cout << "Input list" << endl;
+  //cout << "Input list" << endl;
   for(int i = 0; i < list.size(); i++){
-    cout << "list[" << i << "]: " << list[i] << endl;
+    //cout << "list[" << i << "]: " << list[i] << endl;
   }
 
     bool listFlag;
@@ -178,9 +178,9 @@ void executeCmd(vector<string> list){
   }
 
 
-  cout << endl << "new commandList" << endl;
+  //cout << endl << "new commandList" << endl;
   for(int i = 0; i < commandList.size(); i++){
-    cout << "commandList[" << i << "]: " << commandList[i] << endl;
+    //cout << "commandList[" << i << "]: " << commandList[i] << endl;
   }
  
   //This for loop takes care of instances where the commandList array has a blank space in it's first index 
@@ -210,7 +210,7 @@ void executeCmd(vector<string> list){
         perror("pipe");
         exit(1);
         }
-        cout << "Created pipe" << endl;
+        //cout << "Created pipe" << endl;
     }
 
   int pid = fork();
@@ -219,7 +219,7 @@ void executeCmd(vector<string> list){
     perror("fork");
   }
   else if(pid == 0){ //When pid is 0 you are in the child process
-    cout << "In first child" << endl;
+    //cout << "In first child" << endl;
     //Input Redirection
     
     string inputFile;
@@ -236,7 +236,7 @@ void executeCmd(vector<string> list){
     int inSCnt = 0;
     for(i = 1; i < commandList.size() - 1; i++){
         if(commandList[i] == "<"){
-	        cout << "Input Redirection" << endl;
+	        //cout << "Input Redirection" << endl;
 	        inCnt++;
 	        if(inCnt > 1){
 	            cerr << "Error: Multiple input redirection calls" << endl;
@@ -250,7 +250,7 @@ void executeCmd(vector<string> list){
 	        commandList.erase(commandList.begin()+i,commandList.end());
 
 	        for(int i = 0; i < commandList.size(); i++){
-	            cout << "commandList[" << i << "]: " << commandList[i] << endl;
+	            //cout << "commandList[" << i << "]: " << commandList[i] << endl;
 	        }
  
 	        //Getting input from inputfile to standard in        
@@ -284,7 +284,7 @@ void executeCmd(vector<string> list){
 
 	        int fdo = open(outputFile.c_str(),O_WRONLY|O_TRUNC); 
 	        if(fdo == -1){
-	            cout << "Creating file" << endl;
+	            //cout << "Creating file" << endl;
 	            fdo = creat(outputFile.c_str(), S_IRUSR|S_IWUSR);
 	            if(fdo == -1){
 	                perror("creat");
@@ -292,7 +292,7 @@ void executeCmd(vector<string> list){
 	        }
 
  
-	        cout << "fdo: " << fdo << endl;
+	        //cout << "fdo: " << fdo << endl;
 	        if(-1 == close(1)){
 	            perror("close");
 	            exit(1);
@@ -306,8 +306,9 @@ void executeCmd(vector<string> list){
 	        appCnt++;
 	        if(appCnt > 1){
 	            cerr << "Error: Multiple append redirection calls" << endl;
+                exit(1);
 	        }
-	        cout << "Append" << endl;
+	        //cout << "Append" << endl;
                 
 	        //Append Output redirection
 	        string command = commandList[0];
@@ -316,7 +317,7 @@ void executeCmd(vector<string> list){
 
 	        int fdo = open(outputFile.c_str(),O_WRONLY|O_APPEND);
 	        if(fdo == -1){
-	            cout << "Creating file" << endl;
+	            //cout << "Creating file" << endl;
 	            fdo = creat(outputFile.c_str(), S_IRUSR|S_IWUSR);
 	            if(fdo == -1){
 	                perror("creat");
@@ -366,10 +367,10 @@ void executeCmd(vector<string> list){
         }
     }
 
-    cout << "List size: " << list.size() << endl;
+    //cout << "List size: " << list.size() << endl;
     if(listFlag){ 
         //ONLY IF GOING TO PIPE!!!!!!      
-        cout << "Gonna pipe" << endl;
+        //cout << "Gonna pipe" << endl;
         //EXPERIMENT
         //Makes stdout the write end of the pipe
         if(-1 == dup2(fd[PIPE_WRITE],1)){
@@ -383,7 +384,7 @@ void executeCmd(vector<string> list){
         }
     }
     else{
-        cout << "No pipe" << endl;
+        //cout << "No pipe" << endl;
     }
 
     //EXPERIMENT
@@ -399,7 +400,7 @@ void executeCmd(vector<string> list){
     }
         
     argv[j] = 0;
-    cout << "charCommandList[0]: " << charCommandList[0] << endl;
+    //cout << "charCommandList[0]: " << charCommandList[0] << endl;
     //for(int i = 0; i < sizeof(argv); i++){
     //cout << "argv[" << i << "]: " << argv[i] << endl;
     //}
@@ -413,7 +414,7 @@ void executeCmd(vector<string> list){
   }
   else if(pid > 0){ //When pid is greater than 0 you are in the parent process
     wait(NULL);
-    cout << "In first parent" << endl;
+    //cout << "In first parent" << endl;
   }
 
     int savestdin;
@@ -430,9 +431,9 @@ void executeCmd(vector<string> list){
         list.erase(list.begin());
         cout << endl;
         for(int i = 0; i < list.size(); i++){
-            cout << "list[" << i << "]: " << list[i] << endl;
+            //cout << "list[" << i << "]: " << list[i] << endl;
         }
-        cout << "Calling executeCmd again" << endl;
+        //cout << "Calling executeCmd again" << endl;
          executeCmd(list);
     }
 
