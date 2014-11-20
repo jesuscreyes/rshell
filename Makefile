@@ -1,6 +1,6 @@
 CC=g++
 
-CFLAGS = -Wall -Werror -ansi -pedantic
+CFLAGS = -Wall -Werror -ansi 
 
 all: bin rshell ls cp
 
