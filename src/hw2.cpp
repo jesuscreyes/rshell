@@ -289,7 +289,7 @@ void executeCmd(vector<string> list){
 	            fdo = creat(outputFile.c_str(), S_IRUSR|S_IWUSR);
 	            if(fdo == -1){
 	                perror("creat");
-                    exit(1);
+                  exit(1);
 	            }
 	        }
 
@@ -428,13 +428,14 @@ void executeCmd(vector<string> list){
             perror("dup(428)");
             exit(1);
         }
-        if(-1 == (dup2(fd[PIPE_READ],0)))
+        if(-1 == (dup2(fd[PIPE_READ],0))){
             perror("dup2(fd[PIPE_READ])");
             exit(1);
-        if(-1 == close(fd[PIPE_WRITE]))
+      }
+        if(-1 == close(fd[PIPE_WRITE])){
             perror("close(fd[PIPE_WRITE])");
             exit(1);
-
+      }
         list.erase(list.begin());
         cout << endl;
         for(unsigned int i = 0; i < list.size(); i++){
@@ -490,9 +491,10 @@ void executeCmd(vector<string> list){
 
 
 if(listFlag){
-  if(-1 == (dup2(fd[PIPE_READ],0)))
+  if(-1 == (dup2(fd[PIPE_READ],0))){
     perror("dup2(fd[PIPE_READ](480))");
     exit(1);
+  }
 //}
 //Used only when going to another pipe
 /*
