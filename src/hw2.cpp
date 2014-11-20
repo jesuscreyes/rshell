@@ -443,9 +443,7 @@ void executeCmd(vector<string> list){
         //cout << "Calling executeCmd again" << endl;
          executeCmd(list);
     }
-    else{
-      savestdin = -1;
-    }
+
      
 
 //Recursive call(tr A-Z a-z, ...., .... , ...)
@@ -491,25 +489,22 @@ void executeCmd(vector<string> list){
 */
 
 
-  if(listFlag){
-    if(-1 == (dup2(fd[PIPE_READ],0))){
-      perror("dup2(fd[PIPE_READ](480))");
-      exit(1);
-    }
-
+if(listFlag){
+  if(-1 == (dup2(fd[PIPE_READ],0)))
+    perror("dup2(fd[PIPE_READ](480))");
+    exit(1);
+//}
 //Used only when going to another pipe
 /*
     if(-1 == close(fd[PIPE_WRITE]))
         perror("close(fd[PIPE_WRITE])");
 */
 
-    if(savestdin != -1){
-      if(-1 == dup2(savestdin,0)){
-        perror("dup2(460)");
-        exit(1);
-      }
-    }
+  if(-1 == dup2(savestdin,0)){
+    perror("dup2(460)");
+    exit(1);
   }
+}
 }
 
 /////////////////////////////////////////////////////
