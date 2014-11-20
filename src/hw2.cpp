@@ -217,6 +217,7 @@ void executeCmd(vector<string> list){
   if(pid == -1){
     //Checks for error with fork function
     perror("fork");
+    exit(1);
   }
   else if(pid == 0){ //When pid is 0 you are in the child process
     //cout << "In first child" << endl;
@@ -288,6 +289,7 @@ void executeCmd(vector<string> list){
 	            fdo = creat(outputFile.c_str(), S_IRUSR|S_IWUSR);
 	            if(fdo == -1){
 	                perror("creat");
+                    exit(1);
 	            }
 	        }
 
@@ -321,6 +323,7 @@ void executeCmd(vector<string> list){
 	            fdo = creat(outputFile.c_str(), S_IRUSR|S_IWUSR);
 	            if(fdo == -1){
 	                perror("creat");
+                    exit(1);
 	            }
 	        }
 
@@ -407,7 +410,8 @@ void executeCmd(vector<string> list){
     int r = execvp(charCommandList[0], argv);
     if(r == -1){
       //Checks for error with execvp
-      perror("execvp");
+        perror("execvp");
+        exit(1);
     }
     //Prevents zombie process.
     exit(1);
@@ -421,12 +425,15 @@ void executeCmd(vector<string> list){
     if(listFlag){
         //ONLY IF PIPING
         if(-1 == (savestdin = dup(0))){
-        perror("dup(428)");
+            perror("dup(428)");
+            exit(1);
         }
         if(-1 == (dup2(fd[PIPE_READ],0)))
             perror("dup2(fd[PIPE_READ])");
+            exit(1);
         if(-1 == close(fd[PIPE_WRITE]))
             perror("close(fd[PIPE_WRITE])");
+            exit(1);
 
         list.erase(list.begin());
         cout << endl;
@@ -436,7 +443,9 @@ void executeCmd(vector<string> list){
         //cout << "Calling executeCmd again" << endl;
          executeCmd(list);
     }
-
+    else{
+      savestdin = -1;
+    }
      
 
 //Recursive call(tr A-Z a-z, ...., .... , ...)
@@ -482,21 +491,25 @@ void executeCmd(vector<string> list){
 */
 
 
-if(listFlag){
-  if(-1 == (dup2(fd[PIPE_READ],0)))
-    perror("dup2(fd[PIPE_READ](480))");
-}
+  if(listFlag){
+    if(-1 == (dup2(fd[PIPE_READ],0))){
+      perror("dup2(fd[PIPE_READ](480))");
+      exit(1);
+    }
+
 //Used only when going to another pipe
 /*
     if(-1 == close(fd[PIPE_WRITE]))
         perror("close(fd[PIPE_WRITE])");
 */
 
-  if(-1 == dup2(savestdin,0)){
-    perror("dup2(460)");
-    exit(1);
+    if(savestdin != -1){
+      if(-1 == dup2(savestdin,0)){
+        perror("dup2(460)");
+        exit(1);
+      }
+    }
   }
-
 }
 
 /////////////////////////////////////////////////////
