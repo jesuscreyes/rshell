@@ -144,7 +144,7 @@ vector<char *>  stringToChar(vector<string> &s){
 void executeCmd(vector<string> list){
 
   //cout << "Input list" << endl;
-  for(int i = 0; i < list.size(); i++){
+  for(unsigned int i = 0; i < list.size(); i++){
     //cout << "list[" << i << "]: " << list[i] << endl;
   }
 
@@ -169,7 +169,7 @@ void executeCmd(vector<string> list){
 
 
   //cout << "commandList size: " << commandList.size() << endl;  
-  for(int i = 0; i < commandList.size(); i++){
+  for(unsigned int i = 0; i < commandList.size(); i++){
     //cout << "commandList[" << i << "]: " << commandList[i] << endl;
     if(commandList[i] == ""){
       //cout << "WHAT THE" << endl;
@@ -179,7 +179,7 @@ void executeCmd(vector<string> list){
 
 
   //cout << endl << "new commandList" << endl;
-  for(int i = 0; i < commandList.size(); i++){
+  for(unsigned int i = 0; i < commandList.size(); i++){
     //cout << "commandList[" << i << "]: " << commandList[i] << endl;
   }
  
@@ -229,7 +229,7 @@ void executeCmd(vector<string> list){
 
     //Check if input redirection
 
-    int i;
+    unsigned int i;
     int inCnt = 0;
     int outCnt = 0;
     int appCnt = 0;
@@ -249,7 +249,7 @@ void executeCmd(vector<string> list){
 
 	        commandList.erase(commandList.begin()+i,commandList.end());
 
-	        for(int i = 0; i < commandList.size(); i++){
+	        for(unsigned int i = 0; i < commandList.size(); i++){
 	            //cout << "commandList[" << i << "]: " << commandList[i] << endl;
 	        }
  
@@ -271,7 +271,7 @@ void executeCmd(vector<string> list){
 	            exit(1);
 	        }
         }
-        else if(commandList[i] == ">"){
+        if(commandList[i] == ">"){
 	        outCnt++;
 	        if(outCnt > 1){
                 cerr << "Error: Multiple output redirection calls" << endl;
@@ -430,7 +430,7 @@ void executeCmd(vector<string> list){
 
         list.erase(list.begin());
         cout << endl;
-        for(int i = 0; i < list.size(); i++){
+        for(unsigned int i = 0; i < list.size(); i++){
             //cout << "list[" << i << "]: " << list[i] << endl;
         }
         //cout << "Calling executeCmd again" << endl;
@@ -503,84 +503,86 @@ if(listFlag){
 
 int main(){
 
-  bool run = true;
+    bool run = true;
 
 
-  string s;    
-  while(run){
+    string s;    
+    while(run){
 
-    cout << endl << "$ ";
-    //1. Print a command prompt(e.g. $)
-    //cout << "$ ";
+        cout << endl << "$ ";
+        //1. Print a command prompt(e.g. $)
+        //cout << "$ ";
 
-    //2. Read in a command on one line. Commands will have the form
-    //   cmd = executable [argumentList] [connecter cmd]
-    //   connecter = || or && or ;
+        //2. Read in a command on one line. Commands will have the form
+        //   cmd = executable [argumentList] [connecter cmd]
+        //   connecter = || or && or ;
 
-    /////////////////////////////////////////////////////
-    //Acquiring String
-    /////////////////////////////////////////////////////
-    getline(cin,s);
+        /////////////////////////////////////////////////////
+        //Acquiring String
+        /////////////////////////////////////////////////////
+        getline(cin,s);
         
-    if(s == "exit"){
-      exit(1);
-    } 
-    ////////////////////////////////////////////////////
-    //Remove Comments
-    ////////////////////////////////////////////////////
-    string preCommandList = tokenHash(s)[0];
+        if(s == "exit"){
+            exit(1);
+        }
+        else{ 
+            ////////////////////////////////////////////////////
+            //Remove Comments
+            ////////////////////////////////////////////////////
+            string preCommandList = tokenHash(s)[0];
 
-    ////////////////////////////////////////////////////
-    //Handle && cases
-    ////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////
+            //Handle && cases
+            ////////////////////////////////////////////////////
 
-    //Removes &&'s from inputline
-    vector<string> andList = tokenAnd(preCommandList);
+            //Removes &&'s from inputline
+            vector<string> andList = tokenAnd(preCommandList);
 
-    ///////////////////////////////////////////////////
-    //Handle || cases
-    ///////////////////////////////////////////////////
+            ///////////////////////////////////////////////////
+            //Handle || cases
+            ///////////////////////////////////////////////////
         
-    //Removes ||'s from input line
-    vector<string> orList = tokenOr(preCommandList);
+            //Removes ||'s from input line
+            vector<string> orList = tokenOr(preCommandList);
 
-    ////////////////////////////////////////////////////
-    //Remove semicolons
-    ///////////////////////////////////////////////////
-    vector<string> commandList = tokenPipe(preCommandList);
+            ////////////////////////////////////////////////////
+            //Remove semicolons
+            ///////////////////////////////////////////////////
+            vector<string> commandList = tokenPipe(preCommandList);
 
-    for(int i = 0; i < commandList.size(); i++){
-      //cout << commandList.at(i) << endl;
-    }       
+            for(unsigned int i = 0; i < commandList.size(); i++){
+                //cout << commandList.at(i) << endl;
+            }       
  
-    vector<string> mainList;
+            vector<string> mainList;
        
  
-    //Based off connecter, determines which vector of commands to run.	
-    if(andList.size() > 1){
-      mainList = andList;
-    }
-    else if(orList.size() > 1){
-      mainList = orList;
-    }
-    else{
-      mainList = commandList;
-    }
+            //Based off connecter, determines which vector of commands to run.	
+            if(andList.size() > 1){
+                mainList = andList;
+            }
+            else if(orList.size() > 1){
+                mainList = orList;
+            }
+            else{
+                mainList = commandList;
+            }
 
 
 	
     /*
     //Executes commands.
-    for(unsigned int i = 0; i < mainList.size(); ++i){
+    for(int i = 0; i < mainList.size(); ++i){
     cout << endl;
     //cout << "mainList[" << i << "]: " <<  mainList[i] << endl;
     executeCmd(mainList[i]);
     }
     */
 
-    executeCmd(mainList);
+            executeCmd(mainList);
 
-  }
+        }
+    }
 
   return 0;
 }

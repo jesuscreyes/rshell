@@ -24,17 +24,22 @@ File List
 
 `./src`
 
--`main.cpp`
+-`hw0.cpp`
 
 -`ls.cpp`
 
 -`cp.cpp`
 
+-`hw2.cpp`
+
 `./tests`
 
+To clone the repository, follow the directions below:
+---------------
+1. Enter: `git clone http://github.com/jesuscreyes/rshell.git
 
 
-Once you have cloned the directory to your local machine, follow the directions below:
+Once you have cloned the repository to your local machine, follow the directions below:
 ---------------
 
 homework 0:
@@ -56,6 +61,16 @@ homework 1:
 3. Enter: `make`
 
 4. Enter: `bin/ls` for executing ls.cpp or `bin/cp` for executing cp.cpp.
+
+homework 2:
+
+1. Enter: `cd rshell`
+
+2. Enter: `git checkout hw2`
+
+3. Enter: `make`
+
+4. Enter: `bin/rshell`
 
 Overview of program
 -------------------
@@ -85,6 +100,15 @@ Features:
 - When the optional parameter is called, program copies the file using each of the three methods, times how long each method takes, and report the results to stdout.
 - Times that are shown include: wallclock run time, user run time, and system runtime.
 
+hw2.cpp: This program is intended to mimic i/o redirection and piping from a bash terminal.
+
+Features:
+- Input Redirection `<`
+- Output Redirection `>` `>>`
+- Piping `|`
+- Can combine commands with pipes and i/o redirection
+- Can be exited by typing `exit`[ENTER]
+
 Bugs & Limitations
 -----------------
 
@@ -110,4 +134,14 @@ ls.cpp:
 
 4. Calling program using `-R` flag does not work
 
-cp.cpp:
+hw2.cpp:
+
+1. Ignores commands that include repeated instances of input or output redirection.
+- e.g. `cat < inputFile < outputFile` will output the contents of `inputFile`, and not `outputFile`.
+
+2. If multiple redirections are called and are not separated by a pipe, only the first instance of redirection will be exexecuted. e.g. `cat < inputFile > outputFile` will output the contents of in and not put the contents of `inputFile` into the file `outputFile..
+
+3. Cannot handle string input redirection  `<<<`
+
+4. Cannot perform output redirection on whatever file descriptor
+- e.g. `g++ main.cpp 2> errors`
