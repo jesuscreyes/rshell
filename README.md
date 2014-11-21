@@ -145,3 +145,5 @@ hw2.cpp:
 
 4. Cannot perform output redirection on whatever file descriptor
 - e.g. `g++ main.cpp 2> errors`
+
+5. Grep function not working when piped to.
