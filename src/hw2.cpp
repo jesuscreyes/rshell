@@ -327,7 +327,7 @@ void executeCmd(vector<string> list){
 	            }
 	        }
 
-	        cout << "fdo: " << endl;
+	        //cout << "fdo: " << endl;
 	        if(-1 == close(1)){
 	            perror("close");
 	            exit(1);
