@@ -1,0 +1,362 @@
+Script started on Thu 20 Nov 2014 08:26:08 PM PST
+~
+jreye028@hammer $ cs100
+[0;91m
+===============================================================================
+|                                                                             |
+| You have enabled settings specific for cs100.                               |
+|                                                                             |
+===============================================================================
+[0m
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd cs100/rshe[K[K[K[Khw/rshell
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell[0;95m (redirect) [0;36m$[0m bin[K[K[Kmake
+g++ -Wall -Werror -ansi  src/hw2.cpp -o ./bin/rshell
+g++ -Wall -Werror -ansi  src/ls.cpp -o ./bin/ls
+g++ -Wall -Werror -ansi  src/cp.cpp -o ./bin/cp
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell[0;95m (redirect) [0;36m$[0m bin/rsge[K[Khell
+
+$ #BEgg   egin Testing       testing for ghw   hw2
+
+$ #INput      nput redirecito          redirection test
+
+$ cat < in
+Good morning starshine. The earth says hello.
+
+Hello
+World
+The
+Earth
+Says
+Wassup bro
+
+$ cat < in
+Good morning starshine. The earth says hello.
+
+Hello
+World
+The
+Earth
+Says
+Wassup bro
+
+$ #output        Output redirection
+
+$ echo H hell    hELLO     HELLO > out
+
+$ ls #outf    File called out sch  hould be created and contain HELLO
+a.out  in	LICENSE   num  README.md  testFile
+bin    letters	Makefile  out  src	  tests
+
+$ cat out
+HELLO
+
+$ #A Output redirection   ion appending
+
+$ c echo WORLD >> out
+
+$ cat out
+HELLO
+WORLD
+
+$ ^[[C^[[D        #Repeated calls i of input redirection will have first call of  execute only
+
+$ ls
+a.out  in	LICENSE   num  README.md  testFile
+bin    letters	Makefile  out  src	  tests
+
+$ cat < in < letters < num
+Good morning starshine. The earth says hello.
+
+Hello
+World
+The
+Earth
+Says
+Wassup bro
+
+$ #t Testing different commands that can use pipe ing
+
+$ cat < letters
+p
+o
+i
+u
+y
+t
+r
+e
+f
+f
+a
+y
+k
+
+w
+q
+l
+k
+j
+h
+g
+f
+f
+f
+d
+s
+a
+z
+z
+z
+m
+n
+b
+v
+c
+x
+z
+z
+
+$ cat < letters | sort
+
+a
+a
+b
+c
+d
+e
+f
+f
+f
+f
+f
+g
+h
+i
+j
+k
+k
+l
+m
+n
+o
+p
+q
+r
+s
+t
+u
+v
+w
+x
+y
+y
+z
+z
+z
+z
+z
+
+$ cat < letters | sort | uniq
+
+a
+b
+c
+d
+e
+f
+g
+h
+i
+j
+k
+l
+m
+n
+o
+p
+q
+r
+s
+t
+u
+v
+w
+x
+y
+z
+
+$ cat < letters | sort | uniq | tr A a-Z   z A A-Z
+
+A
+B
+C
+D
+E
+F
+G
+H
+I
+J
+K
+L
+M
+N
+O
+P
+Q
+R
+S
+T
+U
+V
+W
+X
+Y
+Z
+
+$ cat < letters | sort | uni	q | tr A-  a-z A-Z | tee newOutputFile
+
+A
+B
+C
+D
+E
+F
+G
+H
+I
+J
+K
+L
+M
+N
+O
+P
+Q
+R
+S
+T
+U
+V
+W
+X
+Y
+Z
+
+$ cat newOutputFile
+
+A
+B
+C
+D
+E
+F
+G
+H
+I
+J
+K
+L
+M
+N
+O
+P
+Q
+R
+S
+T
+U
+V
+W
+X
+Y
+Z
+
+$ cat < letters | sort | uniq | tr a-z A-Z | tee newOutputFile | head -10
+
+A
+B
+C
+D
+E
+F
+G
+H
+I
+
+$ cat < letters | sort | uniq | tr a-Z z A-Z | tee newOutputFile2 | head -10 | tail -5
+E
+F
+G
+H
+I
+
+$ cat newo OutputFile2
+
+A
+B
+C
+D
+E
+F
+G
+H
+I
+J
+K
+L
+M
+N
+O
+P
+Q
+R
+S
+T
+U
+V
+W
+X
+Y
+Z
+
+$ cat < letters | sort | uniq | wc wc    |   > outputFile3
+
+$ cat outputFile3
+     27      26      53
+
+$ #Ts esting sample command
+
+$ ^[[D^[[D        cat < in | tr A-Z a-z | tee newOutputFile4 | tr a-z A-Z > newOutputFile2
+
+$ cat O newOutputFile4
+good morning starshine. the earth says hello.
+
+hello
+world
+the
+earth
+says
+wassup bro
+
+$ cat newOutputFile2
+GOOD MORNING STARSHINE. THE EARTH SAYS HELLO.
+
+HELLO
+WORLD
+THE
+EARTH
+SAYS
+WASSUP BRO
+
+$ cut -d        ^[[B    cat newOup tputFile2 | cut -d ' ' -f 2
+cut: ': No such file or directory
+
+$ exit
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell[0;95m (redirect) [0;36m$[0m exit
+exit
+~
+jreye028@hammer $ exit
+exit
+
+Script done on Thu 20 Nov 2014 08:34:54 PM PST
