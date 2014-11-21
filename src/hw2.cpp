@@ -393,9 +393,11 @@ void executeCmd(vector<string> list){
     //EXPERIMENT
 
     const int newSize = commandList.size() + 1;
-    char **argv;
-    argv = new char*[newSize];
-     
+    //char **argv;
+    //argv = new char*[newSize];
+
+    char *argv[newSize];    
+ 
     unsigned int j;
     for(j = 0; j < commandList.size(); ++j){
       argv[j] = new char[commandList[j].size() + 1];
@@ -437,7 +439,7 @@ void executeCmd(vector<string> list){
             exit(1);
       }
         list.erase(list.begin());
-        cout << endl;
+        //cout << endl;
         for(unsigned int i = 0; i < list.size(); i++){
             //cout << "list[" << i << "]: " << list[i] << endl;
         }
