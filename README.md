@@ -146,4 +146,6 @@ hw2.cpp:
 4. Cannot perform output redirection on whatever file descriptor
 - e.g. `g++ main.cpp 2> errors`
 
-5. Grep function not working with pipes.
+5. Grep command not working with pipes.
+
+6. Sed command not working with pipes.
