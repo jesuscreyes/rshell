@@ -179,7 +179,7 @@ void executeCmd(vector<string> list){
   }
 
 
-  //cout << endl << "new commandList" << endl;
+ // cout << endl << "new commandList" << endl;
   for(unsigned int i = 0; i < commandList.size(); i++){
     //cout << "commandList[" << i << "]: " << commandList[i] << endl;
   }
@@ -489,7 +489,7 @@ int main(){
       char arguments[2048];
       buf = getcwd(buf,PATH_MAX);
       cout << endl;
-      printf("%s $",buf);
+      printf("%s $ ",buf);
 
 
         //cout << endl << "$ ";
@@ -534,11 +534,11 @@ int main(){
             vector<string> commandList = tokenPipe(preCommandList);
 
             for(unsigned int i = 0; i < commandList.size(); i++){
-                //cout << commandList.at(i) << endl;
+              //cout << commandList.at(i) << endl;
             }       
  
             vector<string> mainList;
-       
+            
  
             //Based off connecter, determines which vector of commands to run.	
             if(andList.size() > 1){
@@ -551,7 +551,46 @@ int main(){
                 mainList = commandList;
             }
 
+////////////////////////////////////////////////////////////////
+//Trying to figure out cd case
+          bool cdFlag = false; 
 
+          vector<string> cdList = tokenSpace(mainList[0]);
+          for(int i = 0; i < cdList.size(); i++){
+            //cout << cdList[i] << endl;
+          }
+
+  //This for loop takes care of instances where the commandList array has a blank space in it's first index 
+          for(unsigned int i = 0; i < cdList.size(); i++){
+            if((int) cdList[i][0] == 0){
+              cdList.erase(cdList.begin()+i);
+            }
+          }
+
+          if(cdList[0] == "cd"){
+            cdFlag = true;
+          }
+
+          if(cdFlag){
+            //Append next input to cwd
+            //Maybe at this point tokenize
+            char *buf = 0;
+            buf = getcwd(buf, PATH_MAX);
+            //cout << strlen(buf) << endl;
+            int bufSize = strlen(buf);
+            buf[bufSize] = '/';
+            for(int i = 1; i <= cdList[1].size(); i++){
+              buf[bufSize+i] = cdList[1][i-1];
+            }
+            //cout << buf << endl;
+          
+            if(chdir(buf) == -1){
+              perror("chdir");
+            }
+          }
+          else{
+
+//////////////////////////////////////////////////////////////
 	
     /*
     //Executes commands.
@@ -563,7 +602,7 @@ int main(){
     */
 
             executeCmd(mainList);
-
+          }
         }
     }
 
