@@ -448,49 +448,6 @@ void executeCmd(vector<string> list){
          executeCmd(list);
     }
 
-     
-
-//Recursive call(tr A-Z a-z, ...., .... , ...)
-
-
-/*
-  int pid2 = fork();
-  if(pid2 == -1){
-    perror("fork");
-  }
-  else if(pid2 == 0){ //When pid is 0 you are in the child process
-
-
-    cout << "In the second child" << endl;
-
-
-    char *argv[4];
-    argv[0] = "tr";
-    argv[1] = "A-Z";
-    argv[2] = "a-z";
-    argv[3] = 0;
-
-/
-    char *argv[2];
-    argv[0] = "wc";
-    argv[1] = 0;
-/
-    //////
-    //Repeat Experiment if not end of pipe
-    //////
-
-
-    if(execvp(argv[0], argv) == -1){
-      perror("execvp");
-    }
-    exit(1);
-  }
- 
- else{
-   wait(NULL);
-   cout << "In second parent" << endl;
- }
-*/
 
 
 if(listFlag){
@@ -528,8 +485,14 @@ int main(){
 
     string s;    
     while(run){
+      char *buf = 0;
+      char arguments[2048];
+      buf = getcwd(buf,PATH_MAX);
+      cout << endl;
+      printf("%s $",buf);
 
-        cout << endl << "$ ";
+
+        //cout << endl << "$ ";
         //1. Print a command prompt(e.g. $)
         //cout << "$ ";
 
