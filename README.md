@@ -32,6 +32,8 @@ File List
 
 -`hw2.cpp`
 
+-`hw3.cpp`
+
 `./tests`
 
 To clone the repository, follow the directions below:
@@ -72,10 +74,20 @@ homework 2:
 
 4. Enter: `bin/rshell`
 
+homework 3:
+
+1. Enter: `cd rshell`
+
+2. Enter: `git checkout hw3`
+
+3. Enter: `make`
+
+4. Enter: `bin/rshell`
+
 Overview of program
 -------------------
 
-main.cpp: This program is intended to replicate the functionality of a command shell.
+hw0.cpp: This program is intended to replicate the functionality of a command shell.
 
 Features:
 - Can execute basic commands such as: `ls`, `echo`, and `mkdir`
@@ -109,10 +121,18 @@ Features:
 - Can combine commands with pipes and i/o redirection
 - Can be exited by typing `exit`[ENTER]
 
+hw3.cpp: This program adds features on top of the command shell program.
+
+Features:
+- Uses `PATH` variable when executing functions
+- Handles `^C` interrupts
+- `cd` command is implemented
+- Prompt now displays current working directory
+
 Bugs & Limitations
 -----------------
 
-main.cpp:
+hw0.cpp:
 
 1. '&&' and '||' are restricted to the same behavior as ';' in this version.
 
@@ -149,3 +169,7 @@ hw2.cpp:
 5. Grep command not working with pipes.
 
 6. Sed command not working with pipes.
+
+hw3.cpp:
+
+1. Cannot handle multiple arguments or flags for `cd` command.
