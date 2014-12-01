@@ -38,7 +38,7 @@ File List
 
 To clone the repository, follow the directions below:
 ---------------
-1. Enter: `git clone http://github.com/jesuscreyes/rshell.git
+1. Enter: `git clone http://github.com/jesuscreyes/rshell.git`
 
 
 Once you have cloned the repository to your local machine, follow the directions below:
