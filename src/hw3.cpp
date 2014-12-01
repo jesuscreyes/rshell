@@ -432,19 +432,12 @@ void executeCmd(vector<string> list){
 
     vector<string> list = tokenColon(var);
 
-    for(int i = 0; i < list.size(); i++){
+    for(unsigned int i = 0; i < list.size(); i++){
       list[i].append("/");
       list[i].append(charCommandList[0]);
       //cout << list[i] << endl;
 
-      int r = execv(list[i].c_str(), argv);
-      /*
-      if(r == -1){
-        cout << "#" << i << endl;
-        perror("execvp");
-      }
-      cout << "End of List" << endl;
-      */
+      execv(list[i].c_str(), argv);
     }
     perror("execv");
      
