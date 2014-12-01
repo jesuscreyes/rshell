@@ -149,6 +149,19 @@ vector<char *>  stringToChar(vector<string> &s){
   return c;
 }
 
+///////////////////////////////
+//Interrupt and signal functions
+
+  void sigint(int x){
+    signal(SIGINT,sigint);
+  }
+
+  void sigquit(){
+    exit(0);
+  }
+
+//////////////////////////////
+
 //Function: executeCmd
 //Input: String that only needs white spaces to be eliminated
 //Output: Void. Executes command.
@@ -235,7 +248,9 @@ void executeCmd(vector<string> list){
   else if(pid == 0){ //When pid is 0 you are in the child process
     //cout << "In first child" << endl;
     //Input Redirection
-    
+
+    //signal(SIGINT,sigint);    
+
     string inputFile;
     string outputFile;
         
@@ -448,6 +463,7 @@ void executeCmd(vector<string> list){
   else if(pid > 0){ //When pid is greater than 0 you are in the parent process
     wait(NULL);
     //cout << "In first parent" << endl;
+    //kill(pid, SIGINT);
   }
 
     int savestdin;

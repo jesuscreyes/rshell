@@ -2,23 +2,15 @@ CC=g++
 
 CFLAGS = -Wall -Werror -ansi 
 
-all: bin rshell ls cp
+all: bin rshell
 
 bin:
 	[ ! -d $bin ] && mkdir bin
 
 rshell:
-	$(CC) $(CFLAGS) src/hw2.cpp -o ./bin/rshell
-
-ls:
-	$(CC) $(CFLAGS) src/ls.cpp -o ./bin/ls
-
-cp:
-	$(CC) $(CFLAGS) src/cp.cpp -o ./bin/cp
-
-
+	$(CC) $(CFLAGS) src/hw3.cpp -o ./bin/rshell
 
 clean:
-	rm -f *.0 rshell ls cp
+	rm -f *.0 rshell
 	rm -rf *.0 bin
 	echo Clean done
