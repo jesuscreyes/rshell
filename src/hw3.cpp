@@ -206,7 +206,7 @@ void executeCmd(vector<string> list){
 
    
  
-  //Creates vector of char * so that I can use execvp
+  //Creates vector of char * so that I can use execv
   vector<char *> charCommandList = stringToChar(commandList);
 
 
@@ -442,15 +442,6 @@ void executeCmd(vector<string> list){
     perror("execv");
      
 ////////////////////////////////////////////////////////
-
-/*
-    int r = execvp(charCommandList[0], argv);
-    if(r == -1){
-      //Checks for error with execvp
-        perror("execvp");
-        exit(1);
-    }
-*/
     //Prevents zombie process.
     exit(1);
   }
@@ -513,7 +504,9 @@ void sig_handle(int signo){
 
 int main(){
 
-  signal(SIGINT,sig_handle);
+  if(SIG_ERR == signal(SIGINT,sig_handle)){
+    perror("signal");
+  }
 
     bool run = true;
 
@@ -522,6 +515,9 @@ int main(){
     while(run){
       char *buf = 0;
       buf = getcwd(buf,PATH_MAX);
+      if(buf == NULL){
+        perror("getcwd");
+      }
       cout << endl;
       printf("%s $ ",buf);
 
@@ -610,6 +606,10 @@ int main(){
             //Maybe at this point tokenize
             char *buf = 0;
             buf = getcwd(buf, PATH_MAX);
+            if(buf == NULL){
+              perror("getcwd");
+              exit(1);
+            }
             //cout << strlen(buf) << endl;
             int bufSize = strlen(buf);
             buf[bufSize] = '/';
