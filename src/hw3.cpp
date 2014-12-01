@@ -30,6 +30,17 @@ vector<string> tokenSpace(string s){
   return tokenList;
 }
 
+
+//Function: tokenColon
+//Input: string
+//Output: vector of strings, deliminator: ':'
+vector<string> tokenColon(string s){
+  vector<string> tokenList;
+  split(tokenList, s, is_any_of(":"), token_compress_on);
+
+  return tokenList;
+}
+
 //Function called tokenHash
 //Input: string
 //Output: vector of strings, deliminator: #
@@ -122,6 +133,7 @@ vector<string> tokenOr(string s){
   return tokenList;
 
 }
+
 
 //Function called stringToChar
 //Input: vector of strings
@@ -410,12 +422,42 @@ void executeCmd(vector<string> list){
     //for(int i = 0; i < sizeof(argv); i++){
     //cout << "argv[" << i << "]: " << argv[i] << endl;
     //}
+/////////////////////////////////////////////////////////
+//Trying to figure out execv and getenv
+    const char* var;
+    var = getenv("PATH");
+    if(var == NULL){
+      perror("getenv");
+    }
+
+    vector<string> list = tokenColon(var);
+
+    for(int i = 0; i < list.size(); i++){
+      list[i].append("/");
+      list[i].append(charCommandList[0]);
+      //cout << list[i] << endl;
+
+      int r = execv(list[i].c_str(), argv);
+      /*
+      if(r == -1){
+        cout << "#" << i << endl;
+        perror("execvp");
+      }
+      cout << "End of List" << endl;
+      */
+    }
+    perror("execv");
+     
+////////////////////////////////////////////////////////
+
+/*
     int r = execvp(charCommandList[0], argv);
     if(r == -1){
       //Checks for error with execvp
         perror("execvp");
         exit(1);
     }
+*/
     //Prevents zombie process.
     exit(1);
   }
@@ -486,7 +528,6 @@ int main(){
     string s;    
     while(run){
       char *buf = 0;
-      char arguments[2048];
       buf = getcwd(buf,PATH_MAX);
       cout << endl;
       printf("%s $ ",buf);
@@ -556,9 +597,9 @@ int main(){
           bool cdFlag = false; 
 
           vector<string> cdList = tokenSpace(mainList[0]);
-          for(int i = 0; i < cdList.size(); i++){
+          //for(int i = 0; i < cdList.size(); i++){
             //cout << cdList[i] << endl;
-          }
+          //}
 
   //This for loop takes care of instances where the commandList array has a blank space in it's first index 
           for(unsigned int i = 0; i < cdList.size(); i++){
@@ -579,7 +620,7 @@ int main(){
             //cout << strlen(buf) << endl;
             int bufSize = strlen(buf);
             buf[bufSize] = '/';
-            for(int i = 1; i <= cdList[1].size(); i++){
+            for(unsigned int i = 1; i <= cdList[1].size(); i++){
               buf[bufSize+i] = cdList[1][i-1];
             }
             //cout << buf << endl;
