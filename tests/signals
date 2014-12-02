@@ -1,10 +1,6 @@
-Script started on Mon 01 Dec 2014 12:25:02 PM PST
+Script started on Mon 01 Dec 2014 09:10:56 PM PST
 ~
-jreye028@hammer $ ssh -Y jreye028@hammer.cs.ucr.edu
-jreye028@hammer.cs.ucr.edu's password: 
-Last login: Mon Dec  1 12:22:16 2014 from hammer.cs.ucr.edu
-~
-jreye028@hammer $ cs100
+jreye028@hammer $ ssh[K[K[Kcs100
 [0;91m
 ===============================================================================
 |                                                                             |
@@ -12,78 +8,58 @@ jreye028@hammer $ cs100
 |                                                                             |
 ===============================================================================
 [0m
-[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd cs100hw[K[Kh[K/hw/rshell
-[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell[0;95m (signals) [0;36m$[0m make
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd cs[K[K[K[K[Kls
+ca.out  cs013  cs100   Desktop	 exercise4.asm	      helloworld.asm~		 lab1.tgz  Music     rshell	Tree.cc
+bin    cs014  cs111   Documents  geany_run_script.sh  jreye028_kgoh001_lab8.tgz  main	   Pictures  Templates	tutor
+cs010  cs061  cs120b  Downloads  helloworld.asm       lab1.asm			 main.cpp  Public    test.cc	Videos
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m c[Kcd cs100/hw/rshell
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell[0;95m (master) [0;36m$[0m make
 g++ -Wall -Werror -ansi  src/hw3.cpp -o ./bin/rshell
-[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell[0;95m (signals) [0;36m$[0m bin/rshell
-
-/class/classes/jreye028/cs100/hw/rshell $ #First checking to make sure using PAT   "PATH" and not "execvp"
-
-/class/classes/jreye028/cs100/hw/rshell $ c  d src;   
-
-/class/classes/jreye028/cs100/hw/rshell/src $ cat hw3.cpp | grep PATH
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell[0;95m (master) [0;36m$[0m b[Kcd src
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m #t[KTesting [K[K[K[K[K[K[K[KChecking that program uses path and not [K[K[K[K[K[K[K[K[K[K[K[K[K"PATH" and not "execvp"
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m cat hw3.cpp | grep PATH
     var = getenv("PATH");
       buf = getcwd(buf,PATH_MAX);
             buf = getcwd(buf, PATH_MAX);
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m cat hw3.cpp | grep execvp
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m cat hw3.cpp | grep execv
+  //Creates vector of char * so that I can use execv
+//Trying to figure out execv and getenv
+      execv(list[i].c_str(), argv);
+    perror("execv");
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m #Testing com[K[K[Ksome cha[K[Kommands to ensure it's working
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m ls
+a.out	   cp.cpp   env.cpp	hw0.cpp  hw3.cpp  main.cpp  out1  pipe.cpp	signals.cpp  Timer.h
+chdir.cpp  dup.cpp  getenv.cpp	hw2.cpp  ls.cpp   map.cpp   out2  redirect.cpp	test
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell/src[0;95m (master) [0;36m$[0m cat [K[K[K[Kcd.[K ..
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell[0;95m (master) [0;36m$[0m bin/rshell
 
-/class/classes/jreye028/cs100/hw/rshell/src $ cat hw3.cpp | grep execvp
+/class/classes/jreye028/cs100/hw/rshell $ ls
+a.out  bin  LICENSE  Makefile  README.md  src  tests
 
-/class/classes/jreye028/cs100/hw/rshell/src $ #Testing some commands with new implementation
+/class/classes/jreye028/cs100/hw/rshell $ ls >   | tr a-Z   z A-Z | tee out   out`   1 | tr A-Z a-Z z > out2^[[D     2
 
-/class/classes/jreye028/cs100/hw/rshell/src $ ls
-a.out	   cp.cpp   env.cpp	hw0.cpp  hw3.cpp  main.cpp  out1      redirect.cpp  test
-chdir.cpp  dup.cpp  getenv.cpp	hw2.cpp  ls.cpp   map.cpp   pipe.cpp  signals.cpp   Timer.h
-
-/class/classes/jreye028/cs100/hw/rshell/src $ ls -a
-.   a.out      cp.cpp	env.cpp     .hiddenFile    hw0.cpp  hw3.cpp  main.cpp  out1	 redirect.cpp  test
-..  chdir.cpp  dup.cpp	getenv.cpp  .hiddenFolder  hw2.cpp  ls.cpp   map.cpp   pipe.cpp  signals.cpp   Timer.h
-
-/class/classes/jreye028/cs100/hw/rshell/src $ cat <       ls < in | tr              ls | tr A-Z a-z | tee out1 | tr a-Z z A-Z > out2
-
-/class/classes/jreye028/cs100/hw/rshell/src $ cato  out1
-a.out
-chdir.cpp
-cp.cpp
-dup.cpp
-env.cpp
-getenv.cpp
-hw0.cpp
-hw2.cpp
-hw3.cpp
-ls.cpp
-main.cpp
-map.cpp
-out1
-pipe.cpp
-redirect.cpp
-signals.cpp
-test
-timer.h
-
-/class/classes/jreye028/cs100/hw/rshell/src $ cat out2
+/class/classes/jreye028/cs100/hw/rshell $ cat out1
 A.OUT
-CHDIR.CPP
-CP.CPP
-DUP.CPP
-ENV.CPP
-GETENV.CPP
-HW0.CPP
-HW2.CPP
-HW3.CPP
-LS.CPP
-MAIN.CPP
-MAP.CPP
-OUT1
-PIPE.CPP
-REDIRECT.CPP
-SIGNALS.CPP
-TEST
-TIMER.H
+BIN
+LICENSE
+MAKEFILE
+README.MD
+SRC
+TESTS
 
-/class/classes/jreye028/cs100/hw/rshell/src $ #Now testing ^C command
+/class/classes/jreye028/cs100/hw/rshell $ cat out2
+a.out
+bin
+license
+makefile
+readme.md
+src
+tests
 
-/class/classes/jreye028/cs100/hw/rshell/src $ ^C
-^C
+/class/classes/jreye028/cs100/hw/rshell $ #Testing ^C command now.
+
+/class/classes/jreye028/cs100/hw/rshell $ ^C
 ^C
 ^C
 ^C
@@ -91,65 +67,62 @@ TIMER.H
 ^C
 ^C
 ls
-a.out	   cp.cpp   env.cpp	hw0.cpp  hw3.cpp  main.cpp  out1  pipe.cpp	signals.cpp  Timer.h
-chdir.cpp  dup.cpp  getenv.cpp	hw2.cpp  ls.cpp   map.cpp   out2  redirect.cpp	test
+a.out  bin  LICENSE  Makefile  out1  out2  README.md  src  tests
 
-/class/classes/jreye028/cs100/hw/rshell/src $ ^C
+/class/classes/jreye028/cs100/hw/rshell $ cat   cat     ^C
 ^C
 ^C
-^C
- aaaa aaa
+aaagaga
 execv: No such file or directory
 
-/class/classes/jreye028/cs100/hw/rshell/src $ ^C
-^C
-^C
-cat
+/class/classes/jreye028/cs100/hw/rshell $ ca  cat
 hello
 hello
 hello world
 hello world
-hello world, the the     earh say     th says what's up
-hello world, the earth says what's up
+hello world, the e earth says what  as   assup
+hello world, the earth says wassup
 ^C
 
-/class/classes/jreye028/cs100/hw/rshell/src $ ^C
-ls
+/class/classes/jreye028/cs100/hw/rshell $ #Testing $ ^C command in rshell in rshell           l
+
+/class/classes/jreye028/cs100/hw/rshell $ bin/rshell
+
+/class/classes/jreye028/cs100/hw/rshell $ cat hello      
+hello
+hello
+^C
+
+
+/class/classes/jreye028/cs100/hw/rshell $ ex  ^C
+
+exit
+
+/class/classes/jreye028/cs100/hw/rshell $ exit
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell[0;95m (master) [0;36m$[0m bin/rshell
+
+/class/classes/jreye028/cs100/hw/rshell $ #Now testing cd command
+
+/class/classes/jreye028/cs100/hw/rshell $ ls  cd src
+
+/class/classes/jreye028/cs100/hw/rshell/src $ cd    ls  ls
 a.out	   cp.cpp   env.cpp	hw0.cpp  hw3.cpp  main.cpp  out1  pipe.cpp	signals.cpp  Timer.h
 chdir.cpp  dup.cpp  getenv.cpp	hw2.cpp  ls.cpp   map.cpp   out2  redirect.cpp	test
 
-/class/classes/jreye028/cs100/hw/rshell/src $ #Now testing cd command
-
-/class/classes/jreye028/cs100/hw/rshell/src $ ls
-a.out	   cp.cpp   env.cpp	hw0.cpp  hw3.cpp  main.cpp  out1  pipe.cpp	signals.cpp  Timer.h
-chdir.cpp  dup.cpp  getenv.cpp	hw2.cpp  ls.cpp   map.cpp   out2  redirect.cpp	test
+/class/classes/jreye028/cs100/hw/rshell/src $ cd cp.cpp
+chdir: Not a directory
 
 /class/classes/jreye028/cs100/hw/rshell/src $ cd ..
 
-/class/classes/jreye028/cs100/hw/rshell $ cd ..
+/class/classes/jreye028/cs100/hw/rshell $ cd ... /..
 
-/class/classes/jreye028/cs100/hw $ c ls
-rshell	rshell-1
-
-/class/classes/jreye028/cs100/hw $ cd rshell
-
-/class/classes/jreye028/cs100/hw/rshell $ cd ../... /..
-
-/class/classes/jreye028 $ cd cs100/hw/rshell/src
-
-/class/classes/jreye028/cs100/hw/rshell/src $ ls
-a.out	   cp.cpp   env.cpp	hw0.cpp  hw3.cpp  main.cpp  out1  pipe.cpp	signals.cpp  Timer.h
-chdir.cpp  dup.cpp  getenv.cpp	hw2.cpp  ls.cpp   map.cpp   out2  redirect.cpp	test
+/class/classes/jreye028/cs100 $ cd hw/rshell/src
 
 /class/classes/jreye028/cs100/hw/rshell/src $ exit
-[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell[0;95m (signals) [0;36m$[0m exit
+[s%%%%%%%%%%[u[0;32mjreye028[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/hw/rshell[0;95m (master) [0;36m$[0m exit
 exit
-~
-jreye028@hammer $ exit
-logout
-[H[2JConnection to hammer.cs.ucr.edu closed.
 ~
 jreye028@hammer $ exit
 exit
 
-Script done on Mon 01 Dec 2014 12:28:08 PM PST
+Script done on Mon 01 Dec 2014 09:15:55 PM PST
