@@ -172,4 +172,5 @@ hw2.cpp:
 
 hw3.cpp:
 
-1. Cannot handle multiple arguments or flags for `cd` command.
+1. Does not handle multiple arguments or flags for `cd` command.
+2. Does not handle `cd ~` or `cd` by itself.
