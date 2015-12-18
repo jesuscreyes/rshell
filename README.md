@@ -8,7 +8,7 @@ Author & Contributor List
 -------------------------
 Jesus Reyes
 
-All other known bugs and fixes can be sent to jreye028@ucr.edu
+All other known bugs and fixes can be sent to jesuscreyes11@gmail.com
 
 Reported bugs/fixes will be submited to correction.
  
